@@ -1,6 +1,6 @@
 /* Phần navbar sex fix lại */
 .header{
-    
+
     height: 0;
     width: 100%;
 
@@ -169,7 +169,7 @@
 .app_container_product_info_code_text{
     display: inline-block;
     color: #252a2b;
-    
+
 }
 .app_container_product_info_code_name{
     display: inline-block;
@@ -325,13 +325,13 @@
     width: 80px;
     height: 40px;
     outline: none;
-    
+
     border-left: none;
     border-right: none;
     border-top: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
     text-align: center;
-    margin-top: -2px;
+    margin-top: 1px;
     margin-right: -4px;
     margin-left: -3px;
 }
@@ -381,7 +381,7 @@
 }
 .product_info_title{
     font-size: 1.4rem;
-    font-weight: 800;
+    font-weight: 700;
     text-transform: uppercase;
     color: var(--black-color);
 }
@@ -415,7 +415,7 @@
 }
 .app_container_product_related_title{
     font-size: 2.2rem;
-    font-weight: 800;
+    font-weight: 700;
     color: var(--black-color);
     text-transform: uppercase;
 }
@@ -425,6 +425,17 @@
     font-size: 1.8rem;
     justify-content: space-between;
 }
-
+/* Product error */
+.product_error{
+    text-align: center;
+    color: red;
+    font-size: 1.8rem;
+    font-family: 'Roboto',sans-serif;
+    font-weight: 700;
+}
+.product_error_list{
+    margin-bottom: 10px;
+    display: none;
+}
 
 

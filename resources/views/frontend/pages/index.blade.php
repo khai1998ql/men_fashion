@@ -1,5 +1,10 @@
 @extends('frontend.layouts.frontend_layout')
 
+@section('frontend_title')
+
+    <title>Ecommerce Shop</title>
+
+@endsection
 @section('frontend_css')
 
     <link rel="stylesheet" href="{{ asset('public/frontend/css/index.css')}}">
@@ -49,374 +54,60 @@
             <!-- <a href="" class="app_container_title_link">SẢN PHẦM MỚI</a> -->
             <div class="app_container_heading">
                 <div class="row">
+                    @foreach($productNew as $key => $item)
                     <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-6">
                         <!-- Cần thay đổi data-name tùy thuộc vào tên list sản phẩm -->
                         <!-- id = 'data-name' + 'data-id' -->
-                        <div class="product_item" data-id="1" data-name="product_item_new_" data-nameBot="product_item_new_bot_" id="product_item_new_1" onmouseover="Hoverevent(this.id)" onmouseout="Outevent(this.id)">
+                        <div class="product_item" data-id="{{ $item->id }}" data-name="product_item_new_" data-nameBot="product_item_new_bot_" id="product_item_new_{{ $item->id }}" onmouseover="Hoverevent(this.id)" onmouseout="Outevent(this.id)">
                             <div class="product_item_top">
-                                <a href="./product.html"><img src="{{ asset('public/frontend/images/product/avatar_b/p1.jpg')}}" alt=""></a>
-                                <a href="./product.html" class="product_item_name">Áo polo coolmax Germany TP065</a>
+                                <a href="{{ URL::to(to_slug($item->category_name).'/'.to_slug($item->subcategory_name).'/'.to_slug($item->product_name)) }}"><img src="{{ asset($item->product_avatar)}}" alt=""></a>
+                                <a href="{{ URL::to(to_slug($item->category_name).'/'.to_slug($item->subcategory_name).'/'.to_slug($item->product_name)) }}" class="product_item_name">{{ $item->product_name }}</a>
+                                @if($item->discount_price == 0)
                                 <!-- Không giảm giá -->
                                 <div class="product_item_price">
-                                    <!-- 380,000 <span class="price_d">đ</span> -->
+                                    {{ formatPrice($item->product_price)}}
                                 </div>
+                                @else
                                 <!-- Giảm giá -->
                                 <div class="product_item_price product_item_price_flex">
-                                    <div class="product_item_price_new">200,000 <span class="price_d">đ</span></div>
-                                    <div class="product_item_price_old">380,000 <span class="price_d">đ</span></div>
+                                    <div class="product_item_price_new">{{ formatPriceSale($item->product_price,$item->discount_price)}}</div>
+                                    <div class="product_item_price_old">{{ formatPrice($item->product_price)}}</div>
                                 </div>
+                                @endif
                             </div>
                             <!-- id = 'data-nameBot' + 'data-id' -->
-                            <div class="product_item_bot" id="product_item_new_bot_1">
+                            <div class="product_item_bot" id="product_item_new_bot_{{ $item->id }}">
                                 <div class="product_item_bot_l">
                                     <label for="input_checkbox_product" class="ti-shopping-cart product_item_bot_link"  onclick="checkboxProduct(this.id)"> <span>Mua nhanh</span></label>
                                 </div>
                                 <div class="product_item_bot_r">
-                                    <a href="./product.html" class="product_item_bot_link"><span class="ti-eye"></span>  <span>Xem chi tiết</span></a>
+                                    <a href="{{ URL::to(to_slug($item->category_name).'/'.to_slug($item->subcategory_name).'/'.to_slug($item->product_name)) }}" class="product_item_bot_link"><span class="ti-eye"></span>  <span>Xem chi tiết</span></a>
                                 </div>
                             </div>
                             <!-- Yêu thích -->
                             <div class="product_item_favourite">
                                 <!-- Chưa yêu thích -->
-                                <span class="product_item_favourite_link"><span class="ti-heart product_item_favourite_noheart" data-id="1" data-name-no="new_noFavourite_" data-name-have="new_haveFavourite_" id="new_noFavourite_1" onclick="addFavourite(this.id)"></span></span>
+                                <span class="product_item_favourite_link"><span class="ti-heart product_item_favourite_noheart" data-id="{{ $item->id }}" data-name-no="new_noFavourite_" data-name-have="new_haveFavourite_" id="new_noFavourite_{{ $item->id }}" onclick="addFavourite(this.id)"></span></span>
                                 <!-- <span class="product_item_favourite_link"><i class="far fa-heart product_item_favourite_heart" aria-hidden="true" id="Favourite_1" onclick="Favourite(this.id)"></i></span> -->
                                 <!-- Đã yêu thích -->
-                                <span class="product_item_favourite_link"><i class="fas fa-heart product_item_favourite_heart hidden_heart" aria-hidden="true" data-id="1" data-name-no="new_noFavourite_" data-name-have="new_haveFavourite_" id="new_haveFavourite_1" onclick="removeFavourite(this.id)"></i></span>
+                                <span class="product_item_favourite_link"><i class="fas fa-heart product_item_favourite_heart hidden_heart" aria-hidden="true" data-id="{{ $item->id }}" data-name-no="new_noFavourite_" data-name-have="new_haveFavourite_" id="new_haveFavourite_{{ $item->id }}" onclick="removeFavourite(this.id)"></i></span>
 
                             </div>
+                            @if($item->discount_price == '0' || $item->discount_price == null)
+                            @else
                             <!-- Giảm giá -->
                             <div class="product_item_sale">
                                 <div class="product_item_sale_percent">
-                                    10%
+                                    {{ $item->discount_price }}%
                                 </div>
                                 <div class="product_item_sale_percent_text">
                                     GIẢM
                                 </div>
                             </div>
+                            @endif
                         </div>
                     </div>
-                    <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-6">
-                        <!-- Cần thay đổi data-name tùy thuộc vào tên list sản phẩm -->
-                        <!-- id = 'data-name' + 'data-id' -->
-                        <div class="product_item" data-id="2" data-name="product_item_new_" data-nameBot="product_item_new_bot_" id="product_item_new_2" onmouseover="Hoverevent(this.id)" onmouseout="Outevent(this.id)">
-                            <div class="product_item_top">
-                                <a href="./product.html"><img src="{{ asset('public/frontend/images/product/avatar_b/p1.jpg')}}" alt=""></a>
-                                <a href="./product.html" class="product_item_name">Áo polo coolmax Germany TP065</a>
-                                <!-- Không giảm giá -->
-                                <div class="product_item_price">
-                                    <!-- 380,000 <span class="price_d">đ</span> -->
-                                </div>
-                                <!-- Giảm giá -->
-                                <div class="product_item_price product_item_price_flex">
-                                    <div class="product_item_price_new">200,000 <span class="price_d">đ</span></div>
-                                    <div class="product_item_price_old">380,000 <span class="price_d">đ</span></div>
-                                </div>
-                            </div>
-                            <!-- id = 'data-nameBot' + 'data-id' -->
-                            <div class="product_item_bot" id="product_item_new_bot_2">
-                                <div class="product_item_bot_l">
-                                    <label for="input_checkbox_product" class="ti-shopping-cart product_item_bot_link"  onclick="checkboxProduct(this.id)"> <span>Mua nhanh</span></label>
-                                </div>
-                                <div class="product_item_bot_r">
-                                    <a href="./product.html" class="product_item_bot_link"><span class="ti-eye"></span>  <span>Xem chi tiết</span></a>
-                                </div>
-                            </div>
-                            <!-- Yêu thích -->
-                            <div class="product_item_favourite">
-                                <!-- Chưa yêu thích -->
-                                <span class="product_item_favourite_link"><span class="ti-heart product_item_favourite_noheart" data-id="2" data-name-no="new_noFavourite_" data-name-have="new_haveFavourite_" id="new_noFavourite_2" onclick="addFavourite(this.id)"></span></span>
-                                <!-- <span class="product_item_favourite_link"><i class="far fa-heart product_item_favourite_heart" aria-hidden="true" id="Favourite_1" onclick="Favourite(this.id)"></i></span> -->
-                                <!-- Đã yêu thích -->
-                                <span class="product_item_favourite_link"><i class="fas fa-heart product_item_favourite_heart hidden_heart" aria-hidden="true" data-id="2" data-name-no="new_noFavourite_" data-name-have="new_haveFavourite_" id="new_haveFavourite_2" onclick="removeFavourite(this.id)"></i></span>
-
-                            </div>
-                            <!-- Giảm giá -->
-                            <div class="product_item_sale">
-                                <div class="product_item_sale_percent">
-                                    10%
-                                </div>
-                                <div class="product_item_sale_percent_text">
-                                    GIẢM
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-6">
-                        <!-- Cần thay đổi data-name tùy thuộc vào tên list sản phẩm -->
-                        <!-- id = 'data-name' + 'data-id' -->
-                        <div class="product_item" data-id="3" data-name="product_item_new_" data-nameBot="product_item_new_bot_" id="product_item_new_3" onmouseover="Hoverevent(this.id)" onmouseout="Outevent(this.id)">
-                            <div class="product_item_top">
-                                <a href="./product.html"><img src="{{ asset('public/frontend/images/product/avatar_b/p1.jpg')}}" alt=""></a>
-                                <a href="./product.html" class="product_item_name">Áo polo coolmax Germany TP065</a>
-                                <!-- Không giảm giá -->
-                                <div class="product_item_price">
-                                    <!-- 380,000 <span class="price_d">đ</span> -->
-                                </div>
-                                <!-- Giảm giá -->
-                                <div class="product_item_price product_item_price_flex">
-                                    <div class="product_item_price_new">200,000 <span class="price_d">đ</span></div>
-                                    <div class="product_item_price_old">380,000 <span class="price_d">đ</span></div>
-                                </div>
-                            </div>
-                            <!-- id = 'data-nameBot' + 'data-id' -->
-                            <div class="product_item_bot" id="product_item_new_bot_3">
-                                <div class="product_item_bot_l">
-                                    <label for="input_checkbox_product" class="ti-shopping-cart product_item_bot_link"  onclick="checkboxProduct(this.id)"> <span>Mua nhanh</span></label>
-                                </div>
-                                <div class="product_item_bot_r">
-                                    <a href="./product.html" class="product_item_bot_link"><span class="ti-eye"></span>  <span>Xem chi tiết</span></a>
-                                </div>
-                            </div>
-                            <!-- Yêu thích -->
-                            <div class="product_item_favourite">
-                                <!-- Chưa yêu thích -->
-                                <span class="product_item_favourite_link"><span class="ti-heart product_item_favourite_noheart" data-id="3" data-name-no="new_noFavourite_" data-name-have="new_haveFavourite_" id="new_noFavourite_3" onclick="addFavourite(this.id)"></span></span>
-                                <!-- <span class="product_item_favourite_link"><i class="far fa-heart product_item_favourite_heart" aria-hidden="true" id="Favourite_3" onclick="Favourite(this.id)"></i></span> -->
-                                <!-- Đã yêu thích -->
-                                <span class="product_item_favourite_link"><i class="fas fa-heart product_item_favourite_heart hidden_heart" aria-hidden="true" data-id="3" data-name-no="new_noFavourite_" data-name-have="new_haveFavourite_" id="new_haveFavourite_3" onclick="removeFavourite(this.id)"></i></span>
-
-                            </div>
-                            <!-- Giảm giá -->
-                            <div class="product_item_sale">
-                                <div class="product_item_sale_percent">
-                                    10%
-                                </div>
-                                <div class="product_item_sale_percent_text">
-                                    GIẢM
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-6">
-                        <!-- Cần thay đổi data-name tùy thuộc vào tên list sản phẩm -->
-                        <!-- id = 'data-name' + 'data-id' -->
-                        <div class="product_item" data-id="4" data-name="product_item_new_" data-nameBot="product_item_new_bot_" id="product_item_new_4" onmouseover="Hoverevent(this.id)" onmouseout="Outevent(this.id)">
-                            <div class="product_item_top">
-                                <a href="./product.html"><img src="{{ asset('public/frontend/images/product/avatar_b/p1.jpg')}}" alt=""></a>
-                                <a href="./product.html" class="product_item_name">Áo polo coolmax Germany TP065</a>
-                                <!-- Không giảm giá -->
-                                <div class="product_item_price">
-                                    <!-- 380,000 <span class="price_d">đ</span> -->
-                                </div>
-                                <!-- Giảm giá -->
-                                <div class="product_item_price product_item_price_flex">
-                                    <div class="product_item_price_new">200,000 <span class="price_d">đ</span></div>
-                                    <div class="product_item_price_old">380,000 <span class="price_d">đ</span></div>
-                                </div>
-                            </div>
-                            <!-- id = 'data-nameBot' + 'data-id' -->
-                            <div class="product_item_bot" id="product_item_new_bot_4">
-                                <div class="product_item_bot_l">
-                                    <label for="input_checkbox_product" class="ti-shopping-cart product_item_bot_link"  onclick="checkboxProduct(this.id)"> <span>Mua nhanh</span></label>
-                                </div>
-                                <div class="product_item_bot_r">
-                                    <a href="./product.html" class="product_item_bot_link"><span class="ti-eye"></span>  <span>Xem chi tiết</span></a>
-                                </div>
-                            </div>
-                            <!-- Yêu thích -->
-                            <div class="product_item_favourite">
-                                <!-- Chưa yêu thích -->
-                                <span class="product_item_favourite_link"><span class="ti-heart product_item_favourite_noheart" data-id="4" data-name-no="new_noFavourite_" data-name-have="new_haveFavourite_" id="new_noFavourite_4" onclick="addFavourite(this.id)"></span></span>
-                                <!-- <span class="product_item_favourite_link"><i class="far fa-heart product_item_favourite_heart" aria-hidden="true" id="Favourite_4" onclick="Favourite(this.id)"></i></span> -->
-                                <!-- Đã yêu thích -->
-                                <span class="product_item_favourite_link"><i class="fas fa-heart product_item_favourite_heart hidden_heart" aria-hidden="true" data-id="4" data-name-no="new_noFavourite_" data-name-have="new_haveFavourite_" id="new_haveFavourite_4" onclick="removeFavourite(this.id)"></i></span>
-
-                            </div>
-                            <!-- Giảm giá -->
-                            <div class="product_item_sale">
-                                <div class="product_item_sale_percent">
-                                    10%
-                                </div>
-                                <div class="product_item_sale_percent_text">
-                                    GIẢM
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-6">
-                        <!-- Cần thay đổi data-name tùy thuộc vào tên list sản phẩm -->
-                        <!-- id = 'data-name' + 'data-id' -->
-                        <div class="product_item" data-id="5" data-name="product_item_new_" data-nameBot="product_item_new_bot_" id="product_item_new_5" onmouseover="Hoverevent(this.id)" onmouseout="Outevent(this.id)">
-                            <div class="product_item_top">
-                                <a href="./product.html"><img src="{{ asset('public/frontend/images/product/avatar_b/p1.jpg')}}" alt=""></a>
-                                <a href="./product.html" class="product_item_name">Áo polo coolmax Germany TP065</a>
-                                <!-- Không giảm giá -->
-                                <div class="product_item_price">
-                                    <!-- 380,000 <span class="price_d">đ</span> -->
-                                </div>
-                                <!-- Giảm giá -->
-                                <div class="product_item_price product_item_price_flex">
-                                    <div class="product_item_price_new">200,000 <span class="price_d">đ</span></div>
-                                    <div class="product_item_price_old">380,000 <span class="price_d">đ</span></div>
-                                </div>
-                            </div>
-                            <!-- id = 'data-nameBot' + 'data-id' -->
-                            <div class="product_item_bot" id="product_item_new_bot_5">
-                                <div class="product_item_bot_l">
-                                    <label for="input_checkbox_product" class="ti-shopping-cart product_item_bot_link"  onclick="checkboxProduct(this.id)"> <span>Mua nhanh</span></label>
-                                </div>
-                                <div class="product_item_bot_r">
-                                    <a href="./product.html" class="product_item_bot_link"><span class="ti-eye"></span>  <span>Xem chi tiết</span></a>
-                                </div>
-                            </div>
-                            <!-- Yêu thích -->
-                            <div class="product_item_favourite">
-                                <!-- Chưa yêu thích -->
-                                <span class="product_item_favourite_link"><span class="ti-heart product_item_favourite_noheart" data-id="5" data-name-no="new_noFavourite_" data-name-have="new_haveFavourite_" id="new_noFavourite_5" onclick="addFavourite(this.id)"></span></span>
-                                <!-- <span class="product_item_favourite_link"><i class="far fa-heart product_item_favourite_heart" aria-hidden="true" id="Favourite_5" onclick="Favourite(this.id)"></i></span> -->
-                                <!-- Đã yêu thích -->
-                                <span class="product_item_favourite_link"><i class="fas fa-heart product_item_favourite_heart hidden_heart" aria-hidden="true" data-id="5" data-name-no="new_noFavourite_" data-name-have="new_haveFavourite_" id="new_haveFavourite_5" onclick="removeFavourite(this.id)"></i></span>
-
-                            </div>
-                            <!-- Giảm giá -->
-                            <div class="product_item_sale">
-                                <div class="product_item_sale_percent">
-                                    10%
-                                </div>
-                                <div class="product_item_sale_percent_text">
-                                    GIẢM
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-6">
-                        <!-- Cần thay đổi data-name tùy thuộc vào tên list sản phẩm -->
-                        <!-- id = 'data-name' + 'data-id' -->
-                        <div class="product_item" data-id="6" data-name="product_item_new_" data-nameBot="product_item_new_bot_" id="product_item_new_6" onmouseover="Hoverevent(this.id)" onmouseout="Outevent(this.id)">
-                            <div class="product_item_top">
-                                <a href="./product.html"><img src="{{ asset('public/frontend/images/product/avatar_b/p1.jpg')}}" alt=""></a>
-                                <a href="./product.html" class="product_item_name">Áo polo coolmax Germany TP065</a>
-                                <!-- Không giảm giá -->
-                                <div class="product_item_price">
-                                    <!-- 380,000 <span class="price_d">đ</span> -->
-                                </div>
-                                <!-- Giảm giá -->
-                                <div class="product_item_price product_item_price_flex">
-                                    <div class="product_item_price_new">200,000 <span class="price_d">đ</span></div>
-                                    <div class="product_item_price_old">380,000 <span class="price_d">đ</span></div>
-                                </div>
-                            </div>
-                            <!-- id = 'data-nameBot' + 'data-id' -->
-                            <div class="product_item_bot" id="product_item_new_bot_6">
-                                <div class="product_item_bot_l">
-                                    <label for="input_checkbox_product" class="ti-shopping-cart product_item_bot_link"  onclick="checkboxProduct(this.id)"> <span>Mua nhanh</span></label>
-                                </div>
-                                <div class="product_item_bot_r">
-                                    <a href="./product.html" class="product_item_bot_link"><span class="ti-eye"></span>  <span>Xem chi tiết</span></a>
-                                </div>
-                            </div>
-                            <!-- Yêu thích -->
-                            <div class="product_item_favourite">
-                                <!-- Chưa yêu thích -->
-                                <span class="product_item_favourite_link"><span class="ti-heart product_item_favourite_noheart" data-id="6" data-name-no="new_noFavourite_" data-name-have="new_haveFavourite_" id="new_noFavourite_6" onclick="addFavourite(this.id)"></span></span>
-                                <!-- <span class="product_item_favourite_link"><i class="far fa-heart product_item_favourite_heart" aria-hidden="true" id="Favourite_6" onclick="Favourite(this.id)"></i></span> -->
-                                <!-- Đã yêu thích -->
-                                <span class="product_item_favourite_link"><i class="fas fa-heart product_item_favourite_heart hidden_heart" aria-hidden="true" data-id="6" data-name-no="new_noFavourite_" data-name-have="new_haveFavourite_" id="new_haveFavourite_6" onclick="removeFavourite(this.id)"></i></span>
-
-                            </div>
-                            <!-- Giảm giá -->
-                            <div class="product_item_sale">
-                                <div class="product_item_sale_percent">
-                                    10%
-                                </div>
-                                <div class="product_item_sale_percent_text">
-                                    GIẢM
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-6">
-                        <!-- Cần thay đổi data-name tùy thuộc vào tên list sản phẩm -->
-                        <!-- id = 'data-name' + 'data-id' -->
-                        <div class="product_item" data-id="7" data-name="product_item_new_" data-nameBot="product_item_new_bot_" id="product_item_new_7" onmouseover="Hoverevent(this.id)" onmouseout="Outevent(this.id)">
-                            <div class="product_item_top">
-                                <a href="./product.html"><img src="{{ asset('public/frontend/images/product/avatar_b/p1.jpg')}}" alt=""></a>
-                                <a href="./product.html" class="product_item_name">Áo polo coolmax Germany TP065</a>
-                                <!-- Không giảm giá -->
-                                <div class="product_item_price">
-                                    <!-- 380,000 <span class="price_d">đ</span> -->
-                                </div>
-                                <!-- Giảm giá -->
-                                <div class="product_item_price product_item_price_flex">
-                                    <div class="product_item_price_new">200,000 <span class="price_d">đ</span></div>
-                                    <div class="product_item_price_old">380,000 <span class="price_d">đ</span></div>
-                                </div>
-                            </div>
-                            <!-- id = 'data-nameBot' + 'data-id' -->
-                            <div class="product_item_bot" id="product_item_new_bot_7">
-                                <div class="product_item_bot_l">
-                                    <label for="input_checkbox_product" class="ti-shopping-cart product_item_bot_link"  onclick="checkboxProduct(this.id)"> <span>Mua nhanh</span></label>
-                                </div>
-                                <div class="product_item_bot_r">
-                                    <a href="./product.html" class="product_item_bot_link"><span class="ti-eye"></span>  <span>Xem chi tiết</span></a>
-                                </div>
-                            </div>
-                            <!-- Yêu thích -->
-                            <div class="product_item_favourite">
-                                <!-- Chưa yêu thích -->
-                                <span class="product_item_favourite_link"><span class="ti-heart product_item_favourite_noheart" data-id="7" data-name-no="new_noFavourite_" data-name-have="new_haveFavourite_" id="new_noFavourite_7" onclick="addFavourite(this.id)"></span></span>
-                                <!-- <span class="product_item_favourite_link"><i class="far fa-heart product_item_favourite_heart" aria-hidden="true" id="Favourite_7" onclick="Favourite(this.id)"></i></span> -->
-                                <!-- Đã yêu thích -->
-                                <span class="product_item_favourite_link"><i class="fas fa-heart product_item_favourite_heart hidden_heart" aria-hidden="true" data-id="7" data-name-no="new_noFavourite_" data-name-have="new_haveFavourite_" id="new_haveFavourite_7" onclick="removeFavourite(this.id)"></i></span>
-
-                            </div>
-                            <!-- Giảm giá -->
-                            <div class="product_item_sale">
-                                <div class="product_item_sale_percent">
-                                    10%
-                                </div>
-                                <div class="product_item_sale_percent_text">
-                                    GIẢM
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-6">
-                        <!-- Cần thay đổi data-name tùy thuộc vào tên list sản phẩm -->
-                        <!-- id = 'data-name' + 'data-id' -->
-                        <div class="product_item" data-id="8" data-name="product_item_new_" data-nameBot="product_item_new_bot_" id="product_item_new_8" onmouseover="Hoverevent(this.id)" onmouseout="Outevent(this.id)">
-                            <div class="product_item_top">
-                                <a href="./product.html"><img src="{{ asset('public/frontend/images/product/avatar_b/p1.jpg')}}" alt=""></a>
-                                <a href="./product.html" class="product_item_name">Áo polo coolmax Germany TP065</a>
-                                <!-- Không giảm giá -->
-                                <div class="product_item_price">
-                                    <!-- 380,000 <span class="price_d">đ</span> -->
-                                </div>
-                                <!-- Giảm giá -->
-                                <div class="product_item_price product_item_price_flex">
-                                    <div class="product_item_price_new">200,000 <span class="price_d">đ</span></div>
-                                    <div class="product_item_price_old">380,000 <span class="price_d">đ</span></div>
-                                </div>
-                            </div>
-                            <!-- id = 'data-nameBot' + 'data-id' -->
-                            <div class="product_item_bot" id="product_item_new_bot_8">
-                                <div class="product_item_bot_l">
-                                    <label for="input_checkbox_product" class="ti-shopping-cart product_item_bot_link"  onclick="checkboxProduct(this.id)"> <span>Mua nhanh</span></label>
-                                </div>
-                                <div class="product_item_bot_r">
-                                    <a href="./product.html" class="product_item_bot_link"><span class="ti-eye"></span>  <span>Xem chi tiết</span></a>
-                                </div>
-                            </div>
-                            <!-- Yêu thích -->
-                            <div class="product_item_favourite">
-                                <!-- Chưa yêu thích -->
-                                <span class="product_item_favourite_link"><span class="ti-heart product_item_favourite_noheart" data-id="8" data-name-no="new_noFavourite_" data-name-have="new_haveFavourite_" id="new_noFavourite_8" onclick="addFavourite(this.id)"></span></span>
-                                <!-- <span class="product_item_favourite_link"><i class="far fa-heart product_item_favourite_heart" aria-hidden="true" id="Favourite_8" onclick="Favourite(this.id)"></i></span> -->
-                                <!-- Đã yêu thích -->
-                                <span class="product_item_favourite_link"><i class="fas fa-heart product_item_favourite_heart hidden_heart" aria-hidden="true" data-id="8" data-name-no="new_noFavourite_" data-name-have="new_haveFavourite_" id="new_haveFavourite_8" onclick="removeFavourite(this.id)"></i></span>
-
-                            </div>
-                            <!-- Giảm giá -->
-                            <div class="product_item_sale">
-                                <div class="product_item_sale_percent">
-                                    10%
-                                </div>
-                                <div class="product_item_sale_percent_text">
-                                    GIẢM
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>
@@ -426,374 +117,60 @@
             <!-- <a href="" class="app_container_title_link">SẢN PHẦM BÁN CHẠY</a> -->
             <div class="app_container_heading">
                 <div class="row">
+                    @foreach($productHot as $item)
                     <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-6">
                         <!-- Cần thay đổi data-name tùy thuộc vào tên list sản phẩm -->
                         <!-- id = 'data-name' + 'data-id' -->
-                        <div class="product_item" data-id="1" data-name="product_item_hot_" data-nameBot="product_item_hot_bot_" id="product_item_hot_1" onmouseover="Hoverevent(this.id)" onmouseout="Outevent(this.id)">
+                        <div class="product_item" data-id="{{ $item->id }}" data-name="product_item_hot_" data-nameBot="product_item_hot_bot_" id="product_item_hot_{{ $item->id }}" onmouseover="Hoverevent(this.id)" onmouseout="Outevent(this.id)">
                             <div class="product_item_top">
-                                <a href="./product.html"><img src="{{ asset('public/frontend/images/product/avatar_b/p1.jpg')}}" alt=""></a>
-                                <a href="./product.html" class="product_item_name">Áo polo coolmax Germany TP065</a>
-                                <!-- Không giảm giá -->
-                                <div class="product_item_price">
-                                    <!-- 380,000 <span class="price_d">đ</span> -->
-                                </div>
+                                <a href="{{ URL::to(to_slug($item->category_name).'/'.to_slug($item->subcategory_name).'/'.to_slug($item->product_name)) }}"><img src="{{ asset($item->product_avatar)}}" alt=""></a>
+                                <a href="{{ URL::to(to_slug($item->category_name).'/'.to_slug($item->subcategory_name).'/'.to_slug($item->product_name)) }}" class="product_item_name">{{ $item->product_name }}</a>
+                                @if($item->discount_price == 0)
+                                    <!-- Không giảm giá -->
+                                        <div class="product_item_price">
+                                            {{ formatPrice($item->product_price)}}
+                                        </div>
+                                @else
                                 <!-- Giảm giá -->
-                                <div class="product_item_price product_item_price_flex">
-                                    <div class="product_item_price_new">200,000 <span class="price_d">đ</span></div>
-                                    <div class="product_item_price_old">380,000 <span class="price_d">đ</span></div>
-                                </div>
+                                    <div class="product_item_price product_item_price_flex">
+                                        <div class="product_item_price_new">{{ formatPriceSale($item->product_price,$item->discount_price)}}</div>
+                                        <div class="product_item_price_old">{{ formatPrice($item->product_price)}}</div>
+                                    </div>
+                                @endif
                             </div>
                             <!-- id = 'data-nameBot' + 'data-id' -->
-                            <div class="product_item_bot" id="product_item_hot_bot_1">
+                            <div class="product_item_bot" id="product_item_hot_bot_{{ $item->id }}">
                                 <div class="product_item_bot_l">
                                     <label for="input_checkbox_product" class="ti-shopping-cart product_item_bot_link"  onclick="checkboxProduct(this.id)"> <span>Mua nhanh</span></label>
                                 </div>
                                 <div class="product_item_bot_r">
-                                    <a href="./product.html" class="product_item_bot_link"><span class="ti-eye"></span>  <span>Xem chi tiết</span></a>
+                                    <a href="{{ URL::to(to_slug($item->category_name).'/'.to_slug($item->subcategory_name).'/'.to_slug($item->product_name)) }}" class="product_item_bot_link"><span class="ti-eye"></span>  <span>Xem chi tiết</span></a>
                                 </div>
                             </div>
                             <!-- Yêu thích -->
                             <div class="product_item_favourite">
                                 <!-- Chưa yêu thích -->
-                                <span class="product_item_favourite_link"><span class="ti-heart product_item_favourite_noheart" data-id="1" data-name-no="hot_noFavourite_" data-name-have="hot_haveFavourite_" id="hot_noFavourite_1" onclick="addFavourite(this.id)"></span></span>
+                                <span class="product_item_favourite_link"><span class="ti-heart product_item_favourite_noheart" data-id="{{ $item->id }}" data-name-no="hot_noFavourite_" data-name-have="hot_haveFavourite_" id="hot_noFavourite_{{ $item->id }}" onclick="addFavourite(this.id)"></span></span>
                                 <!-- <span class="product_item_favourite_link"><i class="far fa-heart product_item_favourite_heart" aria-hidden="true" id="Favourite_1" onclick="Favourite(this.id)"></i></span> -->
                                 <!-- Đã yêu thích -->
-                                <span class="product_item_favourite_link"><i class="fas fa-heart product_item_favourite_heart hidden_heart" aria-hidden="true" data-id="1" data-name-no="hot_noFavourite_" data-name-have="hot_haveFavourite_" id="hot_haveFavourite_1" onclick="removeFavourite(this.id)"></i></span>
+                                <span class="product_item_favourite_link"><i class="fas fa-heart product_item_favourite_heart hidden_heart" aria-hidden="true" data-id="{{ $item->id }}" data-name-no="hot_noFavourite_" data-name-have="hot_haveFavourite_" id="hot_haveFavourite_{{ $item->id }}" onclick="removeFavourite(this.id)"></i></span>
 
                             </div>
+                            @if($item->discount_price == '0' || $item->discount_price == null)
+                            @else
                             <!-- Giảm giá -->
-                            <div class="product_item_sale">
-                                <div class="product_item_sale_percent">
-                                    10%
+                                <div class="product_item_sale">
+                                    <div class="product_item_sale_percent">
+                                        {{ $item->discount_price }}%
+                                    </div>
+                                    <div class="product_item_sale_percent_text">
+                                        GIẢM
+                                    </div>
                                 </div>
-                                <div class="product_item_sale_percent_text">
-                                    GIẢM
-                                </div>
-                            </div>
+                            @endif
                         </div>
                     </div>
-                    <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-6">
-                        <!-- Cần thay đổi data-name tùy thuộc vào tên list sản phẩm -->
-                        <!-- id = 'data-name' + 'data-id' -->
-                        <div class="product_item" data-id="2" data-name="product_item_hot_" data-nameBot="product_item_hot_bot_" id="product_item_hot_2" onmouseover="Hoverevent(this.id)" onmouseout="Outevent(this.id)">
-                            <div class="product_item_top">
-                                <a href="./product.html"><img src="{{ asset('public/frontend/images/product/avatar_b/p1.jpg')}}" alt=""></a>
-                                <a href="./product.html" class="product_item_name">Áo polo coolmax Germany TP065</a>
-                                <!-- Không giảm giá -->
-                                <div class="product_item_price">
-                                    <!-- 380,000 <span class="price_d">đ</span> -->
-                                </div>
-                                <!-- Giảm giá -->
-                                <div class="product_item_price product_item_price_flex">
-                                    <div class="product_item_price_new">200,000 <span class="price_d">đ</span></div>
-                                    <div class="product_item_price_old">380,000 <span class="price_d">đ</span></div>
-                                </div>
-                            </div>
-                            <!-- id = 'data-nameBot' + 'data-id' -->
-                            <div class="product_item_bot" id="product_item_hot_bot_2">
-                                <div class="product_item_bot_l">
-                                    <label for="input_checkbox_product" class="ti-shopping-cart product_item_bot_link"  onclick="checkboxProduct(this.id)"> <span>Mua nhanh</span></label>
-                                </div>
-                                <div class="product_item_bot_r">
-                                    <a href="./product.html" class="product_item_bot_link"><span class="ti-eye"></span>  <span>Xem chi tiết</span></a>
-                                </div>
-                            </div>
-                            <!-- Yêu thích -->
-                            <div class="product_item_favourite">
-                                <!-- Chưa yêu thích -->
-                                <span class="product_item_favourite_link"><span class="ti-heart product_item_favourite_noheart" data-id="2" data-name-no="hot_noFavourite_" data-name-have="hot_haveFavourite_" id="hot_noFavourite_2" onclick="addFavourite(this.id)"></span></span>
-                                <!-- <span class="product_item_favourite_link"><i class="far fa-heart product_item_favourite_heart" aria-hidden="true" id="Favourite_1" onclick="Favourite(this.id)"></i></span> -->
-                                <!-- Đã yêu thích -->
-                                <span class="product_item_favourite_link"><i class="fas fa-heart product_item_favourite_heart hidden_heart" aria-hidden="true" data-id="2" data-name-no="hot_noFavourite_" data-name-have="hot_haveFavourite_" id="hot_haveFavourite_2" onclick="removeFavourite(this.id)"></i></span>
-
-                            </div>
-                            <!-- Giảm giá -->
-                            <div class="product_item_sale">
-                                <div class="product_item_sale_percent">
-                                    10%
-                                </div>
-                                <div class="product_item_sale_percent_text">
-                                    GIẢM
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-6">
-                        <!-- Cần thay đổi data-name tùy thuộc vào tên list sản phẩm -->
-                        <!-- id = 'data-name' + 'data-id' -->
-                        <div class="product_item" data-id="3" data-name="product_item_hot_" data-nameBot="product_item_hot_bot_" id="product_item_hot_3" onmouseover="Hoverevent(this.id)" onmouseout="Outevent(this.id)">
-                            <div class="product_item_top">
-                                <a href="./product.html"><img src="{{ asset('public/frontend/images/product/avatar_b/p1.jpg')}}" alt=""></a>
-                                <a href="./product.html" class="product_item_name">Áo polo coolmax Germany TP065</a>
-                                <!-- Không giảm giá -->
-                                <div class="product_item_price">
-                                    <!-- 380,000 <span class="price_d">đ</span> -->
-                                </div>
-                                <!-- Giảm giá -->
-                                <div class="product_item_price product_item_price_flex">
-                                    <div class="product_item_price_new">200,000 <span class="price_d">đ</span></div>
-                                    <div class="product_item_price_old">380,000 <span class="price_d">đ</span></div>
-                                </div>
-                            </div>
-                            <!-- id = 'data-nameBot' + 'data-id' -->
-                            <div class="product_item_bot" id="product_item_hot_bot_3">
-                                <div class="product_item_bot_l">
-                                    <label for="input_checkbox_product" class="ti-shopping-cart product_item_bot_link"  onclick="checkboxProduct(this.id)"> <span>Mua nhanh</span></label>
-                                </div>
-                                <div class="product_item_bot_r">
-                                    <a href="./product.html" class="product_item_bot_link"><span class="ti-eye"></span>  <span>Xem chi tiết</span></a>
-                                </div>
-                            </div>
-                            <!-- Yêu thích -->
-                            <div class="product_item_favourite">
-                                <!-- Chưa yêu thích -->
-                                <span class="product_item_favourite_link"><span class="ti-heart product_item_favourite_noheart" data-id="3" data-name-no="hot_noFavourite_" data-name-have="hot_haveFavourite_" id="hot_noFavourite_3" onclick="addFavourite(this.id)"></span></span>
-                                <!-- <span class="product_item_favourite_link"><i class="far fa-heart product_item_favourite_heart" aria-hidden="true" id="Favourite_3" onclick="Favourite(this.id)"></i></span> -->
-                                <!-- Đã yêu thích -->
-                                <span class="product_item_favourite_link"><i class="fas fa-heart product_item_favourite_heart hidden_heart" aria-hidden="true" data-id="3" data-name-no="hot_noFavourite_" data-name-have="hot_haveFavourite_" id="hot_haveFavourite_3" onclick="removeFavourite(this.id)"></i></span>
-
-                            </div>
-                            <!-- Giảm giá -->
-                            <div class="product_item_sale">
-                                <div class="product_item_sale_percent">
-                                    10%
-                                </div>
-                                <div class="product_item_sale_percent_text">
-                                    GIẢM
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-6">
-                        <!-- Cần thay đổi data-name tùy thuộc vào tên list sản phẩm -->
-                        <!-- id = 'data-name' + 'data-id' -->
-                        <div class="product_item" data-id="4" data-name="product_item_hot_" data-nameBot="product_item_hot_bot_" id="product_item_hot_4" onmouseover="Hoverevent(this.id)" onmouseout="Outevent(this.id)">
-                            <div class="product_item_top">
-                                <a href="./product.html"><img src="{{ asset('public/frontend/images/product/avatar_b/p1.jpg')}}" alt=""></a>
-                                <a href="./product.html" class="product_item_name">Áo polo coolmax Germany TP065</a>
-                                <!-- Không giảm giá -->
-                                <div class="product_item_price">
-                                    <!-- 380,000 <span class="price_d">đ</span> -->
-                                </div>
-                                <!-- Giảm giá -->
-                                <div class="product_item_price product_item_price_flex">
-                                    <div class="product_item_price_new">200,000 <span class="price_d">đ</span></div>
-                                    <div class="product_item_price_old">380,000 <span class="price_d">đ</span></div>
-                                </div>
-                            </div>
-                            <!-- id = 'data-nameBot' + 'data-id' -->
-                            <div class="product_item_bot" id="product_item_hot_bot_4">
-                                <div class="product_item_bot_l">
-                                    <label for="input_checkbox_product" class="ti-shopping-cart product_item_bot_link"  onclick="checkboxProduct(this.id)"> <span>Mua nhanh</span></label>
-                                </div>
-                                <div class="product_item_bot_r">
-                                    <a href="./product.html" class="product_item_bot_link"><span class="ti-eye"></span>  <span>Xem chi tiết</span></a>
-                                </div>
-                            </div>
-                            <!-- Yêu thích -->
-                            <div class="product_item_favourite">
-                                <!-- Chưa yêu thích -->
-                                <span class="product_item_favourite_link"><span class="ti-heart product_item_favourite_noheart" data-id="4" data-name-no="hot_noFavourite_" data-name-have="hot_haveFavourite_" id="hot_noFavourite_4" onclick="addFavourite(this.id)"></span></span>
-                                <!-- <span class="product_item_favourite_link"><i class="far fa-heart product_item_favourite_heart" aria-hidden="true" id="Favourite_4" onclick="Favourite(this.id)"></i></span> -->
-                                <!-- Đã yêu thích -->
-                                <span class="product_item_favourite_link"><i class="fas fa-heart product_item_favourite_heart hidden_heart" aria-hidden="true" data-id="4" data-name-no="hot_noFavourite_" data-name-have="hot_haveFavourite_" id="hot_haveFavourite_4" onclick="removeFavourite(this.id)"></i></span>
-
-                            </div>
-                            <!-- Giảm giá -->
-                            <div class="product_item_sale">
-                                <div class="product_item_sale_percent">
-                                    10%
-                                </div>
-                                <div class="product_item_sale_percent_text">
-                                    GIẢM
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-6">
-                        <!-- Cần thay đổi data-name tùy thuộc vào tên list sản phẩm -->
-                        <!-- id = 'data-name' + 'data-id' -->
-                        <div class="product_item" data-id="5" data-name="product_item_hot_" data-nameBot="product_item_hot_bot_" id="product_item_hot_5" onmouseover="Hoverevent(this.id)" onmouseout="Outevent(this.id)">
-                            <div class="product_item_top">
-                                <a href="./product.html"><img src="{{ asset('public/frontend/images/product/avatar_b/p1.jpg')}}" alt=""></a>
-                                <a href="./product.html" class="product_item_name">Áo polo coolmax Germany TP065</a>
-                                <!-- Không giảm giá -->
-                                <div class="product_item_price">
-                                    <!-- 380,000 <span class="price_d">đ</span> -->
-                                </div>
-                                <!-- Giảm giá -->
-                                <div class="product_item_price product_item_price_flex">
-                                    <div class="product_item_price_new">200,000 <span class="price_d">đ</span></div>
-                                    <div class="product_item_price_old">380,000 <span class="price_d">đ</span></div>
-                                </div>
-                            </div>
-                            <!-- id = 'data-nameBot' + 'data-id' -->
-                            <div class="product_item_bot" id="product_item_hot_bot_5">
-                                <div class="product_item_bot_l">
-                                    <label for="input_checkbox_product" class="ti-shopping-cart product_item_bot_link"  onclick="checkboxProduct(this.id)"> <span>Mua nhanh</span></label>
-                                </div>
-                                <div class="product_item_bot_r">
-                                    <a href="./product.html" class="product_item_bot_link"><span class="ti-eye"></span>  <span>Xem chi tiết</span></a>
-                                </div>
-                            </div>
-                            <!-- Yêu thích -->
-                            <div class="product_item_favourite">
-                                <!-- Chưa yêu thích -->
-                                <span class="product_item_favourite_link"><span class="ti-heart product_item_favourite_noheart" data-id="5" data-name-no="hot_noFavourite_" data-name-have="hot_haveFavourite_" id="hot_noFavourite_5" onclick="addFavourite(this.id)"></span></span>
-                                <!-- <span class="product_item_favourite_link"><i class="far fa-heart product_item_favourite_heart" aria-hidden="true" id="Favourite_5" onclick="Favourite(this.id)"></i></span> -->
-                                <!-- Đã yêu thích -->
-                                <span class="product_item_favourite_link"><i class="fas fa-heart product_item_favourite_heart hidden_heart" aria-hidden="true" data-id="5" data-name-no="hot_noFavourite_" data-name-have="hot_haveFavourite_" id="hot_haveFavourite_5" onclick="removeFavourite(this.id)"></i></span>
-
-                            </div>
-                            <!-- Giảm giá -->
-                            <div class="product_item_sale">
-                                <div class="product_item_sale_percent">
-                                    10%
-                                </div>
-                                <div class="product_item_sale_percent_text">
-                                    GIẢM
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-6">
-                        <!-- Cần thay đổi data-name tùy thuộc vào tên list sản phẩm -->
-                        <!-- id = 'data-name' + 'data-id' -->
-                        <div class="product_item" data-id="6" data-name="product_item_hot_" data-nameBot="product_item_hot_bot_" id="product_item_hot_6" onmouseover="Hoverevent(this.id)" onmouseout="Outevent(this.id)">
-                            <div class="product_item_top">
-                                <a href="./product.html"><img src="{{ asset('public/frontend/images/product/avatar_b/p1.jpg')}}" alt=""></a>
-                                <a href="./product.html" class="product_item_name">Áo polo coolmax Germany TP065</a>
-                                <!-- Không giảm giá -->
-                                <div class="product_item_price">
-                                    <!-- 380,000 <span class="price_d">đ</span> -->
-                                </div>
-                                <!-- Giảm giá -->
-                                <div class="product_item_price product_item_price_flex">
-                                    <div class="product_item_price_new">200,000 <span class="price_d">đ</span></div>
-                                    <div class="product_item_price_old">380,000 <span class="price_d">đ</span></div>
-                                </div>
-                            </div>
-                            <!-- id = 'data-nameBot' + 'data-id' -->
-                            <div class="product_item_bot" id="product_item_hot_bot_6">
-                                <div class="product_item_bot_l">
-                                    <label for="input_checkbox_product" class="ti-shopping-cart product_item_bot_link"  onclick="checkboxProduct(this.id)"> <span>Mua nhanh</span></label>
-                                </div>
-                                <div class="product_item_bot_r">
-                                    <a href="./product.html" class="product_item_bot_link"><span class="ti-eye"></span>  <span>Xem chi tiết</span></a>
-                                </div>
-                            </div>
-                            <!-- Yêu thích -->
-                            <div class="product_item_favourite">
-                                <!-- Chưa yêu thích -->
-                                <span class="product_item_favourite_link"><span class="ti-heart product_item_favourite_noheart" data-id="6" data-name-no="hot_noFavourite_" data-name-have="hot_haveFavourite_" id="hot_noFavourite_6" onclick="addFavourite(this.id)"></span></span>
-                                <!-- <span class="product_item_favourite_link"><i class="far fa-heart product_item_favourite_heart" aria-hidden="true" id="Favourite_6" onclick="Favourite(this.id)"></i></span> -->
-                                <!-- Đã yêu thích -->
-                                <span class="product_item_favourite_link"><i class="fas fa-heart product_item_favourite_heart hidden_heart" aria-hidden="true" data-id="6" data-name-no="hot_noFavourite_" data-name-have="hot_haveFavourite_" id="hot_haveFavourite_6" onclick="removeFavourite(this.id)"></i></span>
-
-                            </div>
-                            <!-- Giảm giá -->
-                            <div class="product_item_sale">
-                                <div class="product_item_sale_percent">
-                                    10%
-                                </div>
-                                <div class="product_item_sale_percent_text">
-                                    GIẢM
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-6">
-                        <!-- Cần thay đổi data-name tùy thuộc vào tên list sản phẩm -->
-                        <!-- id = 'data-name' + 'data-id' -->
-                        <div class="product_item" data-id="7" data-name="product_item_hot_" data-nameBot="product_item_hot_bot_" id="product_item_hot_7" onmouseover="Hoverevent(this.id)" onmouseout="Outevent(this.id)">
-                            <div class="product_item_top">
-                                <a href="./product.html"><img src="{{ asset('public/frontend/images/product/avatar_b/p1.jpg')}}" alt=""></a>
-                                <a href="./product.html" class="product_item_name">Áo polo coolmax Germany TP065</a>
-                                <!-- Không giảm giá -->
-                                <div class="product_item_price">
-                                    <!-- 380,000 <span class="price_d">đ</span> -->
-                                </div>
-                                <!-- Giảm giá -->
-                                <div class="product_item_price product_item_price_flex">
-                                    <div class="product_item_price_new">200,000 <span class="price_d">đ</span></div>
-                                    <div class="product_item_price_old">380,000 <span class="price_d">đ</span></div>
-                                </div>
-                            </div>
-                            <!-- id = 'data-nameBot' + 'data-id' -->
-                            <div class="product_item_bot" id="product_item_hot_bot_7">
-                                <div class="product_item_bot_l">
-                                    <label for="input_checkbox_product" class="ti-shopping-cart product_item_bot_link"  onclick="checkboxProduct(this.id)"> <span>Mua nhanh</span></label>
-                                </div>
-                                <div class="product_item_bot_r">
-                                    <a href="./product.html" class="product_item_bot_link"><span class="ti-eye"></span>  <span>Xem chi tiết</span></a>
-                                </div>
-                            </div>
-                            <!-- Yêu thích -->
-                            <div class="product_item_favourite">
-                                <!-- Chưa yêu thích -->
-                                <span class="product_item_favourite_link"><span class="ti-heart product_item_favourite_noheart" data-id="7" data-name-no="hot_noFavourite_" data-name-have="hot_haveFavourite_" id="hot_noFavourite_7" onclick="addFavourite(this.id)"></span></span>
-                                <!-- <span class="product_item_favourite_link"><i class="far fa-heart product_item_favourite_heart" aria-hidden="true" id="Favourite_7" onclick="Favourite(this.id)"></i></span> -->
-                                <!-- Đã yêu thích -->
-                                <span class="product_item_favourite_link"><i class="fas fa-heart product_item_favourite_heart hidden_heart" aria-hidden="true" data-id="7" data-name-no="hot_noFavourite_" data-name-have="hot_haveFavourite_" id="hot_haveFavourite_7" onclick="removeFavourite(this.id)"></i></span>
-
-                            </div>
-                            <!-- Giảm giá -->
-                            <div class="product_item_sale">
-                                <div class="product_item_sale_percent">
-                                    10%
-                                </div>
-                                <div class="product_item_sale_percent_text">
-                                    GIẢM
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-6">
-                        <!-- Cần thay đổi data-name tùy thuộc vào tên list sản phẩm -->
-                        <!-- id = 'data-name' + 'data-id' -->
-                        <div class="product_item" data-id="8" data-name="product_item_hot_" data-nameBot="product_item_hot_bot_" id="product_item_hot_8" onmouseover="Hoverevent(this.id)" onmouseout="Outevent(this.id)">
-                            <div class="product_item_top">
-                                <a href="./product.html"><img src="{{ asset('public/frontend/images/product/avatar_b/p1.jpg')}}" alt=""></a>
-                                <a href="./product.html" class="product_item_name">Áo polo coolmax Germany TP065</a>
-                                <!-- Không giảm giá -->
-                                <div class="product_item_price">
-                                    <!-- 380,000 <span class="price_d">đ</span> -->
-                                </div>
-                                <!-- Giảm giá -->
-                                <div class="product_item_price product_item_price_flex">
-                                    <div class="product_item_price_new">200,000 <span class="price_d">đ</span></div>
-                                    <div class="product_item_price_old">380,000 <span class="price_d">đ</span></div>
-                                </div>
-                            </div>
-                            <!-- id = 'data-nameBot' + 'data-id' -->
-                            <div class="product_item_bot" id="product_item_hot_bot_8">
-                                <div class="product_item_bot_l">
-                                    <label for="input_checkbox_product" class="ti-shopping-cart product_item_bot_link"  onclick="checkboxProduct(this.id)"> <span>Mua nhanh</span></label>
-                                </div>
-                                <div class="product_item_bot_r">
-                                    <a href="./product.html" class="product_item_bot_link"><span class="ti-eye"></span>  <span>Xem chi tiết</span></a>
-                                </div>
-                            </div>
-                            <!-- Yêu thích -->
-                            <div class="product_item_favourite">
-                                <!-- Chưa yêu thích -->
-                                <span class="product_item_favourite_link"><span class="ti-heart product_item_favourite_noheart" data-id="8" data-name-no="hot_noFavourite_" data-name-have="hot_haveFavourite_" id="hot_noFavourite_8" onclick="addFavourite(this.id)"></span></span>
-                                <!-- <span class="product_item_favourite_link"><i class="far fa-heart product_item_favourite_heart" aria-hidden="true" id="Favourite_8" onclick="Favourite(this.id)"></i></span> -->
-                                <!-- Đã yêu thích -->
-                                <span class="product_item_favourite_link"><i class="fas fa-heart product_item_favourite_heart hidden_heart" aria-hidden="true" data-id="8" data-name-no="hot_noFavourite_" data-name-have="hot_haveFavourite_" id="hot_haveFavourite_8" onclick="removeFavourite(this.id)"></i></span>
-
-                            </div>
-                            <!-- Giảm giá -->
-                            <div class="product_item_sale">
-                                <div class="product_item_sale_percent">
-                                    10%
-                                </div>
-                                <div class="product_item_sale_percent_text">
-                                    GIẢM
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
                 </div>
             </div>
         </div>

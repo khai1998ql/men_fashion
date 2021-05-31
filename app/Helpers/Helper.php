@@ -11,6 +11,16 @@
         $str = preg_replace('/([\s])/', '-', $str);
         return $str;
     }
+    function formatPrice($number){
+        $number = intval($number);
+        return number_format($number, 0, '.', ',') . ' đ';
+    }
+    function formatPriceSale($number, $sale){
+        $number = intval($number);
+        $sale = intval($sale);
+        $price = $number * (100-$sale) / 100;
+        return number_format($price, 0, '.', ',') . ' đ';
+    }
 
 
 ?>

@@ -107,9 +107,9 @@
             </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
         <ul class="sl-menu-sub nav flex-column">
-            <li class="nav-item"><a href="chart-morris.html" class="nav-link">Danh sách sản phẩm</a></li>
-            <li class="nav-item"><a href="chart-flot.html" class="nav-link">Thêm mới sản phẩm</a></li>
-            <li class="nav-item"><a href="chart-flot.html" class="nav-link">Danh sách sản phẩm đã bán</a></li>
+            <li class="nav-item"><a href="{{ route('admin.product.index') }}" class="nav-link">Danh sách sản phẩm</a></li>
+            <li class="nav-item"><a href="{{ route('admin.product.add') }}" class="nav-link">Thêm mới sản phẩm</a></li>
+            <li class="nav-item"><a href="{{ route('admin.product.sold') }}" class="nav-link">Danh sách sản phẩm đã bán</a></li>
         </ul>
         <a href="#" class="sl-menu-link">
             <div class="sl-menu-item">

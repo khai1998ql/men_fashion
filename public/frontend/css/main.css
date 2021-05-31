@@ -25,6 +25,7 @@
     --margin-bottom-ip: 30px;
     --margin-bottom-p: 20px;
 }
+
 html,body{
     overflow-x: hidden;
 }
@@ -505,10 +506,11 @@ html{
     z-index: 0;
 }
 .product_item_top{
-    padding: 10px 15px;
+    /*padding: 10px 15px;*/
     position: relative;
     z-index: 0;
     display: block;
+    margin-bottom: 20px;
 }
 .product_item_top::before{
     content: "";
@@ -523,6 +525,7 @@ html{
 }
 .product_item_top img{
     max-width: 100%;
+    margin-bottom: 20px;
 }
 /* .product_item_top:hover .product_item_bot{
     visibility: visible;
@@ -569,7 +572,7 @@ html{
 .product_item_price_old{
     font-size: 1.4rem;
     line-height: 1.8rem;
-    color: var(--text-color);
+    color: #999 !important;
     text-decoration: line-through;
     display: inline-block;
 }

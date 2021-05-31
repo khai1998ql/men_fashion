@@ -123,39 +123,31 @@ function changeImage(id){
     // imageZoom('product_images_big','product_images_big_zoom');
 }
 // Phần chọn color
-function changeBorderColor(id){
-    // console.log(id);
-    var idColor = '#' + id;
-    var dataId = $(idColor).attr('data-id');
-    var dataName = $(idColor).attr('data-name'); 
-    // console.log(dataId);
-    $('.product_color_list').css('border', '2px solid transparent');
-    $(idColor).css({'border' : '2px solid red'});
-    // Gán giá trị từ numberId đễ input radio check
-    // $('input:radio[name=colorID][value='+numberId+']').prop('checked',true);
-    $('[name=colorID]').val([dataId]);
-    // Lấy giá trị khi đã check
-    var myRadio = $('input[name=dataId]:checked').val();
-    // console.log(myRadio);
-}
-    
+
+
 function hoverBorderColor(id){
     // console.log(id);
     var idHover = '#' + id;
     var dataId = $(idHover).attr('data-id');
-    var dataName = $(idHover).attr('data-name'); 
+    var dataName = $(idHover).attr('data-name');
+    var disableInput = $(idHover).attr('data-disabled');
     var myRadioColor = $('input[name=colorID]:checked').val();
     var idCheck = dataName + myRadioColor;
-    if(id == idCheck){
-        $(idHover).css({'border' : '2px solid red'});
+    if(disableInput == 'false'){
+        if(id == idCheck){
+            $(idHover).css({'border' : '2px solid red'});
+        }else{
+            $(idHover).css({'border' : '2px solid green'});
+        }
     }else{
-        $(idHover).css({'border' : '2px solid green'});
+        $(idHover).css({'border' : '2px solid transparent'});
     }
+
 }
 function outBorderColor(id){
     var idHover = '#' + id;
     var dataId = $(idHover).attr('data-id');
-    var dataName = $(idHover).attr('data-name'); 
+    var dataName = $(idHover).attr('data-name');
     var myRadioColor = $('input[name=colorID]:checked').val();
     var idCheck = dataName + myRadioColor;
     // console.log(idCheck);
@@ -164,30 +156,49 @@ function outBorderColor(id){
     }else{
         $(idHover).css({'border' : '2px solid transparent'});
     }
-    
+
 }
 // Size
-function changeBorderSize(id){
-    var idClick = '#' + id;
-    var dataId = $(idClick).attr('data-id');
-    var dataName = $(idClick).attr('data-name');
-    $('.product_size_list').css({'border' : '2px solid transparent'});
-    $(idClick).css({'border' : '2px solid red'});
-    $('input:radio[name=sizeID][value='+dataId+']').prop('checked','true');
-}
+// function changeBorderSize(id){
+//     var idClick = '#' + id;
+//     var dataId = $(idClick).attr('data-id');
+//     var dataName = $(idClick).attr('data-name');
+//     var disableInput = $(idClick).attr('data-disabled');
+//     $('.product_size_list').css({'border' : '2px solid transparent'});
+//
+//     if(disableInput == 'false'){
+//         $(idClick).css({'border' : '2px solid red'});
+//         $('input:radio[name=sizeID][value='+dataId+']').prop('checked','true');
+//     }else{
+//         $(idClick).css({'border' : '2px solid transparent'});
+//         var myRadio = $('input[name=sizeID]:checked').val();
+//         if(myRadio != null){
+//             // console.log(myRadio);
+//             var isChecked = '#' + dataName + myRadio;
+//             $(isChecked).css({'border' : '2px solid red'});
+//         }
+//     }
+//
+// }
 function hoverBorderSize(id){
     var idHover = '#' + id;
     var dataId = $(idHover).attr('data-id');
     var dataName = $(idHover).attr('data-name');
+    var disableInput = $(idHover).attr('data-disabled');
     var myRadioSize = $('input[name=sizeID]:checked').val();
     var idCheck = dataName + myRadioSize;
     // console.log(id);
     // console.log(idCheck);
-    if(id == idCheck){
-        $(idHover).css({'border' : '2px solid red'});
+    if(disableInput == 'false'){
+        if(id == idCheck){
+            $(idHover).css({'border' : '2px solid red'});
+        }else{
+            $(idHover).css({'border' : '2px solid green'});
+        }
     }else{
-        $(idHover).css({'border' : '2px solid green'});
+        $(idHover).css({'border' : '2px solid transparent'});
     }
+
 }
 function outBorderSize(id){
     var idHover = '#' + id;
@@ -207,10 +218,15 @@ function outBorderSize(id){
 function PlusQty(){
     // Lấy giá trị hiện tại của modalQty
     var valueQty = parseInt(document.getElementById('productQty').value);
+    // Lấy giá trị của max qty
+    var maxQty = $('#maxQty').val();
     // console.log(valueQty);
     var newValue = valueQty+1;
+    if(newValue <= maxQty){
+        $('#productQty').val(newValue);
+    }
     // console.log(newValue);
-    $('#productQty').val(newValue);
+
 }
 function MinusQty(){
     var valueQty = parseInt(document.getElementById('productQty').value);
@@ -226,12 +242,16 @@ function MinusQty(){
 }
 function InputQty(){
     var valueInput = document.getElementById('productQty').value;
+    var maxQty = $('#maxQty').val();
     if(isNaN(parseInt(valueInput))){
         // console.log('Nhập sai')
         $('#productQty').val(1);
     }else{
         // console.log('Nhập đúng');
-        $('#productQty').val(parseInt(valueInput));
+        var valueIn = parseInt(valueInput);
+        var newValue = (valueIn < maxQty) ? valueIn : maxQty;
+        $('#productQty').val(newValue);
+
     }
     // console.log(p);
 }
@@ -293,3 +313,25 @@ function imageZoom(imgID, resultID) {
     }
   }
 //   imageZoom('product_images_big','product_images_big_zoom');
+
+$('#product_form').submit(function(e){
+    // var productColor = $('.colorID').value;
+    var productColor = $('input:radio[name=colorID]:checked').val();
+    var productSize = $('input:radio[name=sizeID]:checked').val();
+    // console.log(productColor);
+    console.log(productSize);
+    $('.product_error_list').css({'display' : 'none'});
+    if(productColor == null && productSize == null){
+        // console.log('Chưa chọn cả 2!');
+        $('#product_error_2').css({'display' : 'block'});
+        e.preventDefault();
+    }else if(productSize == null){
+        // console.log('Chưa chọn size!');
+        $('#product_error_1').css({'display' : 'block'});
+        e.preventDefault();
+    }else if(productColor == null){
+        // console.log('Chưa chọn màu!');
+        $('#product_error_3').css({'display' : 'block'});
+        e.preventDefault();
+    }
+});

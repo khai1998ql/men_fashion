@@ -11,7 +11,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ecommerce</title>
+    @yield('frontend_title')
+
     <link rel="icon" href="{{ asset('public/frontend/images/logo_icon.png')}}">
     <!-- Dùn lấy icon -->
     <link rel="stylesheet" href="{{ asset('public/frontend/font/fontawesome-free-5.15.1-web/css/all.min.css')}}">
@@ -55,7 +56,7 @@
                 <li class="header_topbar_item header_topbar_item_cart" title="Giỏ hàng">
                     <label for="input_checkbox__cart"  onclick="modalCheckboxCart()">
                         <i class="fa fa-shopping-cart header_topbar-icon " aria-hidden="true"></i>
-                        <span class="header_topbar_item_cart_number">3</span>
+                        <span class="header_topbar_item_cart_number">{{ count(Cart::content()) }}</span>
                     </label>
                 </li>
                 <!-- Nếu chưa đăng nhập -->
@@ -102,7 +103,7 @@
 
             <ul class="header_navbar_list">
                 <li class="header_navbar_item">
-                    <a href="./index.html" class="header_navbar_item_kw">Trang chủ</a>
+                    <a href="{{ route('fe.index') }}" class="header_navbar_item_kw">Trang chủ</a>
                 </li>
                 <li class="header_navbar_item header_navbar_item_product">
                     <span class="header_navbar_item_kw">Sản phẩm</span>
@@ -128,7 +129,7 @@
                     <span class="header_navbar_item_kw">Bộ sưu tập</span>
                 </li>
                 <li class="header_navbar_item header_navbar_item_logo">
-                    <a href="./index.html"><img src="{{ asset('public/frontend/images/logo-typo.png')}}" alt=""></a>
+                    <a href="{{ route('fe.index') }}"><img src="{{ asset('public/frontend/images/logo-typo.png')}}" alt=""></a>
                 </li>
                 <li class="header_navbar_item">
                     <a href="" class="header_navbar_item_kw"><span>Tin tức</span></a>
@@ -469,7 +470,7 @@
                             </li>
                             <!-- Nếu hết màu sản phầm -->
                             <li class="app_modal_product_color_list" data-id="2" data-name="modal_product_color_" id="modal_product_color_2" onclick="modalChangeBorderColor(this.id)" onmouseover="modalHoverBorderColor(this.id)" onmouseout="modalOutBorderColor(this.id)">
-                                <div class="app_modal_product_color_radio" style="background: url({{ asset('public/frontend/images/product/product_nano/soldout.png')}}) no-repeat center center;background-size: contain;">
+                                <div class="app_modal_product_color_radio" style="background: url({{ URL::to('public/frontend/images/product/product_nano/soldout.png')  }}) no-repeat center center;background-size: contain;">
                                     <input type="radio" name="modalColorID" value="2" class="app_modal_product_color_radio_input">
                                     <div class="app_modal_product_color_radio_btn app_modal_product_soldout" style="background: url({{ asset('public/frontend/images/product/product_nano/p2.jpg')}}) no-repeat center center;width: 25px;height: 30px;"
                                          data-bs-target="#carouselProduct" data-bs-slide-to="1" class="active app_modal_product_images_small" aria-current="true" aria-label="Slide 2"></div>
@@ -510,7 +511,7 @@
                             </li>
                             <!-- Nếu kích thước hết -->
                             <li class="app_modal_product_size_list" data-id="M" data-name="modal_product_size_" id="modal_product_size_M" onclick="modalChangeBorderSize(this.id)" onmouseover="modalHoverBorderSize(this.id)" onmouseout="modalOutBorderSize(this.id)">
-                                <div class="app_modal_product_size_radio" style="background: url('./public/images/product/product_nano/soldout.png') no-repeat center center;background-size: contain;">
+                                <div class="app_modal_product_size_radio" style="background: url({{ URL::to('public/frontend/images/product/product_nano/soldout.png')  }}) no-repeat center center;background-size: contain;">
                                     <input type="radio" name="modalSizeID" value="M" class="app_modal_product_size_radio_input">
                                     <div class="app_modal_product_size_radio_btn">M</div>
                                 </div>
