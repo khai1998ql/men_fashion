@@ -94,8 +94,8 @@
             </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
         <ul class="sl-menu-sub nav flex-column">
-            <li class="nav-item"><a href="chart-morris.html" class="nav-link">Danh sách phiếu giảm giá</a></li>
-            <li class="nav-item"><a href="chart-flot.html" class="nav-link">Loại phiếu giảm giá</a></li>
+            <li class="nav-item"><a href="{{ route('admin.coupons.index') }}" class="nav-link">Danh sách phiếu giảm giá</a></li>
+            <li class="nav-item"><a href="{{ route('admin.coupons_type.index') }}" class="nav-link">Loại phiếu giảm giá</a></li>
         </ul>
         <a href="#" class="sl-menu-link">
             <div class="sl-menu-item">

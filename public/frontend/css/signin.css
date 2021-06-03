@@ -1,6 +1,6 @@
 /* Phần navbar sex fix lại */
 .header{
-    
+
     height: 0;
     width: 100%;
 
@@ -31,7 +31,7 @@
 .app_container{
     display: block;
     width: 500px;
-    margin: 0 auto;
+    margin: 80px auto;
 
 }
 .app_container_title{
@@ -64,7 +64,7 @@
     color: var(--white-color);
     font-size: 2rem;
     line-height: 2rem;
-    width: 100px;
+    width: 130px;
     margin-right: 20px;
     color: var(--white-color);
     opacity: 0.8;
@@ -125,7 +125,7 @@
 }
   /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (max-width: 1199px) {
-    
+
 }
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (max-width: 1023px) {
@@ -133,7 +133,7 @@
         display: block;
         max-width: 500px;
         margin: 0 auto;
-    
+
     }
     .app_container_content{
         width: 100%;
@@ -148,7 +148,7 @@
         display: block;
         max-width: 100%;
         margin: 0 auto;
-    
+
     }
     .app_container_content{
         width: 100%;
@@ -160,7 +160,7 @@
 }
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (max-width: 599px) {
-    
+
 }
 
 

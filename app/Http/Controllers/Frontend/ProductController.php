@@ -28,11 +28,11 @@ class ProductController extends Controller
 
     }
     public function getSizeProduct($product_id, $product_color){
-        $dataSize = DB::table('product_detail')->where('product_id', $product_id)->where('product_color', $product_color)->get();
+        $dataSize = DB::table('product_detail')->where('product_id', $product_id)->where('slug_product_color', to_slug($product_color))->get();
         return view('frontend.pages.product.product_size', compact('product_id', 'product_color', 'dataSize'));
     }
     public function getNumberProduct($product_id, $product_color, $product_size){
-        $dataproduct = DB::table('product_detail')->where('product_id', $product_id)->where('product_color', $product_color)->where('product_size', $product_size)->first();
+        $dataproduct = DB::table('product_detail')->where('product_id', $product_id)->where('slug_product_color', to_slug($product_color))->where('product_size', $product_size)->first();
         return Response::json(array(
             'dataproduct' => $dataproduct
         ));

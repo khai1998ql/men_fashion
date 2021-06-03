@@ -78,6 +78,22 @@ Route::group(['prefix' => 'admin'], function (){
         Route::get('/changeStatus/{id_category}', 'Admin\ProductController@changeStatusProduct');
     });
 
+    // COUPONS
+    Route::group(['prefix' => 'coupons'], function (){
+        Route::get('/', 'Admin\CouponsController@coupons')->name('admin.coupons.index');
+        Route::post('/create', 'Admin\CouponsController@createCoupons')->name('admin.coupons.create');
+        Route::get('/delete/{id}', 'Admin\CouponsController@deleteCoupons')->name('admin.coupons.delete');
+        Route::get('/edit/{id}', 'Admin\CouponsController@editCoupons')->name('admin.coupons.edit');
+        Route::post('/update', 'Admin\CouponsController@updateCoupons')->name('admin.coupons.update');
+    });
+    // COUPONS TYPE
+    Route::group(['prefix' => 'coupons_type'], function (){
+        Route::get('/', 'Admin\CouponsController@coupons_type')->name('admin.coupons_type.index');
+        Route::post('/create', 'Admin\CouponsController@createCoupons_type')->name('admin.coupons_type.create');
+        Route::get('/delete/{id}', 'Admin\CouponsController@deleteCoupons_type')->name('admin.coupons_type.delete');
+        Route::get('/edit/{id}', 'Admin\CouponsController@editCoupons_type')->name('admin.coupons_type.edit');
+        Route::post('/update', 'Admin\CouponsController@updateCoupons_type')->name('admin.coupons_type.update');
+    });
 });
 
 
@@ -85,8 +101,43 @@ Route::group(['prefix' => 'admin'], function (){
 // FRONTEND
 Route::group(['prefix' => '/'], function (){
     Route::get('/', 'Frontend\FrontendController@index')->name('fe.index');
+    Route::get('/logout', 'Frontend\FrontendController@logout')->name('fe.logout');
     Route::get('/index', 'Frontend\FrontendController@index');
     Route::get('/error', 'Frontend\FrontendController@error')->name('fe.error');
+    // CART
+    Route::group(['prefix' => '/cart'], function (){
+        Route::get('/', 'Frontend\CartController@cartIndex')->name('cart.index');
+        Route::post('/add', 'Frontend\CartController@cartAdd')->name('cart.add');
+        Route::get('/changeNumber/{rowId}/{numberChange}', 'Frontend\CartController@changeNumberCart');
+        Route::get('/deleteProduct/{rowId}', 'Frontend\CartController@deleteProductCart');
+        Route::get('/checkout', 'Frontend\CartController@cartCheckout')->name('cart.checkout');
+        Route::POST('/payment', 'Frontend\CartController@cartPayment')->name('cart.payment');
+
+        // CHECKOUT
+        Route::get('/checkout/inputCoupons/{coupons_code}', 'Frontend\CartController@inputCoupons');
+        Route::get('/checkout/removeCoupons', 'Frontend\CartController@removeCoupons');
+        Route::get('/checkout/addShipping/{chargeShipping}', 'Frontend\CartController@addShipping');
+
+        // EMAIL
+        Route::get('/email', 'Frontend\CartController@successEmail')->name('cart.successEmail');
+    });
+
+    // MODAL
+    Route::group(['prefix' => '/modal'], function (){
+        Route::get('/getProduct/{id}', 'Frontend\ModalController@getProduct');
+        Route::get('/product_size/{product_id}/{product_color}', 'Frontend\ModalController@getSizeProductModal');
+        Route::get('/product_detail/{product_id}/{product_color}/{product_size}', 'Frontend\ModalController@getNumberProduct');
+        Route::POST('/addProductModal', 'Frontend\ModalController@addProductModal')->name('modal.product.submit');
+    });
+
+
+    // ADDRESS
+    Route::group(['prefix' => '/address'], function (){
+        Route::get('/hcvn', 'Frontend\AddressController@hcvn');
+        Route::get('/getDistricts/{provinces_id}', 'Frontend\AddressController@getDistricts');
+        Route::get('/getWards/{districts_id}', 'Frontend\AddressController@getWards');
+    });
+
     // CATEGORY
     Route::get('/{slug_category_name}', 'Frontend\CategoryController@Category');
     Route::get('/{slug_category_name}/{slug_subcategory_name}', 'Frontend\CategoryController@subCategory');
@@ -94,5 +145,6 @@ Route::group(['prefix' => '/'], function (){
     Route::get('/{slug_category_name}/{slug_subcategory_name}/{slug_product_name}', 'Frontend\ProductController@product');
     Route::get('/product/product_size/{product_id}/{product_color}', 'Frontend\ProductController@getSizeProduct');
     Route::get('/product/product_detail/{product_id}/{product_color}/{product_size}', 'Frontend\ProductController@getNumberProduct');
+
 });
 

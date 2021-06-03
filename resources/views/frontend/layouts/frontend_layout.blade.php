@@ -31,6 +31,8 @@
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css" rel="stylesheet"/> -->
+{{--    TOASTR--}}
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.css">
 </head>
 <body>
 <div class="app">
@@ -56,15 +58,11 @@
                 <li class="header_topbar_item header_topbar_item_cart" title="Giỏ hàng">
                     <label for="input_checkbox__cart"  onclick="modalCheckboxCart()">
                         <i class="fa fa-shopping-cart header_topbar-icon " aria-hidden="true"></i>
-                        <span class="header_topbar_item_cart_number">{{ count(Cart::content()) }}</span>
+                        <span class="header_topbar_item_cart_number"><span id="fe_cart_count_product">{{ Cart::count() }}</span></span>
                     </label>
                 </li>
-                <!-- Nếu chưa đăng nhập -->
-                <!-- <li class="header_topbar_item" title="Đăng nhập/Đăng xuất">
-                    <a href="">
-                        <i class="fa fa-user header_topbar-icon" aria-hidden="true"></i>
-                    </a>
-                </li> -->
+                @if(Auth::id())
+
                 <!-- Nếu đã đăng nhập -->
                 <li class="header_topbar_item header_topbar_account">
                     <div class="header_topbar_user">
@@ -85,11 +83,19 @@
                                 <a href="">Đơn mua</a>
                             </li>
                             <li class="header_topbar_user_item">
-                                <a href="">Đăng xuất</a>
+                                <a href="{{ route('fe.logout') }}">Đăng xuất</a>
                             </li>
                         </ul>
                     </div>
+                    </li>
+                @else
+                <!-- Nếu chưa đăng nhập -->
+                <li class="header_topbar_item" title="Đăng nhập/Đăng xuất">
+                    <a href="{{ route('login') }}">
+                        <i class="fa fa-user header_topbar-icon" aria-hidden="true"></i>
+                    </a>
                 </li>
+                @endif
                 <li class="header_topbar_item header_topbar_bars"  title="Danh mục">
                     <label for="app_modal_category_input">
                         <i class="fas fa-bars header_topbar-icon"></i>
@@ -250,9 +256,9 @@
                         </div>
                         <div class="col-xl-3 col-lg-3 col-md-6 col-sm-6 col-6">
                             <div class="app_footer_contactInfo_title">Fanpage chúng tôi</div>
-                            <div class="app_footer_contactInfo_list">
-                                <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FB%25C3%25A1o-m%25C6%25A1i-109474123773837&tabs=timeline&width=320&height=200&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId=3013235002026545" width="auto" height="auto" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
-                            </div>
+{{--                            <div class="app_footer_contactInfo_list">--}}
+{{--                                <iframe src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FB%25C3%25A1o-m%25C6%25A1i-109474123773837&tabs=timeline&width=320&height=200&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId=3013235002026545" width="auto" height="auto" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>--}}
+{{--                            </div>--}}
                         </div>
                     </div>
                 </div>
@@ -278,90 +284,46 @@
                 <label for="input_checkbox__cart" class="ti-close shopping_cart_top_icon" onclick="modalCheckboxCart()"></label>
             </div>
         </div>
-        <span class="">Bạn đang  có <span style="font-weight: 800;font-family: 'Quicksand',sans-serif;font-size: 1.6rem;">0</span> sản phẩm trong giỏ hàng</span>
+        <span class="">Bạn đang  có <span style="font-weight: 800;font-family: 'Quicksand',sans-serif;font-size: 1.6rem;" id="fe_count_product">{{ Cart::count() }}</span> sản phẩm trong giỏ hàng</span>
 
         <div class="shopping_cart_product">
+            @if(Cart::count() == 0)
             <!-- Nếu không có sản phẩm trong giỏ hàng -->
-            <!-- <hr style="margin-top: 20px;margin-bottom: 20px;">
-            <span>Hiện chưa có sản phẩm trong giỏ hàng.</span> -->
-
+            <hr style="margin-top: 20px;margin-bottom: 20px;">
+            <span>Hiện chưa có sản phẩm trong giỏ hàng.</span>
+            @else
             <!-- Nếu có sản phẩm trong giỏ hàng -->
-            <hr style="margin-top: 20px;margin-bottom: 20px;">
-            <div class="shopping_cart_product_list">
-                <div class="shopping_cart_product_list_img">
-                    <a href=""><img src="{{ asset('public/frontend/images/product/product1.jpg')}}" alt=""></a>
-                </div>
-                <div class="shopping_cart_product_list_content">
-                    <a href="" class="shopping_cart_product_list_content_link">Áo thun in hình Capacabana TS 600 - Xanh Navy - XLÁo thun in hình Capacabana TS 600 - Xanh Navy - XL</a>
-                    <div class="shopping_cart_product_list_price">
-                        <span>250,000</span> đ <span style="font-weight: 800;">x</span> 1
+                @foreach(Cart::content() as $item)
+                    <div id="modal_cart_product_{{ $item->rowId }}">
+                        <hr style="margin-top: 20px;margin-bottom: 20px;">
+                        <div class="shopping_cart_product_list">
+                            <div class="shopping_cart_product_list_img">
+                                <a href="{{ URL::to(to_slug($item->options->category_name). '/' . to_slug($item->options->subcategory_name). '/' . to_slug($item->name)) }}"><img src="{{ URL::to($item->options->avatar) }}" alt=""></a>
+                            </div>
+                            <div class="shopping_cart_product_list_content">
+                                <a href="{{ URL::to(to_slug($item->options->category_name). '/' . to_slug($item->options->subcategory_name). '/' . to_slug($item->name)) }}" class="shopping_cart_product_list_content_link">
+                                    {{ $item->name }} - {{ $item->options->color }} - {{ $item->options->size }}
+                                </a>
+                                <div class="shopping_cart_product_list_price">
+                                    <span>{{ formatPrice($item->price) }}</span><span style="font-weight: 800;"> x </span> <span id="modal_number_{{ $item->rowId }}">{{ $item->qty }}</span>
+                                </div>
+                                <span class="shopping_cart_product_list_content_remove" data-id="{{ $item->rowId }}" id="modalRemove_{{ $item->rowId }}" onclick="modalRemoveCart(this.id)">Xóa</span>
+                            </div>
+                        </div>
                     </div>
-                    <a href="" class="shopping_cart_product_list_content_remove">Xóa</a>
-                </div>
-            </div>
-            <hr style="margin-top: 20px;margin-bottom: 20px;">
-            <div class="shopping_cart_product_list">
-                <div class="shopping_cart_product_list_img">
-                    <a href=""><img src="{{ asset('public/frontend/images/product/product1.jpg')}}" alt=""></a>
-                </div>
-                <div class="shopping_cart_product_list_content">
-                    <a href="" class="shopping_cart_product_list_content_link">Áo thun in hình Capacabana TS 600 - Xanh Navy - XL</a>
-                    <div class="shopping_cart_product_list_price">
-                        <span>250,000</span> đ <span style="font-weight: 800;">x</span> 1
-                    </div>
-                    <a href="" class="shopping_cart_product_list_content_remove">Xóa</a>
-                </div>
-            </div>
-            <hr style="margin-top: 20px;margin-bottom: 20px;">
-            <div class="shopping_cart_product_list">
-                <div class="shopping_cart_product_list_img">
-                    <a href=""><img src="{{ asset('public/frontend/images/product/product1.jpg')}}" alt=""></a>
-                </div>
-                <div class="shopping_cart_product_list_content">
-                    <a href="" class="shopping_cart_product_list_content_link">Áo thun in hình Capacabana TS 600 - Xanh Navy - XL</a>
-                    <div class="shopping_cart_product_list_price">
-                        <span>250,000</span> đ <span style="font-weight: 800;">x</span> 1
-                    </div>
-                    <a href="" class="shopping_cart_product_list_content_remove">Xóa</a>
-                </div>
-            </div>
-            <hr style="margin-top: 20px;margin-bottom: 20px;">
-            <div class="shopping_cart_product_list">
-                <div class="shopping_cart_product_list_img">
-                    <a href=""><img src="{{ asset('public/frontend/images/product/product1.jpg')}}" alt=""></a>
-                </div>
-                <div class="shopping_cart_product_list_content">
-                    <a href="" class="shopping_cart_product_list_content_link">Áo thun in hình Capacabana TS 600 - Xanh Navy - XL</a>
-                    <div class="shopping_cart_product_list_price">
-                        <span>250,000</span> đ <span style="font-weight: 800;">x</span> 1
-                    </div>
-                    <a href="" class="shopping_cart_product_list_content_remove">Xóa</a>
-                </div>
-            </div>
-            <hr style="margin-top: 20px;margin-bottom: 20px;">
-            <div class="shopping_cart_product_list">
-                <div class="shopping_cart_product_list_img">
-                    <a href=""><img src="{{ asset('public/frontend/images/product/product1.jpg')}}" alt=""></a>
-                </div>
-                <div class="shopping_cart_product_list_content">
-                    <a href="" class="shopping_cart_product_list_content_link">Áo thun in hình Capacabana TS 600 - Xanh Navy - XL</a>
-                    <div class="shopping_cart_product_list_price">
-                        <span>250,000</span> đ <span style="font-weight: 800;">x</span> 1
-                    </div>
-                    <a href="" class="shopping_cart_product_list_content_remove">Xóa</a>
-                </div>
-            </div>
+                @endforeach
+            @endif
         </div>
         <span class="span_hr_big"></span>
         <div class="shopping_cart_total">
             <span>Tổng tiền tạm tính:</span>
-            <span class="shopping_cart_total_price">520,000 đ</span>
+            <span class="shopping_cart_total_price" id="modal_cart_total_price">{{ formatPrice(Cart::total()) }}</span>
         </div>
         <div class="shopping_cart_checkout">
-            <a href="" class="shopping_cart_checkout_link">Tiến hành đặt hàng</a>
+            <a href="{{ route('cart.checkout') }}" class="shopping_cart_checkout_link">Tiến hành đặt hàng</a>
         </div>
         <div class="shopping_cart_viewcart">
-            <a href="">Xem chi tiết giỏ hàng <span class="ti-arrow-right"></span></a>
+            <a href="{{ route('cart.index') }}">Xem chi tiết giỏ hàng <span class="ti-arrow-right"></span></a>
         </div>
     </div>
 </div>
@@ -412,144 +374,11 @@
 <!-- Modal sản phẩm -->
 
 <div class="app_modal_product">
-    <input type="checkbox" id="input_checkbox_product" class="input_checkbox_product" onclick="checkboxProduct(this.id)" hidden>
+    <input type="checkbox" id="input_checkbox_product" class="input_checkbox_product"  hidden>
     <label for="input_checkbox_product" class="app_modal_product_overplay"></label>
 
-    <div class="app_modal_product_content">
-        <div class="app_modal_product_content_top carousel slide" id="carouselProduct" data-bs-interval="false"  data-bs-ride="carousel">
-            <div class="app_modal_product_content_l">
-                <img src="{{ asset('public/frontend/images/product/product_small/p1.jpg')}}" alt="" data-bs-target="#carouselProduct" data-bs-slide-to="0" class="active app_modal_product_images_small" aria-current="true" aria-label="Slide 1">
-                <img src="{{ asset('public/frontend/images/product/product_small/p2.jpg')}}" alt="" data-bs-target="#carouselProduct" data-bs-slide-to="1" class="app_modal_product_images_small" aria-label="Slide 2">
-                <img src="{{ asset('public/frontend/images/product/product_small/p3.jpg')}}" alt="" data-bs-target="#carouselProduct" data-bs-slide-to="2" class="app_modal_product_images_small" aria-label="Slide 3">
-                <img src="{{ asset('public/frontend/images/product/product_small/p4.jpg')}}" alt="" data-bs-target="#carouselProduct" data-bs-slide-to="3" class="app_modal_product_images_small" aria-label="Slide 4">
-            </div>
-            <div class="app_modal_product_content_b carousel-inner">
-                <div class="carousel-item active">
-                    <img src="{{ asset('public/frontend/images/product/product_small/p1.jpg')}}" class="d-block w-100" alt="...">
-                </div>
-                <div class="carousel-item">
-                    <img src="{{ asset('public/frontend/images/product/product_small/p2.jpg')}}" class="d-block w-100" alt="...">
-                </div>
-                <div class="carousel-item">
-                    <img src="{{ asset('public/frontend/images/product/product_small/p3.jpg')}}" class="d-block w-100" alt="...">
-                </div>
-                <div class="carousel-item">
-                    <img src="{{ asset('public/frontend/images/product/product_small/p4.jpg')}}" class="d-block w-100" alt="...">
-                </div>
-            </div>
-            <div class="app_modal_product_content_r">
-                <label for="input_checkbox_product" class="app_modal_product_content_r_close"  onclick="checkboxProduct(this.id)">
-                    <span class="ti-close"></span>
-                </label>
-                <div class="app_modal_product_name">Áo polo nam aristino ÁP014S9</div>
-                <!-- Khi không có giảm giá -->
-                <!-- <div class="app_modal_product_price">
-                    <span>900,000 <span>đ</span></span>
-                </div> -->
-                <!-- Khi có giảm giá -->
-                <div class="app_modal_product_price_sale">
-                    <div class="app_modal_product_price_new">
-                        <span>270,000 <soan>đ</soan></span>
-                    </div>
-                    <div class="app_modal_product_price_old">
-                        <span>450,000 <span>đ</span></span>
-                    </div>
-                </div>
-                <form action="">
-                    <div class="app_modal_product_color">
-                        <ul>
-                            <li class="app_modal_product_color_list" data-id="1" data-name="modal_product_color_" id="modal_product_color_1" onclick="modalChangeBorderColor(this.id)" onmouseover="modalHoverBorderColor(this.id)" onmouseout="modalOutBorderColor(this.id)">
-                                <div class="app_modal_product_color_radio">
-                                    <input type="radio" name="modalColorID" value="1" class="app_modal_product_color_radio_input">
-                                    <div class="app_modal_product_color_radio_btn" style="background: url({{ asset('public/frontend/images/product/product_nano/p1.jpg')}}) no-repeat center center;width: 25px;height: 30px;"
-                                         data-bs-target="#carouselProduct" data-bs-slide-to="0" class="active app_modal_product_images_small" aria-current="true" aria-label="Slide 1"></div>
-                                </div>
-                                <div class="app_modal_product_color_list_title">
-                                    Màu đen vàng
-                                </div>
-                            </li>
-                            <!-- Nếu hết màu sản phầm -->
-                            <li class="app_modal_product_color_list" data-id="2" data-name="modal_product_color_" id="modal_product_color_2" onclick="modalChangeBorderColor(this.id)" onmouseover="modalHoverBorderColor(this.id)" onmouseout="modalOutBorderColor(this.id)">
-                                <div class="app_modal_product_color_radio" style="background: url({{ URL::to('public/frontend/images/product/product_nano/soldout.png')  }}) no-repeat center center;background-size: contain;">
-                                    <input type="radio" name="modalColorID" value="2" class="app_modal_product_color_radio_input">
-                                    <div class="app_modal_product_color_radio_btn app_modal_product_soldout" style="background: url({{ asset('public/frontend/images/product/product_nano/p2.jpg')}}) no-repeat center center;width: 25px;height: 30px;"
-                                         data-bs-target="#carouselProduct" data-bs-slide-to="1" class="active app_modal_product_images_small" aria-current="true" aria-label="Slide 2"></div>
-                                </div>
-                                <div class="app_modal_product_color_list_title">
-                                    Màu đen vàng
-                                </div>
-                            </li>
-                            <li class="app_modal_product_color_list" data-id="3" data-name="modal_product_color_" id="modal_product_color_3" onclick="modalChangeBorderColor(this.id)" onmouseover="modalHoverBorderColor(this.id)" onmouseout="modalOutBorderColor(this.id)">
-                                <div class="app_modal_product_color_radio">
-                                    <input type="radio" name="modalColorID" value="3" class="app_modal_product_color_radio_input">
-                                    <div class="app_modal_product_color_radio_btn" style="background: url({{ asset('public/frontend/images/product/product_nano/p3.jpg')}}) no-repeat center center;width: 25px;height: 30px;"
-                                         data-bs-target="#carouselProduct" data-bs-slide-to="2" class="active app_modal_product_images_small" aria-current="true" aria-label="Slide 3"></div>
-                                </div>
-                                <div class="app_modal_product_color_list_title">
-                                    Màu đen vàng
-                                </div>
-                            </li>
-                            <li class="app_modal_product_color_list" data-id="4" data-name="modal_product_color_" id="modal_product_color_4" onclick="modalChangeBorderColor(this.id)" onmouseover="modalHoverBorderColor(this.id)" onmouseout="modalOutBorderColor(this.id)">
-                                <div class="app_modal_product_color_radio">
-                                    <input type="radio" name="modalColorID" value="4" class="app_modal_product_color_radio_input">
-                                    <div class="app_modal_product_color_radio_btn" style="background: url({{ asset('public/frontend/images/product/product_nano/p4.jpg')}}) no-repeat center center;width: 25px;height: 30px;"
-                                         data-bs-target="#carouselProduct" data-bs-slide-to="3" class="active app_modal_product_images_small" aria-current="true" aria-label="Slide 4"></div>
-                                </div>
-                                <div class="app_modal_product_color_list_title">
-                                    Màu đen vàng
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="app_modal_product_size">
-                        <ul>
-                            <li class="app_modal_product_size_list" data-id="S" data-name="modal_product_size_" id="modal_product_size_S" onclick="modalChangeBorderSize(this.id)" onmouseover="modalHoverBorderSize(this.id)" onmouseout="modalOutBorderSize(this.id)">
-                                <div class="app_modal_product_size_radio">
-                                    <input type="radio" name="modalSizeID" value="S" class="app_modal_product_size_radio_input">
-                                    <div class="app_modal_product_size_radio_btn">S</div>
-                                </div>
-                            </li>
-                            <!-- Nếu kích thước hết -->
-                            <li class="app_modal_product_size_list" data-id="M" data-name="modal_product_size_" id="modal_product_size_M" onclick="modalChangeBorderSize(this.id)" onmouseover="modalHoverBorderSize(this.id)" onmouseout="modalOutBorderSize(this.id)">
-                                <div class="app_modal_product_size_radio" style="background: url({{ URL::to('public/frontend/images/product/product_nano/soldout.png')  }}) no-repeat center center;background-size: contain;">
-                                    <input type="radio" name="modalSizeID" value="M" class="app_modal_product_size_radio_input">
-                                    <div class="app_modal_product_size_radio_btn">M</div>
-                                </div>
-                            </li>
-                            <li class="app_modal_product_size_list" data-id="L" data-name="modal_product_size_" id="modal_product_size_L" onclick="modalChangeBorderSize(this.id)" onmouseover="modalHoverBorderSize(this.id)" onmouseout="modalOutBorderSize(this.id)">
-                                <div class="app_modal_product_size_radio">
-                                    <input type="radio" name="modalSizeID" value="L" class="app_modal_product_size_radio_input">
-                                    <div class="app_modal_product_size_radio_btn">L</div>
-                                </div>
-                            </li>
-                            <li class="app_modal_product_size_list" data-id="XL" data-name="modal_product_size_" id="modal_product_size_XL" onclick="modalChangeBorderSize(this.id)" onmouseover="modalHoverBorderSize(this.id)" onmouseout="modalOutBorderSize(this.id)">
-                                <div class="app_modal_product_size_radio">
-                                    <input type="radio" name="modalSizeID" value="XL" class="app_modal_product_size_radio_input">
-                                    <div class="app_modal_product_size_radio_btn">XL</div>
-                                </div>
-                            </li>
-                            <li class="app_modal_product_size_list" data-id="XXL" data-name="modal_product_size_" id="modal_product_size_XXL" onclick="modalChangeBorderSize(this.id)" onmouseover="modalHoverBorderSize(this.id)" onmouseout="modalOutBorderSize(this.id)">
-                                <div class="app_modal_product_size_radio">
-                                    <input type="radio" name="modalSizeID" value="XXL" class="app_modal_product_size_radio_input">
-                                    <div class="app_modal_product_size_radio_btn">XXL</div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="app_modal_product_number">
-                        <input type="button" onclick="modalMinusQty()" class="app_modal_product_number_btn" value="-">
-                        <input type="text" oninput="modalInputQty()" name="modalQty" id="modalQty" value="1" min="1" max="" class="app_modal_product_number_qty">
-                        <input type="button" onclick="modalPlusQty()" class="app_modal_product_number_btn" value="+">
-                    </div>
-                    <div class="app_modal_product_button">
-                        <button type="submit" class="app_modal_product_submit">Thêm vào giỏ hàng</button>
-                    </div>
-                </form>
-            </div>
-        </div>
-        <div class="app_modal_product_content_bottom">
-            <a href="" class="app_modal_product_content_bottom_link">Xem chi tiết</a>
-        </div>
+    <div class="app_modal_product_content" id="app_modal_product_content">
+
     </div>
 
 </div>
@@ -760,8 +589,197 @@
 <!-- Bootstrap -->
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
+<!-- TOASTR -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<script>
+    @if(Session::has('message'))
+    var type="{{Session::get('alert-type','message')}}";
+    switch(type){
+        case 'info':
+            toastr.info("{{ Session::get('message') }}");
+            break;
+        case 'success':
+            toastr.success("{{ Session::get('message') }}");
+            break;
+        case 'warning':
+            toastr.warning("{{ Session::get('message') }}");
+            break;
+        case 'error':
+            toastr.error("{{ Session::get('message') }}");
+            break;
+    }
+    @endif
+</script>
+
+<script src="{{ asset('https://unpkg.com/sweetalert/dist/sweetalert.min.js')}}"></script>
+<script>
+    function modalRemoveCart(id){
+        var dataId = $('#' + id).attr('data-id');
+        var totalNumber = parseInt($('#fe_count_product').text());
+        var idNumber = '#modal_number_' + dataId;
+        var numberPro = parseInt($(idNumber).text());
+        var newNumber = totalNumber - numberPro;
+        swal({
+            title: "Xóa sản phẩm khỏi giỏ hàng?",
+            // text: "Sau khi xóa, bạn có thể thêm lại!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    $.ajax({
+                        url: "{{ url('cart/deleteProduct/') }}/" + dataId,
+                        type: "GET",
+                        success:function (data){
+                            // Xóa sản phẩm trong giỏ hàng hiện tại
+                            $('#' + dataId).remove();
+                            // Xóa sản phẩm trong giỏ hàng ở phần modal
+                            $('#modal_cart_product_' + dataId).remove();
+
+                            $('#content_value_cart').html($(data));
+                            $('#fe_count_product').text(newNumber);
+                            $('#fe_cart_count_product').text(newNumber);
+                            $('#content_cart_number').text(newNumber);
+                            // Lấy giá trị text hiện tại ở giá trị đơn hàng gàn vào tổng tạm tính trông phần modal cart
+                            var total_modal = $('#cart_price').text();
+                            $('#modal_cart_total_price').text(total_modal);
+                        }
+                    });
+                } else {
+                    // swal("Không có gì thay đổi!");
+                }
+            });
+    }
+</script>
+
+
 <!-- css trang -->
 <script src="{{ asset('public/frontend/js/main.js') }}"></script>
 @yield('frontend_js')
+
+<script type="text/javascript">
+    function checkboxProduct(id){
+        // console.log(id);
+        $.ajax({
+            url: "{{ url('modal/getProduct/') }}/" + id,
+            type: "GET",
+            success:function (data){
+                // console.log('...');
+                $('#app_modal_product_content').html(data);
+            }
+        });
+    }
+
+    function modalChangeBorderColor(id){
+        $('.modal_product_error_list').css({'display' : 'none'});
+        // console.log(id);
+        var idColor = '#' + id;
+        var dataId = $(idColor).attr('data-id');
+        var dataName = $(idColor).attr('data-name');
+        var idInput = '#' + 'input_color_' + idColor;
+        var disableInput = $(idColor).attr('data-disabled');
+        var idProduct = $(idColor).attr('data-id-product');
+        // console.log(dataId);
+        $('.app_modal_product_color_list').css('border', '2px solid transparent');
+        if(disableInput == 'false'){
+            $(idColor).css({'border' : '2px solid red'});
+            // Gán giá trị từ numberId đễ input radio check
+            // $('input:radio[name=modalColorID][value='+numberId+']').prop('checked',true);
+            $('input[name=modalColorID]').val([dataId]);
+            var myRadio = $('input[name=modalColorID]:checked').val();
+            // console.log(myRadio);
+            // console.log(idProduct);
+            $('#modalQty').val(1);
+            $.ajax({
+                url: "{{ url('modal/product_size/') }}/" + idProduct + '/' + myRadio,
+                type: "GET",
+                success:function (data){
+                    $('#app_modal_product_size').html(data);
+                }
+            });
+        }else {
+            $(idColor).css({'border': '2px solid transparent'});
+            // Lấy giá trị khi đã check
+            var myRadio = $('input[name=modalColorID]:checked').val();
+            if (myRadio != null) {
+
+                var isChecked = '#' + dataName + myRadio;
+                $(isChecked).css({'border': '2px solid red'});
+            }
+        }
+    }
+
+    function modalChangeBorderSize(id){
+        $('.modal_product_error_list').css({'display' : 'none'});
+        var idClick = '#' + id;
+        var dataId = $(idClick).attr('data-id');
+        var dataName = $(idClick).attr('data-name');
+        var disableInput = $(idClick).attr('data-disabled');
+        var idProduct = $(idClick).attr('data-id-product');
+        var colorProduct = $('input:radio[name=modalColorID]:checked').val();
+        $('.app_modal_product_size_list').css({'border' : '2px solid transparent'});
+        if(disableInput == 'false'){
+            var sizeProduct = $(idClick).attr('data-id');
+            // console.log(sizeProduct);
+            $(idClick).css({'border' : '2px solid red'});
+            $('input:radio[name=modalSizeID][value='+dataId+']').prop('checked','true');
+            $('#modalQty').val(1);
+            $.ajax({
+                url: "{{ url('modal/product_detail') }}/" + idProduct + '/' + colorProduct + '/' + sizeProduct,
+                type: "GET",
+                dataType: "json",
+                success:function (data){
+                    $('#maxModalQty').val(data.dataproduct.product_qty);
+                    $('#modalQty').attr('max', data.dataproduct.product_qty);
+
+                }
+            })
+        }else{
+            $(idClick).css({'border' : '2px solid transparent'});
+            var myRadio = $('input[name=modalSizeID]:checked').val();
+            if(myRadio != null){
+                // console.log(myRadio);
+                var isChecked = '#' + dataName + myRadio;
+                $(isChecked).css({'border' : '2px solid red'});
+            }
+        }
+
+    }
+
+    function submitModalProduct(){
+        // var productColor = $('.colorID').value;
+        var productColor = $('input:radio[name=modalColorID]:checked').val();
+        var productSize = $('input:radio[name=modalSizeID]:checked').val();
+        $('.modal_product_error_list').css({'display' : 'none'});
+        if(productColor == null && productSize == null){
+            // console.log('Chưa chọn cả 2!');
+            $('#modal_product_error_2').css({'display' : 'block'});
+            // e.preventDefault();
+        }else if(productSize == null){
+            // console.log('Chưa chọn size!');
+            $('#modal_product_error_1').css({'display' : 'block'});
+            // e.preventDefault();
+        }else if(productColor == null){
+            // console.log('Chưa chọn màu!');
+            $('#modal_product_error_3').css({'display' : 'block'});
+            // e.preventDefault();
+        }else{
+            $.ajax({
+                url: "{{ url('modal/addProductModal') }}",
+                type: "POST",
+                dataType: "json",
+                data: $('#modal_product_form').serialize(),
+                success:function (data){
+                    toastr.success(data.submitModal.message);
+                    document.getElementById("input_checkbox_product").checked = false;
+
+                    document.getElementById("input_checkbox__cart").checked = true;
+                }
+            })
+        }
+    }
+</script>
+
 
 </html>

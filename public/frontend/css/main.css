@@ -914,7 +914,7 @@ html{
     border: 1px solid red;
     /* color: var(--black-color); */
     color: red;
-
+    cursor: pointer;
 }
 .span_hr_big{
     float: left;
@@ -925,7 +925,7 @@ html{
 .shopping_cart_total{
     margin-top: 30px;
     font-size: 1.6rem;
-    font-weight: 800;
+    font-weight: 700;
     line-height: 1.8rem;
     text-transform: uppercase;
     display: flex;
@@ -1024,6 +1024,24 @@ html{
     border-top-left-radius: 5px;
     border-bottom-right-radius: 5px;
     border-bottom-left-radius: 5px;
+    overflow-y: auto;
+    scroll-behavior: smooth;
+}
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
 }
 .app_modal_product_images_small{
     width: 100%;
@@ -1271,6 +1289,20 @@ html{
     background: var(--black-color);
     color: var(--white-color);
 }
+/* Product error */
+.modal_product_error{
+    text-align: center;
+    color: red;
+    font-size: 1.8rem;
+    font-family: 'Roboto',sans-serif;
+    font-weight: 700;
+    margin-top: 10px;
+}
+.modal_product_error_list{
+    margin-bottom: 10px;
+    display: none;
+}
+
 /* End modal sản phẩm */
 
 /* Modal danh mục */

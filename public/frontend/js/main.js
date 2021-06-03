@@ -1,4 +1,4 @@
-var widthAll = screen.width;
+
 // console.log(widthAll);
 // Check phần cart, nếu checkcart đã check thì khóa màn hình body
 // function checkedCart(){
@@ -8,7 +8,7 @@ var widthAll = screen.width;
 //         $('body').css('overflow', 'hidden');
 //     }
 // }
-// Xét độ rộng màn hình để xử lý phần hover navbar sản phẩm 
+// Xét độ rộng màn hình để xử lý phần hover navbar sản phẩm
 var blackNav = false;
 
 
@@ -47,7 +47,7 @@ $(".app_modal_search_input").on('input', function(e){
             $('.app_modal_search').css({'height' : '100%'});
         }
     }
-    
+
 });
 
 // Hover vào sản phẩm thêm phần border,
@@ -104,34 +104,23 @@ $('.app_modal_product_content').css({'top' : topModalP, 'right' : rightModalP});
 
 // Radio sản phẩm phần xem nhanh
 
-function modalChangeBorderColor(id){
-    // console.log(id);
-    var idColor = '#' + id;
-    var dataId = $(idColor).attr('data-id');
-    var dataName = $(idColor).attr('data-name');
-    // Lấy giá trị numberId sau phần product_color_
-    // console.log(numberId);
-    $('.app_modal_product_color_list').css('border', '2px solid transparent');
-    $(idColor).css({'border' : '2px solid red'});
-    // Gán giá trị từ numberId đễ input radio check
-    // $('input:radio[name=colorID][value='+numberId+']').prop('checked',true);
-    $('[name=modalColorID]').val([dataId]);
-    // Lấy giá trị khi đã check
-    var myRadio = $('input[name=modalColorID]:checked').val();
-    // console.log(myRadio);
-}
-    
+
+
 function modalHoverBorderColor(id){
-    // console.log(id);
     var idHover = '#' + id;
     var dataId = $(idHover).attr('data-id');
     var dataName = $(idHover).attr('data-name');
+    var disableInput = $(idHover).attr('data-disabled');
     var myRadioColor = $('input[name=modalColorID]:checked').val();
     var idCheck = dataName + myRadioColor;
-    if(id == idCheck){
-        $(idHover).css({'border' : '2px solid red'});
+    if(disableInput == 'false'){
+        if(id == idCheck){
+            $(idHover).css({'border' : '2px solid red'});
+        }else{
+            $(idHover).css({'border' : '2px solid green'});
+        }
     }else{
-        $(idHover).css({'border' : '2px solid green'});
+        $(idHover).css({'border' : '2px solid transparent'});
     }
 }
 function modalOutBorderColor(id){
@@ -146,29 +135,34 @@ function modalOutBorderColor(id){
     }else{
         $(idHover).css({'border' : '2px solid transparent'});
     }
-    
+
 }
 
-function modalChangeBorderSize(id){
-    var idClick = '#' + id;
-    var dataId = $(idClick).attr('data-id');
-    var dataName = $(idClick).attr('data-name');
-    $('.app_modal_product_size_list').css({'border' : '2px solid transparent'});
-    $(idClick).css({'border' : '2px solid red'});
-    $('input:radio[name=modalSizeID][value='+dataId+']').prop('checked','true');
-}
+// function modalChangeBorderSize(id){
+//     var idClick = '#' + id;
+//     var dataId = $(idClick).attr('data-id');
+//     var dataName = $(idClick).attr('data-name');
+//     $('.app_modal_product_size_list').css({'border' : '2px solid transparent'});
+//     $(idClick).css({'border' : '2px solid red'});
+//     $('input:radio[name=modalSizeID][value='+dataId+']').prop('checked','true');
+// }
 function modalHoverBorderSize(id){
     var idHover = '#' + id;
     var dataId = $(idHover).attr('data-id');
     var dataName = $(idHover).attr('data-name');
+    var disableInput = $(idHover).attr('data-disabled');
     var myRadioSize = $('input[name=modalSizeID]:checked').val();
     var idCheck = dataName + myRadioSize;
     // console.log(id);
     // console.log(idCheck);
-    if(id == idCheck){
-        $(idHover).css({'border' : '2px solid red'});
+    if(disableInput == 'false'){
+        if(id == idCheck){
+            $(idHover).css({'border' : '2px solid red'});
+        }else{
+            $(idHover).css({'border' : '2px solid green'});
+        }
     }else{
-        $(idHover).css({'border' : '2px solid green'});
+        $(idHover).css({'border' : '2px solid transparent'});
     }
 }
 function modalOutBorderSize(id){
@@ -189,14 +183,16 @@ function modalOutBorderSize(id){
 function modalPlusQty(){
     // Lấy giá trị hiện tại của modalQty
     var valueQty = parseInt(document.getElementById('modalQty').value);
+    // Lấy giá trị của max qty
+    var maxQty = $('#maxModalQty').val();
     // console.log(valueQty);
     var newValue = valueQty+1;
-    // console.log(newValue);
-    $('#modalQty').val(newValue);
+    if(newValue <= maxQty){
+        $('#modalQty').val(newValue);
+    }
 }
 function modalMinusQty(){
     var valueQty = parseInt(document.getElementById('modalQty').value);
-    console.log(valueQty);
     var newValue;
     if(valueQty === 1){
         newValue = 1;
@@ -208,24 +204,27 @@ function modalMinusQty(){
 }
 function modalInputQty(){
     var valueInput = document.getElementById('modalQty').value;
+    var maxQty = $('#maxModalQty').val();
     if(isNaN(parseInt(valueInput))){
         // console.log('Nhập sai')
         $('#modalQty').val(1);
     }else{
         // console.log('Nhập đúng');
-        $('#modalQty').val(parseInt(valueInput));
+        var valueIn = parseInt(valueInput);
+        var newValue = (valueIn < maxQty) ? valueIn : maxQty;
+        $('#modalQty').val(newValue);
+
     }
-    // console.log(p);
 }
 
 // Khóa màn hình khi hiển thị modal sản phẩm
-function checkboxProduct(id){
-    if(document.getElementById('input_checkbox_product').checked ==true){
-        $(document.body).css('overflow','hidden');
-    }else{
-        $('body').css('overflow', '');
-    }
-}
+// function checkboxProduct(id){
+//     if(document.getElementById('input_checkbox_product').checked ==true){
+//         $(document.body).css('overflow','hidden');
+//     }else{
+//         $('body').css('overflow', '');
+//     }
+// }
 
 // Modal checkcart
 function modalCheckboxCart(){
@@ -248,7 +247,7 @@ function modalCheckboxCart(){
         }else{
             $('.app').css('transform','translateX(-280px)');
         }
-        
+
         $('.container-fluid').css('top','-20px');
         $('.header_topbar_list_left').css('top','-20px');
         $('.header_topbar_list_right').css('top','-20px');
@@ -269,7 +268,7 @@ function hasChildrenCategory(id){
     document.getElementById('app_modal_category_input').checked = false;
 
     // Mở thẻ con
-    
+
     $('.app_modal_category_chidren_overlay').css({'display' : 'block', 'z-index' : 10});
     $(idTarget).css({'transform' : 'translateX(0)', 'opacity' : 1, 'z-index' : 10});
     document.getElementById('app_modal_category_children_input').checked = true;

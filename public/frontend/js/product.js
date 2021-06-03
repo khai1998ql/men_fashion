@@ -230,7 +230,6 @@ function PlusQty(){
 }
 function MinusQty(){
     var valueQty = parseInt(document.getElementById('productQty').value);
-    console.log(valueQty);
     var newValue;
     if(valueQty === 1){
         newValue = 1;

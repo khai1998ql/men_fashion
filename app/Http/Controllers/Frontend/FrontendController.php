@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
 
 class FrontendController extends Controller
 {
@@ -26,5 +28,9 @@ class FrontendController extends Controller
     }
     public function error(){
         return view('frontend.pages.error');
+    }
+    public function logout(){
+        Auth::logout();
+        return Redirect::route('fe.index');
     }
 }

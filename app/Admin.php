@@ -13,7 +13,7 @@ class Admin extends Authenticatable
     protected  $guard = 'admin';
 
     protected $fillable = [
-        'name', 'email',  'password', 'phone'
+        'name', 'email', 'phone',  'password',
     ];
 
     /**
@@ -33,7 +33,7 @@ class Admin extends Authenticatable
 //    protected $casts = [
 //        'email_verified_at' => 'datetime',
 //    ];
-//    public function sendPasswordResetNotification($token){
-//        $this->notify(new AdminPasswordResetNotification($token));
-//    }
+    public function sendPasswordResetNotification($token){
+        $this->notify(new AdminPasswordResetNotification($token));
+    }
 }

@@ -98,6 +98,7 @@ class ProductController extends Controller
                     $data_detail[$i]['product_color'] = $item[0];
                     $data_detail[$i]['product_size'] = $item[1];
                     $data_detail[$i]['product_qty'] = intval($item[2]);
+                    $data_detail[$i]['slug_product_color'] = to_slug($item[0]);
                 }
             }
 
@@ -310,6 +311,7 @@ class ProductController extends Controller
             $dataDetail = array();
             $dataVal = explode(',', $item);
             $dataDetail['product_color'] = $dataVal[0];
+            $dataDetail['slug_product_color'] = to_slug($dataVal[0]);
             $dataDetail['product_size'] = $dataVal[1];
             $dataDetail['product_qty'] = intval($dataVal[2]);
 //            dd($dataDetail);
@@ -341,6 +343,7 @@ class ProductController extends Controller
                 $data = array();
                 $data['product_id'] = $id;
                 $data['product_color'] = $dataDetail[0];
+                $data['slug_product_color'] = to_slug($dataDetail[0]);
                 $data['product_size'] = $dataDetail[1];
                 $data['product_qty'] = intval($dataDetail[2]);
                 DB::table('product_detail')->insert($data);

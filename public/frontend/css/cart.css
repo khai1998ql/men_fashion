@@ -1,6 +1,6 @@
 /* Phần navbar sex fix lại */
 .header{
-    
+
     height: 0px;
     width: 100%;
     position: relative;
@@ -26,7 +26,7 @@
 }
 .app_container_top{
     display: block;
-    
+
     text-align: center;
     background: rgb(250,250,250);
     border-bottom: 1px solid #ccc;
@@ -113,12 +113,15 @@
 .table_content_product_info{
     font-size: 1.4rem;
 }
-.table_content_product_info_name{
+.table_content_product_info_name,
+.table_content_product_info_name:hover{
+    color: var(--black-color);
     font-weight: bold;
     margin-bottom: 5px;
+    text-decoration: none;
 }
 .table_content_product_info_list{
-    
+
 }
 .table_content_product_info_list_heading{
     display: inline-block;
@@ -192,6 +195,7 @@
     text-align: center;
     padding: 5px 8px;
     text-decoration: none;
+    cursor: pointer;
 }
 .app_container_content_order{
     padding: var(--padding-dt) 20px;
@@ -280,7 +284,7 @@
         overflow-x: scroll;
         width: 100%;
     }
-    
+
 }
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (max-width: 1023px) {
@@ -304,12 +308,12 @@
 }
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (max-width: 767px) {
-    
+
 
 }
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (max-width: 599px) {
-    
+
 }
 
 

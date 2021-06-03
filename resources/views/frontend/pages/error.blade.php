@@ -40,6 +40,12 @@
 {{--        Trắng,L,40--}}
 {{--        Trắng,XL,40--}}
 {{--        Trắng,XXL,40--}}
+        Trắng in họa tiết chấm,38,40
+        Trắng in họa tiết chấm,39,40
+        Trắng in họa tiết chấm,40,5
+        Trắng in họa tiết chấm,41,40
+        Trắng in họa tiết chấm,42,40
+        Trắng in họa tiết chấm,43,40
 
     </H3>
 

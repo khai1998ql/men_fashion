@@ -78,7 +78,7 @@
                             <!-- id = 'data-nameBot' + 'data-id' -->
                             <div class="product_item_bot" id="product_item_new_bot_{{ $item->id }}">
                                 <div class="product_item_bot_l">
-                                    <label for="input_checkbox_product" class="ti-shopping-cart product_item_bot_link"  onclick="checkboxProduct(this.id)"> <span>Mua nhanh</span></label>
+                                    <label for="input_checkbox_product" class="ti-shopping-cart product_item_bot_link" id="{{ $item->id }}"  onclick="checkboxProduct(this.id)"> <span>Mua nhanh</span></label>
                                 </div>
                                 <div class="product_item_bot_r">
                                     <a href="{{ URL::to(to_slug($item->category_name).'/'.to_slug($item->subcategory_name).'/'.to_slug($item->product_name)) }}" class="product_item_bot_link"><span class="ti-eye"></span>  <span>Xem chi tiết</span></a>
@@ -141,7 +141,7 @@
                             <!-- id = 'data-nameBot' + 'data-id' -->
                             <div class="product_item_bot" id="product_item_hot_bot_{{ $item->id }}">
                                 <div class="product_item_bot_l">
-                                    <label for="input_checkbox_product" class="ti-shopping-cart product_item_bot_link"  onclick="checkboxProduct(this.id)"> <span>Mua nhanh</span></label>
+                                    <label for="input_checkbox_product" class="ti-shopping-cart product_item_bot_link" id="{{ $item->id }}"  onclick="checkboxProduct(this.id)"> <span>Mua nhanh</span></label>
                                 </div>
                                 <div class="product_item_bot_r">
                                     <a href="{{ URL::to(to_slug($item->category_name).'/'.to_slug($item->subcategory_name).'/'.to_slug($item->product_name)) }}" class="product_item_bot_link"><span class="ti-eye"></span>  <span>Xem chi tiết</span></a>
@@ -209,7 +209,7 @@
                                     <!-- id = 'data-nameBot' + 'data-id' -->
                                     <div class="product_item_bot" id="product_item_outfit_bot_1">
                                         <div class="product_item_bot_l">
-                                            <label for="input_checkbox_product" class="ti-shopping-cart product_item_bot_link"  onclick="checkboxProduct(this.id)"> <span>Mua nhanh</span></label>
+                                            <label for="input_checkbox_product" class="ti-shopping-cart product_item_bot_link" onclick="checkboxProduct(this.id)"> <span>Mua nhanh</span></label>
                                         </div>
                                         <div class="product_item_bot_r">
                                             <a href="./product.html" class="product_item_bot_link"><span class="ti-eye"></span>  <span>Xem chi tiết</span></a>

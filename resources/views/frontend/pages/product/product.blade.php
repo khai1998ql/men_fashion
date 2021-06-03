@@ -90,7 +90,8 @@
                             <div class="app_container_product_info_sale_old">{{ formatPrice($product->product_price) }}</div>
                         </div>
                         @endif
-                        <form action="" id="product_form">
+                        <form action="{{ route('cart.add') }}" method="POST" id="product_form">
+                            @csrf
                             <div class="product_color owl-dots">
                                 <ul>
                                     @php
@@ -113,9 +114,9 @@
 
                                             $pro_detail_sum = intval($pro_detail->sum);
                                         @endphp
-                                        <li class="product_color_list owl-dot" data-id-product="{{ $product->id }}" data-id="{{ $item['title_color'] }}" data-name="product_color_" id="product_color_{{ $item['title_color'] }}" @if($pro_detail_sum == 0)  data-disabled="true" @else data-disabled="false" @endif onclick="changeBorderColor(this.id)" onmouseover="hoverBorderColor(this.id)" onmouseout="outBorderColor(this.id)">
+                                        <li class="product_color_list owl-dot" data-id-product="{{ $product->id }}" data-id="{{ to_slug($item['title_color']) }}" data-name="product_color_" id="product_color_{{ to_slug($item['title_color']) }}" @if($pro_detail_sum == 0)  data-disabled="true" @else data-disabled="false" @endif onclick="changeBorderColor(this.id)" onmouseover="hoverBorderColor(this.id)" onmouseout="outBorderColor(this.id)">
                                             <div class="app_modal_product_color_radio" @if($pro_detail_sum == 0) style="background: url({{ URL::to('public/frontend/images/product/product_nano/soldout.png')  }}) no-repeat center center;background-size: contain;"  @endif>
-                                                <input type="radio" name="colorID" value="{{ $item['title_color'] }}" class="product_color_radio_input"  @if($pro_detail_sum == 0) disabled  @endif>
+                                                <input type="radio" name="colorID" value="{{ to_slug($item['title_color']) }}" data-value="{{ to_slug($item['title_color']) }}" class="product_color_radio_input"  @if($pro_detail_sum == 0) disabled  @endif>
                                                 <div class="product_color_radio_btn @if($pro_detail_sum == 0) app_modal_product_soldout  @endif"  style="background: url({{ URL::to($item['image_color']) }}) no-repeat center center;width: 25px;height: 30px;"
                                                      data-bs-target="#carouselProduct" data-bs-slide-to="{{ $key }}" class="active product_images_small" aria-current="true" aria-label="Slide {{ $key+1 }}"></div>
                                             </div>
@@ -152,6 +153,8 @@
                             </div>
                             <div class="app_container_product_info_submit">
                                 <input type="hidden" name="maxQty" id="maxQty">
+                                <input type="hidden" name="product_id" value="{{ $product->id }}">
+
                                 <button type="submit" class="product_submit">Thêm vào giỏ hàng</button>
                             </div>
 
@@ -495,7 +498,6 @@
     <!-- END CONTAINER -->
     <script type="text/javascript">
         function changeBorderColor(id){
-            // console.log(id);
             var idColor = '#' + id;
             var dataId = $(idColor).attr('data-id');
             var dataName = $(idColor).attr('data-name');
@@ -508,7 +510,7 @@
                 $(idColor).css({'border' : '2px solid red'});
                 // Gán giá trị từ numberId đễ input radio check
                 // $('input:radio[name=colorID][value='+numberId+']').prop('checked',true);
-                $('[name=colorID]').val([dataId]);
+                $('input[name=colorID]').val([dataId]);
                 var myRadio = $('input[name=colorID]:checked').val();
                 // console.log(myRadio);
                 // console.log(idProduct);
@@ -540,13 +542,13 @@
             var dataName = $(idClick).attr('data-name');
             var disableInput = $(idClick).attr('data-disabled');
             var idProduct = $(idClick).attr('data-id-product');
-            var colorProduct = $('input:radio[name=colorID]').val();
-            console.log(idProduct);
-            console.log(colorProduct);
+            var colorProduct = $('input:radio[name=colorID]:checked').val();
+            // console.log(idProduct);
+            // console.log(colorProduct);
             $('.product_size_list').css({'border' : '2px solid transparent'});
             if(disableInput == 'false'){
                 var sizeProduct = $(idClick).attr('data-id');
-                console.log(sizeProduct);
+                // console.log(sizeProduct);
                 $(idClick).css({'border' : '2px solid red'});
                 $('input:radio[name=sizeID][value='+dataId+']').prop('checked','true');
                 $('#productQty').val(1);
@@ -555,6 +557,7 @@
                     type: "GET",
                     dataType: "json",
                     success:function (data){
+
                         console.log(data.dataproduct.product_qty);
                         $('#maxQty').val(data.dataproduct.product_qty);
                         $('#productQty').attr('max', data.dataproduct.product_qty);
@@ -573,4 +576,7 @@
 
         }
     </script>
+
+
+
 @endsection
