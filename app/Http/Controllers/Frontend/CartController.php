@@ -65,6 +65,7 @@ class CartController extends Controller
         }
         $sum_total = intval(Cart::total()) - $sum_sale;
         $data['cart_price'] = formatPrice(Cart::total());
+        $data['cart_price_no'] = Cart::total();
         $data['sum_sale'] = formatPrice($sum_sale);
         $data['sum_total'] = formatPrice($sum_total);
         $data['count_number'] = Cart::count();
@@ -234,7 +235,7 @@ class CartController extends Controller
         $data['order_day'] =  Carbon::now()->day;
         $data['order_month'] = Carbon::now()->month;
         $data['order_year'] = Carbon::now()->year;
-        $data['created_at'] = Carbon::now('Asia/Ho_Chi_Minh')->toDateString();
+        $data['created_at'] = Carbon::now('Asia/Ho_Chi_Minh')->toDateTimeString();
 //        dd($data);
         $order_id = DB::table('orders')->insertGetId($data);
 

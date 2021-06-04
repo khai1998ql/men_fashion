@@ -98,7 +98,7 @@
                                             </td>
                                             <td>
                                                 <div class="table_content_product_button">
-                                                    <div class="table_content_product_delete" data-id="{{ $item->rowId }}" id="deleteCart_{{ $item->rowId }}" onclick="deleteCart(this.id)"><span class="ti-trash"></span></div>
+                                                    <div class="table_content_product_delete" data-qty="{{ intval($item->qty) }}" data-price="{{ intval($item->price) }}" data-value="{{ intval($item->price) * intval($item->qty) }}" data-id="{{ $item->rowId }}" id="deleteCart_{{ $item->rowId }}" onclick="deleteCart(this.id)"><span class="ti-trash"></span></div>
 {{--                                                    <a href="" class="table_content_product_delete" data-rowId="{{ $item->rowId }}" id="deleteCart_{{ $item->rowId }}" onclick="deleteCart(this.id)"><span class="ti-trash"></span></a>--}}
                                                 </div>
                                             </td>
@@ -195,6 +195,9 @@
             }
             $(idTarget).val(newValue);
             $('#modal_number_' + idData).text(newValue);
+            // Thay đổi atttribute trong div deleteCart_
+            $('#deleteCart_' + idData).attr('data-qty', newValue);
+
             $.ajax({
                url: "{{ url('cart/changeNumber/') }}/" + idData + '/' + newValue,
                type: "GET",
@@ -207,6 +210,8 @@
                    $('#fe_cart_count_product').text(data.changeNumber.count_number);
                    $('#content_cart_number').text(data.changeNumber.count_number);
                    $('#modal_cart_total_price').text(data.changeNumber.cart_price);
+
+                   $('#modal_cart_total_price').attr('data-qty', newValue);
                }
             });
         }
@@ -224,6 +229,10 @@
             var newValue = (newVal <= maxNumber) ? newVal : maxNumber;
             $(idTarget).val(newValue);
             $('#modal_number_' + idData).text(newValue);
+
+            // Thay đổi atttribute trong div deleteCart_
+            $('#deleteCart_' + idData).attr('data-qty', newValue);
+
             $.ajax({
                 url: "{{ url('cart/changeNumber/') }}/" + idData + '/' + newValue,
                 type: "GET",
@@ -236,6 +245,8 @@
                     $('#fe_cart_count_product').text(data.changeNumber.count_number);
                     $('#content_cart_number').text(data.changeNumber.count_number);
                     $('#modal_cart_total_price').text(data.changeNumber.cart_price);
+
+                    $('#modal_cart_total_price').attr('data-qty', newValue);
                 }
             });
         }
@@ -249,6 +260,10 @@
             var newValue = (input <= maxNumber) ? input : maxNumber;
             $(idClick).val(newValue);
             $('#modal_number_' + idData).text(newValue);
+
+            // Thay đổi atttribute trong div deleteCart_
+            $('#deleteCart_' + idData).attr('data-qty', newValue);
+
             $.ajax({
                 url: "{{ url('cart/changeNumber/') }}/" + idData + '/' + newValue,
                 type: "GET",
@@ -261,6 +276,8 @@
                     $('#fe_cart_count_product').text(data.changeNumber.count_number);
                     $('#content_cart_number').text(data.changeNumber.count_number);
                     $('#modal_cart_total_price').text(data.changeNumber.cart_price);
+
+                    $('#modal_cart_total_price').attr('data-qty', newValue);
                 }
             });
         }
@@ -270,12 +287,22 @@
     <script src="{{ asset('https://unpkg.com/sweetalert/dist/sweetalert.min.js')}}"></script>
     <script>
         function deleteCart(id){
+
+
             var idClick = '#' + id;
             var dataId = $(idClick).attr('data-id');
             var totalNumber = parseInt($('#content_cart_number').text());
             var idInput = '#numberProduct_' + dataId;
             var numberPro = parseInt($(idInput).val());
             var newNumber = totalNumber - numberPro;
+
+            //Lấy giá trị tổng trong modal cart
+            var totalPriceCart = parseInt($('#modal_cart_total_price').attr('data-value'));
+            // Lấy giá trị của từng rowId trong cart
+            var qtyPro = parseInt($('#' + id).attr('data-qty'));
+            var pricePro = parseInt($('#' + id).attr('data-price'));
+            var singleCart = parseInt(qtyPro * pricePro);
+            var newPriceCart = parseInt(totalPriceCart - singleCart);
             swal({
                 title: "Xóa sản phẩm khỏi giỏ hàng?",
                 // text: "Sau khi xóa, bạn có thể thêm lại!",
@@ -289,6 +316,8 @@
                             url: "{{ url('cart/deleteProduct/') }}/" + dataId,
                             type: "GET",
                             success:function (data){
+
+
                                 // Xóa sản phẩm trong giỏ hàng hiện tại
                                 $('#' + dataId).remove();
                                 // Xóa sản phẩm trong giỏ hàng ở phần modal
@@ -301,6 +330,8 @@
                                 // Lấy giá trị text hiện tại ở giá trị đơn hàng gàn vào tổng tạm tính trông phần modal cart
                                 var total_modal = $('#cart_price').text();
                                 $('#modal_cart_total_price').text(total_modal);
+
+                                $('#modal_cart_total_price').attr('data-value', newPriceCart);
                             }
                         });
                     } else {

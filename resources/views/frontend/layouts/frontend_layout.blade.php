@@ -285,39 +285,40 @@
             </div>
         </div>
         <span class="">Bạn đang  có <span style="font-weight: 800;font-family: 'Quicksand',sans-serif;font-size: 1.6rem;" id="fe_count_product">{{ Cart::count() }}</span> sản phẩm trong giỏ hàng</span>
-
-        <div class="shopping_cart_product">
-            @if(Cart::count() == 0)
-            <!-- Nếu không có sản phẩm trong giỏ hàng -->
-            <hr style="margin-top: 20px;margin-bottom: 20px;">
-            <span>Hiện chưa có sản phẩm trong giỏ hàng.</span>
-            @else
-            <!-- Nếu có sản phẩm trong giỏ hàng -->
-                @foreach(Cart::content() as $item)
-                    <div id="modal_cart_product_{{ $item->rowId }}">
-                        <hr style="margin-top: 20px;margin-bottom: 20px;">
-                        <div class="shopping_cart_product_list">
-                            <div class="shopping_cart_product_list_img">
-                                <a href="{{ URL::to(to_slug($item->options->category_name). '/' . to_slug($item->options->subcategory_name). '/' . to_slug($item->name)) }}"><img src="{{ URL::to($item->options->avatar) }}" alt=""></a>
-                            </div>
-                            <div class="shopping_cart_product_list_content">
-                                <a href="{{ URL::to(to_slug($item->options->category_name). '/' . to_slug($item->options->subcategory_name). '/' . to_slug($item->name)) }}" class="shopping_cart_product_list_content_link">
-                                    {{ $item->name }} - {{ $item->options->color }} - {{ $item->options->size }}
-                                </a>
-                                <div class="shopping_cart_product_list_price">
-                                    <span>{{ formatPrice($item->price) }}</span><span style="font-weight: 800;"> x </span> <span id="modal_number_{{ $item->rowId }}">{{ $item->qty }}</span>
+        <div id="shopping_cart_content">
+            <div class="shopping_cart_product">
+                @if(Cart::count() == 0)
+                <!-- Nếu không có sản phẩm trong giỏ hàng -->
+                <hr style="margin-top: 20px;margin-bottom: 20px;">
+                <span>Hiện chưa có sản phẩm trong giỏ hàng.</span>
+                @else
+                <!-- Nếu có sản phẩm trong giỏ hàng -->
+                    @foreach(Cart::content() as $item)
+                        <div id="modal_cart_product_{{ $item->rowId }}">
+                            <hr style="margin-top: 20px;margin-bottom: 20px;">
+                            <div class="shopping_cart_product_list">
+                                <div class="shopping_cart_product_list_img">
+                                    <a href="{{ URL::to(to_slug($item->options->category_name). '/' . to_slug($item->options->subcategory_name). '/' . to_slug($item->name)) }}"><img src="{{ URL::to($item->options->avatar) }}" alt=""></a>
                                 </div>
-                                <span class="shopping_cart_product_list_content_remove" data-id="{{ $item->rowId }}" id="modalRemove_{{ $item->rowId }}" onclick="modalRemoveCart(this.id)">Xóa</span>
+                                <div class="shopping_cart_product_list_content">
+                                    <a href="{{ URL::to(to_slug($item->options->category_name). '/' . to_slug($item->options->subcategory_name). '/' . to_slug($item->name)) }}" class="shopping_cart_product_list_content_link">
+                                        {{ $item->name }} - {{ $item->options->color }} - {{ $item->options->size }}
+                                    </a>
+                                    <div class="shopping_cart_product_list_price">
+                                        <span>{{ formatPrice($item->price) }}</span><span style="font-weight: 800;"> x </span> <span id="modal_number_{{ $item->rowId }}">{{ $item->qty }}</span>
+                                    </div>
+                                    <span class="shopping_cart_product_list_content_remove" data-qty="{{ intval($item->qty) }}" data-price="{{ intval($item->price) }}" data-value="{{ intval($item->price) * intval($item->qty) }}" data-id="{{ $item->rowId }}" id="modalRemove_{{ $item->rowId }}" onclick="modalRemoveCart(this.id)">Xóa</span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                @endforeach
-            @endif
-        </div>
-        <span class="span_hr_big"></span>
-        <div class="shopping_cart_total">
-            <span>Tổng tiền tạm tính:</span>
-            <span class="shopping_cart_total_price" id="modal_cart_total_price">{{ formatPrice(Cart::total()) }}</span>
+                    @endforeach
+                @endif
+            </div>
+            <div class="span_hr_big"></div>
+            <div class="shopping_cart_total">
+                <span>Tổng tiền tạm tính:</span>
+                <span class="shopping_cart_total_price" data-value="{{ Cart::total() }}" id="modal_cart_total_price">{{ formatPrice(Cart::total()) }}</span>
+            </div>
         </div>
         <div class="shopping_cart_checkout">
             <a href="{{ route('cart.checkout') }}" class="shopping_cart_checkout_link">Tiến hành đặt hàng</a>
@@ -346,28 +347,8 @@
     </div>
 
     <!-- Khi có sản phẩm -->
-    <div class="app_modal_search_product">
-        <div class="app_modal_search_product_list">
-            <div class="app_modal_search_product_list_img">
-                <a href="./seach.html"><img src="{{ asset('public/frontend/images/product/saerch.jpg')}}" alt=""></a>
-            </div>
-            <div class="app_modal_search_product_list_content">
-                <a href="./seach.html" class="app_modal_search_product_list_content_name">Quần lót boxer kidman DBX008</a>
-                <span class="app_modal_search_product_list_content_price">79,000</span>
-            </div>
-
-        </div>
-        <hr>
-        <div class="app_modal_search_product_list">
-            <div class="app_modal_search_product_list_img">
-                <a href="./seach.html"><img src="{{ asset('public/frontend/images/product/saerch.jpg')}}" alt=""></a>
-            </div>
-            <div class="app_modal_search_product_list_content">
-                <a href="./seach.html" class="app_modal_search_product_list_content_name">Quần lót boxer kidman DBX008</a>
-                <span class="app_modal_search_product_list_content_price">79,000</span>
-            </div>
-
-        </div>
+    <div id="app_modal_search_product">
+            {{--        Content--}}
     </div>
 </div>
 
@@ -613,7 +594,18 @@
 
 <script src="{{ asset('https://unpkg.com/sweetalert/dist/sweetalert.min.js')}}"></script>
 <script>
+    // fe_cart_count_product_total
     function modalRemoveCart(id){
+        //Lấy giá trị tổng trong modal cart
+        var totalPrice = parseInt($('#modal_cart_total_price').attr('data-value'));
+        // console.log(totalPrice);
+        // Lấy giá trị của từng rowId trong modal cart
+        var proQty = parseInt($('#'+id).attr('data-qty'));
+        var proPrice = parseInt($('#'+id).attr('data-price'));
+        var singleCart = parseInt(proQty * proPrice);
+        // console.log(singleCart);
+        var newPriceCart = parseInt(totalPrice - singleCart);
+        var newPriceCartFormat = String(newPriceCart).replace(/(.)(?=(\d{3})+$)/g,'$1,') + ' đ';
         var dataId = $('#' + id).attr('data-id');
         var totalNumber = parseInt($('#fe_count_product').text());
         var idNumber = '#modal_number_' + dataId;
@@ -642,8 +634,9 @@
                             $('#fe_cart_count_product').text(newNumber);
                             $('#content_cart_number').text(newNumber);
                             // Lấy giá trị text hiện tại ở giá trị đơn hàng gàn vào tổng tạm tính trông phần modal cart
-                            var total_modal = $('#cart_price').text();
-                            $('#modal_cart_total_price').text(total_modal);
+                            // var total_modal = $('#cart_price').text();
+                            $('#modal_cart_total_price').text(newPriceCartFormat);
+                            $('#modal_cart_total_price').attr('data-value', newPriceCart);
                         }
                     });
                 } else {
@@ -751,6 +744,11 @@
         // var productColor = $('.colorID').value;
         var productColor = $('input:radio[name=modalColorID]:checked').val();
         var productSize = $('input:radio[name=modalSizeID]:checked').val();
+        var productQty = parseInt($('input[name="modalQty"]').val());
+        // Lấy số sản phẩm hiện tại
+        var presentQty = parseInt($('#fe_cart_count_product').text());
+        var newQty = productQty + presentQty;
+
         $('.modal_product_error_list').css({'display' : 'none'});
         if(productColor == null && productSize == null){
             // console.log('Chưa chọn cả 2!');
@@ -768,17 +766,53 @@
             $.ajax({
                 url: "{{ url('modal/addProductModal') }}",
                 type: "POST",
-                dataType: "json",
+                // dataType: "json",
                 data: $('#modal_product_form').serialize(),
                 success:function (data){
-                    toastr.success(data.submitModal.message);
+                    toastr.success('Thêm sản phẩm vào giỏ hàng thành công!');
                     document.getElementById("input_checkbox_product").checked = false;
 
                     document.getElementById("input_checkbox__cart").checked = true;
+                    // Gán sản phẩm
+                    $('#fe_cart_count_product').text(newQty);
+                    $('#fe_count_product').text(newQty);
+                    $('#shopping_cart_content').html(data);
                 }
             })
         }
     }
+
+    // Xét ở phần search, khi user nhập vào thì cho phần search toàn màn hình
+    $(".app_modal_search_input").on('input', function(e){
+        // $('.app_modal_search').css({'height' : '100%'});
+        var count = e.target.value.length;
+        var valueInput = e.target.value;
+        if(widthAll >= 1023){
+            if(count == 0){
+                $('.app_modal_search').css({'height' : '100px'});
+            }else{
+                $('.app_modal_search').css({'height' : '100%'});
+            }
+        }else{
+            if(count == 0){
+                $('.app_modal_search').css({'height' : '60px'});
+            }else{
+                $('.app_modal_search').css({'height' : '100%'});
+            }
+        }
+        if(count > 0){
+            $.ajax({
+                url: "{{ url('modal/search/getProductSearch/') }}/" + valueInput,
+                type: "GET",
+                success:function (data){
+                    $('#app_modal_search_product').html(data);
+                }
+            });
+        }else{
+            $('#app_modal_search_product').text('');
+        }
+
+    });
 </script>
 
 

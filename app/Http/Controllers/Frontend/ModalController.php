@@ -48,13 +48,26 @@ class ModalController extends Controller
         $data['options']['discount_price'] = $product->discount_price;
         $data['options']['max_number'] = intval($request->maxModalQty);
 //        dd($data);
-//        Cart::add($data);
-        $notification = array(
-            'message' => 'Thêm sản phẩm vào giỏ hàng thành công!',
-            'alert_type' => 'success',
-        );
-        return Response::json(array(
-            'submitModal' => $notification,
-        ));
+        Cart::add($data);
+//        $notification = array(
+//            'message' => 'Thêm sản phẩm vào giỏ hàng thành công!',
+//            'alert_type' => 'success',
+//        );
+        return view('frontend.pages.modal.product.change_modal_cart');
+    }
+    public function getProductSearch($valueInput){
+        $dataInput = explode(' ', $valueInput);
+        $product = DB::table('products')
+            ->join('categories', 'products.category_id','categories.id')
+            ->join('subcategories', 'products.subcategory_id','subcategories.id')
+            ->where('products.product_name', 'like', '%' . $valueInput . '%')
+            ->orWhere('categories.category_name', 'like', '%' . $valueInput . '%')
+            ->orWhere('subcategories.subcategory_name', 'like', '%' . $valueInput . '%')
+            ->distinct()
+            ->select('products.*', 'categories.category_name', 'subcategories.subcategory_name')
+            ->limit(4)
+            ->get();
+//        dd($product);
+        return view('frontend.pages.modal.search.data_search', compact('product'));
     }
 }

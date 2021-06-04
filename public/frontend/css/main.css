@@ -778,7 +778,7 @@ html{
     text-decoration: none;
 }
 .app_modal_search_product_list_content{
-    padding: 20px 20px;
+    padding: 5px 20px;
     display: flex;
     flex-direction: column;
 }
@@ -794,6 +794,24 @@ html{
     font-weight: bold;
     font-size: 1.8rem;
 }
+.app_modal_search_product_list_content_sale{
+    display: inline-block;
+
+}
+.app_modal_search_product_list_content_sale_new{
+    display: inline-block;
+    margin-right: 10px;
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: red;
+}
+.app_modal_search_product_list_content_sale_old{
+    display: inline-block;
+    font-size: 1.2rem;
+    color: var(--text-color);
+    text-decoration: line-through;
+}
+
 .app_modal_search_product_list_hr{
     border-top: 2px solid whitesmoke;
     /* float: left; */
@@ -917,7 +935,8 @@ html{
     cursor: pointer;
 }
 .span_hr_big{
-    float: left;
+    /*float: left;*/
+    display: block;
     width: 100%;
     border-top: 2px solid #000;
     margin: 10px 0;
@@ -1234,7 +1253,7 @@ html{
     border-top: 1px solid #ccc;
     border-bottom: 1px solid #ccc;
     text-align: center;
-    margin-top: -2px;
+    margin-top: 2px;
     margin-right: -2px;
 }
 .app_modal_product_number_qty:hover{

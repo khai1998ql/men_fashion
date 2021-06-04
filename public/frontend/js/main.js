@@ -30,25 +30,7 @@ window.onresize = function(event) {
     document.getElementById("item_product").style.left = -x+"px";
 };
 
- // Xét ở phần search, khi user nhập vào thì cho phần search toàn màn hình
-$(".app_modal_search_input").on('input', function(e){
-    // $('.app_modal_search').css({'height' : '100%'});
-    var count = e.target.value.length;
-    if(widthAll >= 1023){
-        if(count == 0){
-            $('.app_modal_search').css({'height' : '100px'});
-        }else{
-            $('.app_modal_search').css({'height' : '100%'});
-        }
-    }else{
-        if(count == 0){
-            $('.app_modal_search').css({'height' : '60px'});
-        }else{
-            $('.app_modal_search').css({'height' : '100%'});
-        }
-    }
 
-});
 
 // Hover vào sản phẩm thêm phần border,
 // Hover vào sản phẩm thêm phần xem/mua hàng

@@ -124,10 +124,14 @@ Route::group(['prefix' => '/'], function (){
 
     // MODAL
     Route::group(['prefix' => '/modal'], function (){
+        // PRODUCT
         Route::get('/getProduct/{id}', 'Frontend\ModalController@getProduct');
         Route::get('/product_size/{product_id}/{product_color}', 'Frontend\ModalController@getSizeProductModal');
         Route::get('/product_detail/{product_id}/{product_color}/{product_size}', 'Frontend\ModalController@getNumberProduct');
         Route::POST('/addProductModal', 'Frontend\ModalController@addProductModal')->name('modal.product.submit');
+
+        // SEARCH
+        Route::get('/search/getProductSearch/{valueInput}', 'Frontend\ModalController@getProductSearch');
     });
 
 

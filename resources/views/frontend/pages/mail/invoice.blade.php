@@ -68,7 +68,7 @@
                     <table style="width: 100%;">
                         <thead style="font-size: 18px">
                         <tr style="background-color: deepskyblue">
-                            <th colspan="3" style="border: 0px solid white;padding: 10px 0;color: white">Sản phẩm</th>
+                            <th colspan="3" style="border: 0px solid white;padding: 10px 0;color: white; max-width: 50%;">Sản phẩm</th>
                             <th colspan="1.5" style="border: 0px solid white;padding: 10px 0;color: white">Đơn giá</th>
                             <th colspan="0.5" style="border: 0px solid white;padding: 10px 0;color: white">SL</th>
                             <th colspan="1.5" style="border: 0px solid white;padding: 10px 0;color: white">Thành tiền</th>
@@ -77,7 +77,7 @@
                         <tbody style="font-size: 16px">
                         @foreach(Cart::content() as $item)
                             <tr style="background-color: whitesmoke">
-                                <td colspan="3" style="border: 0px solid white;padding: 10px 10px">{{ $item->name }} - {{ $item->options->color }} - {{ $item->options->size }}</td>
+                                <td colspan="3" style="border: 0px solid white;padding: 10px 10px; max-width: 50%;">{{ $item->name }} - {{ $item->options->color }} - {{ $item->options->size }}</td>
                                 <td colspan="1" style="text-align: center;border: 0px solid white;padding: 10px 10px">{{ formatPrice($item->price) }}</td>
                                 <td colspan="1" style="text-align: center;border: 0px solid white;padding: 10px 10px">{{ $item->qty }}</td>
                                 <td colspan="1" style="text-align: center;border: 0px solid white;padding: 10px 10px">{{ formatPriceSale($item->price, intval($item->options->discount_price)) }}</td>
