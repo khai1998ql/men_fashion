@@ -14,7 +14,7 @@ class CreateProductDetailTable extends Migration
     public function up()
     {
         Schema::create('product_detail', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->integer('id');
             $table->integer('product_id')->nullable();
             $table->string('product_color')->nullable();
             $table->string('product_size')->nullable();

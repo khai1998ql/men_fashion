@@ -14,7 +14,7 @@ class CreateOrdersPayStripeTable extends Migration
     public function up()
     {
         Schema::create('orders_pay_stripe', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->integer('id');
             $table->integer('order_id');
             $table->string('stripe_payment_id')->nullable();
             $table->string('stripe_payment_amount')->nullable();
