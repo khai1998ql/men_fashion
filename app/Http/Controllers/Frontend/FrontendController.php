@@ -29,7 +29,7 @@ class FrontendController extends Controller
 //                    ->orderBy('products.product_sold')
 //                    ->limit(12)
 //                    ->get();
-        $productHot = DB::select('select products.*, categories.category_name, subcategories.subcategory_name from products inner join categories on products.category_id = categories.id inner join subcategories on products.subcategory_id = subcategories.id where hot_new = 1 and products.product_status = 1 order by products.product_sold asc limit 12')
+        $productHot = DB::select('select products.*, categories.category_name, subcategories.subcategory_name from products inner join categories on products.category_id = categories.id inner join subcategories on products.subcategory_id = subcategories.id where hot_new = 1 and products.product_status = 1 order by products.product_sold asc limit 12');
         return view('frontend.pages.index', compact('productNew', 'productHot'));
     }
     public function error(){
