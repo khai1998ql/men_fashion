@@ -19,6 +19,8 @@ class CreateProductDetailTable extends Migration
             $table->string('product_color')->nullable();
             $table->string('product_size')->nullable();
             $table->integer('product_qty')->nullable();
+            $table->string('slug_product_color')->nullable();
+            $table->integer('product_detail_sold')->default(0)->nullable();
             $table->timestamps();
         });
     }

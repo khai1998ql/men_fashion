@@ -94,6 +94,15 @@ Route::group(['prefix' => 'admin'], function (){
         Route::get('/edit/{id}', 'Admin\CouponsController@editCoupons_type')->name('admin.coupons_type.edit');
         Route::post('/update', 'Admin\CouponsController@updateCoupons_type')->name('admin.coupons_type.update');
     });
+
+    // ORDERS
+    Route::group(['prefix' => 'orders'], function (){
+        Route::get('/orders_new', 'Admin\OrdersController@orders_new')->name('admin.orders.new');
+        Route::get('/orders_accept', 'Admin\OrdersController@orders_accept')->name('admin.orders.accept');
+        Route::get('/orders_sent', 'Admin\OrdersController@orders_sent')->name('admin.orders.sent');
+        Route::get('/orders_success', 'Admin\OrdersController@orders_success')->name('admin.orders.success');
+        Route::get('/orders_cancel', 'Admin\OrdersController@orders_cancel')->name('admin.orders.cancel');
+    });
 });
 
 
@@ -109,7 +118,6 @@ Route::group(['prefix' => '/'], function (){
         Route::get('/', 'Frontend\CartController@cartIndex')->name('cart.index');
         Route::post('/add', 'Frontend\CartController@cartAdd')->name('cart.add');
         Route::get('/changeNumber/{rowId}/{numberChange}', 'Frontend\CartController@changeNumberCart');
-        Route::get('/deleteProduct/{rowId}', 'Frontend\CartController@deleteProductCart');
         Route::get('/checkout', 'Frontend\CartController@cartCheckout')->name('cart.checkout');
         Route::POST('/payment', 'Frontend\CartController@cartPayment')->name('cart.payment');
 
@@ -129,7 +137,7 @@ Route::group(['prefix' => '/'], function (){
         Route::get('/product_size/{product_id}/{product_color}', 'Frontend\ModalController@getSizeProductModal');
         Route::get('/product_detail/{product_id}/{product_color}/{product_size}', 'Frontend\ModalController@getNumberProduct');
         Route::POST('/addProductModal', 'Frontend\ModalController@addProductModal')->name('modal.product.submit');
-
+        Route::get('/deleteProduct/{rowId}', 'Frontend\ModalController@deleteProductCart');
         // SEARCH
         Route::get('/search/getProductSearch/{valueInput}', 'Frontend\ModalController@getProductSearch');
     });

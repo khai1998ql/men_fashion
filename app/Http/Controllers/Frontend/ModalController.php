@@ -11,6 +11,7 @@ use Cart;
 
 class ModalController extends Controller
 {
+
     public function getProduct($id){
         $product = DB::table('products')->where('id', $id)->first();
         return view('frontend.pages.modal.product.index', compact('product'));
@@ -69,5 +70,8 @@ class ModalController extends Controller
             ->get();
 //        dd($product);
         return view('frontend.pages.modal.search.data_search', compact('product'));
+    }
+    public function deleteProductCart($rowId){
+        return view('frontend.pages.modal.cart.cart_delete', compact('rowId'));
     }
 }

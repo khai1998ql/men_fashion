@@ -621,7 +621,7 @@
             .then((willDelete) => {
                 if (willDelete) {
                     $.ajax({
-                        url: "{{ url('cart/deleteProduct/') }}/" + dataId,
+                        url: "{{ url('modal/deleteProduct/') }}/" + dataId,
                         type: "GET",
                         success:function (data){
                             // Xóa sản phẩm trong giỏ hàng hiện tại

@@ -73,9 +73,8 @@
         </a><!-- sl-menu-link -->
         <a href="#" class="sl-menu-link">
             <div class="sl-menu-item">
-{{--                <i class="menu-item-icon ion-ios-pie-outline tx-20"></i>--}}
                 <span class="ti-menu tx-20"></span>
-                <span class="menu-item-label">Danh mục</span>
+                <span class="menu-item-label">Quản lý danh mục</span>
                 <i class="menu-item-arrow fa fa-angle-down"></i>
             </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
@@ -86,10 +85,8 @@
         </ul>
         <a href="#" class="sl-menu-link">
             <div class="sl-menu-item">
-                {{--                <i class="menu-item-icon ion-ios-pie-outline tx-20"></i>--}}
-{{--                <span class="ti-menu tx-20"></span>--}}
                 <i class="fas fa-sort-amount-down tx-20"></i>
-                <span class="menu-item-label">Phiếu giảm giá</span>
+                <span class="menu-item-label">Quản lý phiếu giảm giá</span>
                 <i class="menu-item-arrow fa fa-angle-down"></i>
             </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
@@ -99,10 +96,8 @@
         </ul>
         <a href="#" class="sl-menu-link">
             <div class="sl-menu-item">
-                {{--                <i class="menu-item-icon ion-ios-pie-outline tx-20"></i>--}}
-{{--                <span class="ti-menu tx-20"></span>--}}
                 <i class="fab fa-product-hunt tx-20"></i>
-                <span class="menu-item-label">Sản phẩm</span>
+                <span class="menu-item-label">Quản lý sản phẩm</span>
                 <i class="menu-item-arrow fa fa-angle-down"></i>
             </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
@@ -113,24 +108,34 @@
         </ul>
         <a href="#" class="sl-menu-link">
             <div class="sl-menu-item">
-                {{--                <i class="menu-item-icon ion-ios-pie-outline tx-20"></i>--}}
-                <span class="ti-menu tx-20"></span>
+                <i class="fas fa-shopping-basket tx-20"></i>
                 <span class="menu-item-label">Quản lý đơn hàng</span>
                 <i class="menu-item-arrow fa fa-angle-down"></i>
             </div><!-- menu-item -->
         </a><!-- sl-menu-link -->
         <ul class="sl-menu-sub nav flex-column">
-            <li class="nav-item"><a href="chart-morris.html" class="nav-link">Đơn hàng mới</a></li>
-            <li class="nav-item"><a href="chart-flot.html" class="nav-link">Đơn hàng đã chấp nhận</a></li>
-            <li class="nav-item"><a href="chart-flot.html" class="nav-link">Đơn hàng đang gửi đi</a></li>
-            <li class="nav-item"><a href="chart-flot.html" class="nav-link">Đơn hàng hoàn tất</a></li>
-            <li class="nav-item"><a href="chart-flot.html" class="nav-link">Đơn hàng đã hủy</a></li>
+            <li class="nav-item"><a href="{{ route('admin.orders.new') }}" class="nav-link">Đơn hàng mới</a></li>
+            <li class="nav-item"><a href="{{ route('admin.orders.accept') }}" class="nav-link">Đơn hàng đã chấp nhận</a></li>
+            <li class="nav-item"><a href="{{ route('admin.orders.sent') }}" class="nav-link">Đơn hàng đang gửi đi</a></li>
+            <li class="nav-item"><a href="{{ route('admin.orders.success') }}" class="nav-link">Đơn hàng hoàn tất</a></li>
+            <li class="nav-item"><a href="{{ route('admin.orders.cancel') }}" class="nav-link">Đơn hàng đã hủy</a></li>
         </ul>
         <a href="#" class="sl-menu-link">
             <div class="sl-menu-item">
-                {{--                <i class="menu-item-icon ion-ios-pie-outline tx-20"></i>--}}
-                <span class="ti-menu tx-20"></span>
-                <span class="menu-item-label">Tin tức</span>
+                <i class="far fa-user tx-20"></i>
+                <span class="menu-item-label">Quản lý thành viên</span>
+                <i class="menu-item-arrow fa fa-angle-down"></i>
+            </div><!-- menu-item -->
+        </a><!-- sl-menu-link -->
+        <ul class="sl-menu-sub nav flex-column">
+            <li class="nav-item"><a href="chart-morris.html" class="nav-link">Danh mục tin tức</a></li>
+            <li class="nav-item"><a href="chart-flot.html" class="nav-link">Danh sách bài viết</a></li>
+            <li class="nav-item"><a href="chart-flot.html" class="nav-link">Thêm bài viết mới</a></li>
+        </ul>
+        <a href="#" class="sl-menu-link">
+            <div class="sl-menu-item">
+                <i class="fas fa-newspaper tx-20"></i>
+                <span class="menu-item-label">Quản lý tin tức</span>
                 <i class="menu-item-arrow fa fa-angle-down"></i>
             </div><!-- menu-item -->
         </a><!-- sl-menu-link -->

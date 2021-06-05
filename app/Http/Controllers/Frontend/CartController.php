@@ -73,9 +73,9 @@ class CartController extends Controller
             'changeNumber' => $data,
         ));
     }
-    public function deleteProductCart($rowId){
-        return view('frontend.pages.cart.cart_delete', compact('rowId'));
-    }
+//    public function deleteProductCart($rowId){
+//        return view('frontend.pages.cart.cart_delete', compact('rowId'));
+//    }
     public function cartCheckout(){
         if(Cart::count() == 0){
             $notification = array(
@@ -317,6 +317,4 @@ class CartController extends Controller
     public function successEmail(){
         return view('frontend.pages.mail.invoice');
     }
-
-
 }
