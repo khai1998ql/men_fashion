@@ -16,7 +16,8 @@ class FrontendController extends Controller
                     ->join('subcategories', 'products.subcategory_id', 'subcategories.id')
                     ->where('products.product_status', 1)
                     ->select('products.*', 'categories.category_name', 'subcategories.subcategory_name')
-                    ->orderBy('products.id')->limit(12)->get();
+//                    ->orderBy('products.id')->limit(12)
+                    ->get();
         $productHot = DB::table('products')
                     ->join('categories', 'products.category_id', 'categories.id')
                     ->join('subcategories', 'products.subcategory_id', 'subcategories.id')
