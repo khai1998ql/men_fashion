@@ -20,6 +20,7 @@
                         <tr>
                             <th class="wd-5p">STT</th>
                             <th class="wd-15p">Tên loại phiếu giảm giá</th>
+                            <th class="wd-15p">Kí tự phiếu giảm giá</th>
                             <th class="wd-20p">Hành động</th>
                         </tr>
                         </thead>
@@ -28,6 +29,7 @@
                             <tr>
                                 <td>{{ $key + 1 }}</td>
                                 <td>{{ $item->coupon_type_name }}</td>
+                                <td>{{ $item->coupon_type_character }}</td>
                                 <td>
                                     <button id="{{ $item->id }}"  class="btn btn-info" data-toggle="modal" data-id="{{ $item->id }}" data-target="#exampleModal1" onclick="categoryEdit(this.id)">Sửa</button>
                                     <a href="{{ URL::to('admin/coupons_type/delete/'.$item->id) }}" class="btn btn-danger" id="delete">Xóa</a>
@@ -75,6 +77,11 @@
                             <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="coupon_type_name" placeholder="Loại phiếu giảm giá">
 
                         </div>
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Loại phiếu giảm giá</label>
+                                <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" name="coupon_type_character" placeholder="Kí tự phiếu giảm giá">
+
+                            </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
                             <button type="submit" class="btn btn-primary">Thêm</button>
@@ -104,6 +111,11 @@
                             <input type="text" class="form-control" id="coupon_type_old" aria-describedby="emailHelp" name="coupon_type_name">
 
                         </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1">Loại phiếu giảm giá</label>
+                            <input type="text" class="form-control" id="coupon_type_character" aria-describedby="emailHelp" name="coupon_type_character" placeholder="Kí tự phiếu giảm giá">
+
+                        </div>
                         <div class="modal-footer">
                             <input type="hidden" id="coupon_type_id" name="coupon_type_id">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
@@ -127,6 +139,7 @@
                 success:function (data){
                     $('#coupon_type_old').val(data.coupons_type.coupon_type_name);
                     $('#coupon_type_id').val(data.coupons_type.id);
+                    $('#coupon_type_character').val(data.coupons_type.coupon_type_character);
                 }
             })
         }

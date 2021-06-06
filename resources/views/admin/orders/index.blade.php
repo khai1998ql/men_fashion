@@ -43,15 +43,15 @@
                                         <span class="badge badge-success">Hoàn thành</span>
                                     @elseif($item->order_status == 4)
                                         {{--     Shop hủy   --}}
-                                        <span class="badge badge-dark">Đã hủy</span>
+                                        <span class="badge badge-dark">Hệ thống hủy</span>
                                     @elseif($item->order_status == 5)
                                         {{--     Khách hủy   --}}
-                                        <span class="badge badge-dark">Đã hủy</span>
+                                        <span class="badge badge-dark">Khách hủy</span>
                                     @endif
                                 </td>
                                 <td>
-                                    <a href="{{ URL::to('') }}" class="btn btn-sm btn-success">Chi tiết</a>
-                                    <a href="" class="btn btn-sm btn-dark" id="delete">Xóa</a>
+                                    <a href="{{ URL::to('admin/orders/view/'.$item->id) }}" class="btn btn-sm btn-success">Chi tiết</a>
+                                    <a href="{{ URL::to('admin/orders/delete/'.$item->id) }}" class="btn btn-sm btn-dark" id="delete">Xóa</a>
                                 </td>
                             </tr>
                         @endforeach

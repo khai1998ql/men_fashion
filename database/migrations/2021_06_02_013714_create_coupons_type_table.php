@@ -15,7 +15,8 @@ class CreateCouponsTypeTable extends Migration
     {
         Schema::create('coupons_type', function (Blueprint $table) {
             $table->integer('id');
-            $table->string('coupon_type_name');
+            $table->string('coupon_type_name')->nullable();
+            $table->string('coupon_type_character')->nullable();
             $table->timestamps();
         });
     }

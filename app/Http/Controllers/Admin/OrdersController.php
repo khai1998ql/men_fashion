@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
 
 class OrdersController extends Controller
 {
@@ -29,8 +30,36 @@ class OrdersController extends Controller
         return view('admin.orders.index', compact('order'));
     }
     public function orders_cancel(){
-        $order = DB::table('orders')->where('order_status', 4)->get();
+        $order = DB::table('orders')->where('order_status', 4)->orwhere('order_status', 5)->get();
         return view('admin.orders.index', compact('order'));
     }
-
+    public function deleteOrders($orders_id){
+        $order = DB::table('orders')->where('id', $orders_id)->first();
+        if($order->payment_type == 'stripe'){
+            DB::table('orders_pay_stripe')->where('order_id', $orders_id)->delete();
+        }
+        DB::table('orders_detail')->where('order_id', $orders_id)->delete();
+        DB::table('orders_shipping')->where('order_id', $orders_id)->delete();
+        DB::table('orders')->where('id', $orders_id)->delete();
+        $notification = [
+            'message' => 'Xóa đơn hàng thành công!',
+            'alert-type' => 'success',
+        ];
+        return Redirect::back()->with($notification);
+    }
+    public function viewOrders($orders_id){
+        $orders = DB::table('orders')->where('id', $orders_id)->first();
+//                ->join('orders_detail', 'orders.id', '=', 'orders_detail.order_id')
+//                ->join('orders_shipping', 'orders.id', '=', 'orders_shipping.order_id')
+//                ->join('orders_pay_stripe', 'orders.id', '=', 'orders_pay_stripe.order_id')
+//                ->select('orders.*', 'orders_detail.')
+        $orders_detail = DB::table('orders_detail')->where('order_id', $orders_id)->get();
+        $orders_shipping = DB::table('orders_shipping')->where('order_id', $orders_id)->first();
+        if($orders->payment_type == 'stripe'){
+            $orders_pay_stripe = DB::table('orders_pay_stripe')->where('order_id', $orders_id)->first();
+            return view('admin.orders.view', compact('orders', 'orders_detail', 'orders_shipping', 'orders_pay_stripe'));
+        }else{
+            return view('admin.orders.view', compact('orders', 'orders_detail', 'orders_shipping'));
+        }
+    }
 }

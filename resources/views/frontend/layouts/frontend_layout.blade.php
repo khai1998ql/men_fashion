@@ -1,6 +1,10 @@
 @php
 
-    $category = DB::table('categories')->where('menu_id', 2)->get();
+    $category = DB::table('categories')
+            ->join('menu', 'categories.menu_id', 'menu.id')
+            ->where('menu.slug_menu_name', 'san-pham')
+            ->select('categories.*')
+            ->get();
 @endphp
 
 

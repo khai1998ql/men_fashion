@@ -23,16 +23,23 @@ class CouponsController extends Controller
     public function createCoupons_type(Request $request){
         $rules = [
             'coupon_type_name' => 'required|min:1|max:255|unique:coupons_type',
+            'coupon_type_character' => 'required|min:1|max:1|unique:coupons_type',
         ];
         $message = [
             'coupon_type_name.required' => 'Tên loại phiếu giảm giá không được để trống!',
             'coupon_type_name.min' => 'Tên loại phiếu giảm giá ít nhất:min kí tự!',
             'coupon_type_name.max' => 'Tên loại phiếu giảm giá nhiều nhất :max kí tự!',
             'coupon_type_name.unique' => 'Tên loại phiếu giảm giá <:input> đã tồn tại!',
+
+            'coupon_type_character.required' => 'Kí tự phiếu giảm giá không được để trống!',
+            'coupon_type_character.min' => 'Kí tự phiếu giảm giá ít nhất:min kí tự!',
+            'coupon_type_character.max' => 'Kí tự phiếu giảm giá nhiều nhất :max kí tự!',
+            'coupon_type_character.unique' => 'Kí tự phiếu giảm giá <:input> đã tồn tại!',
         ];
         $this->validate($request,$rules,$message);
         $data = array();
         $data['coupon_type_name'] = $request->coupon_type_name;
+        $data['coupon_type_character'] = $request->coupon_type_character;
         DB::table('coupons_type')->insert($data);
         $notification = array(
             'message' => 'Thêm mới loại phiếu giảm giá thành công!',
@@ -58,6 +65,7 @@ class CouponsController extends Controller
         $id = $request->coupon_type_id;
         $data = array();
         $data['coupon_type_name'] = $request->coupon_type_name;
+        $data['coupon_type_character'] = $request->coupon_type_character;
         DB::table('coupons_type')->where('id', $id)->update($data);
         $notification = array(
             'message' => 'Cập nhật loại phiếu giảm giá thành công!',

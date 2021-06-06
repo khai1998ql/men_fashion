@@ -18,10 +18,10 @@ class CreateProductsTable extends Migration
             $table->string('product_name')->nullable();
             $table->string('slug_product_name')->nullable();
             $table->string('product_code')->nullable();
-            $table->string('category_id')->nullable();
-            $table->string('subcategory_id')->nullable();
-            $table->string('product_price')->nullable();
-            $table->string('discount_price')->nullable();
+            $table->integer('category_id')->nullable();
+            $table->integer('subcategory_id')->nullable();
+            $table->integer('product_price')->nullable();
+            $table->integer('discount_price')->default(0)->nullable();
             $table->integer('product_status')->default(1);
             $table->integer('product_view')->default(0);
             $table->integer('product_sold')->default(0);

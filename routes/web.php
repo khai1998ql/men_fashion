@@ -102,6 +102,8 @@ Route::group(['prefix' => 'admin'], function (){
         Route::get('/orders_sent', 'Admin\OrdersController@orders_sent')->name('admin.orders.sent');
         Route::get('/orders_success', 'Admin\OrdersController@orders_success')->name('admin.orders.success');
         Route::get('/orders_cancel', 'Admin\OrdersController@orders_cancel')->name('admin.orders.cancel');
+        Route::get('/view/{orders_id}', 'Admin\OrdersController@viewOrders')->name('admin.orders.view');
+        Route::get('/delete/{orders_id}', 'Admin\OrdersController@deleteOrders')->name('admin.orders.view');
     });
 });
 

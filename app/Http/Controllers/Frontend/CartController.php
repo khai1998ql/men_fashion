@@ -91,7 +91,10 @@ class CartController extends Controller
 
     }
     public function inputCoupons($coupons_code){
-        $coupons = DB::table('coupons')->where('coupons_code', $coupons_code)->first();
+        $coupons = DB::table('coupons')
+                    ->join('coupons_type', 'coupons.coupons_type_id','coupons_type.id')
+                    ->select('coupons.*', 'coupons_type.coupon_type_character')
+                    ->where('coupons.coupons_code', $coupons_code)->first();
         $data = array();
         if(!empty($coupons) > 0){
             if($coupons->coupons_count == 0){
@@ -110,9 +113,9 @@ class CartController extends Controller
                         $sum_sale += intval($item->price) * intval($item->qty) * intval($item->options->discount_price) / 100;
                     }
                 }
-                if($coupons->coupons_type_id == 1){
+                if($coupons->coupon_type_character == '+'){
                     $sum_coupons = intval($coupons->coupons_max);
-                }else{
+                }elseif($coupons->coupon_type_character == '%'){
                     $sum_coupons = (intval(Cart::total()) <= intval($coupons->coupons_max)) ? intval(Cart::total()) : intval($coupons->coupons_max);
                 }
                 $sum_total = intval(Cart::total()) - $sum_sale + $charge_shipping - $sum_coupons;
