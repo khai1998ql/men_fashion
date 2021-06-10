@@ -74,8 +74,11 @@ class CartController extends Controller
         ));
     }
 //    public function deleteProductCart($rowId){
-//        return view('frontend.pages.cart.cart_delete', compact('rowId'));
+//        return view('frontend.pages.modal.cart.cart_delete', compact('rowId'));
 //    }
+    public function deleteProductCart($rowId){
+        return view('frontend.pages.modal.cart.cart_delete', compact('rowId'));
+    }
     public function cartCheckout(){
         if(Cart::count() == 0){
             $notification = array(

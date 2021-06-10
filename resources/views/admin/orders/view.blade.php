@@ -109,13 +109,107 @@
                                 <div class="card-body">
                                     <table class="table">
                                         <tr>
-                                            <th>Tên khách hàng :</th>
-                                            <th>{{  }}</th>
+                                            <th style="min-width: 135px">Tên khách hàng :</th>
+                                            <th>{{ $orders_shipping->ship_name }}</th>
+                                        </tr>
+                                        <tr>
+                                            <th>Số điện thoại :</th>
+                                            <th>{{ $orders_shipping->ship_phone }}</th>
+                                        </tr>
+                                        <tr>
+                                            <th>Địa chỉ :</th>
+                                            <th>{{ $orders_shipping->ship_address }}</th>
+                                        </tr>
+                                        <tr>
+                                            <th>Thời gian giao :</th>
+                                            <th>{{ $orders_shipping->ship_deliveryTime }}</th>
+                                        </tr>
+                                        <tr>
+                                            <th>Ghi chú :</th>
+                                            <th>{{ $orders_shipping->ship_note }}</th>
                                         </tr>
                                     </table>
                                 </div>
                             </div>
+                            @if($orders->payment_type == 'stripe')
+                            <div class="card">
+                                <div class="card-header">Thông tin chi tiết <strong>Thanh toán Stripe</strong></div>
+                                <div class="card-body">
+                                    <table class="table">
+                                        <tr>
+                                            <th style="min-width: 135px">Stripe payment id :</th>
+                                            <th>{{ $orders_pay_stripe->stripe_payment_id }}</th>
+                                        </tr>
+                                        <tr>
+                                            <th>Stripe transaction :</th>
+                                            <th>{{ $orders_pay_stripe->stripe_blnc_transaction }}</th>
+                                        </tr>
+                                        <tr>
+                                            <th>Stripe order id :</th>
+                                            <th>{{ $orders_pay_stripe->stripe_order_id }}</th>
+                                        </tr>
+                                    </table>
+                                </div>
+                            </div>
+                            @endif
                         </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="card-header" style="width: 300px; margin-bottom: 20px">Thông tin chi tiết <strong>Sản phẩm</strong></div>
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">STT</th>
+                                        <th scope="col">Hình ảnh</th>
+                                        <th scope="col">Thông tin SP</th>
+                                        <th scope="col">Số lượng</th>
+                                        <th scope="col">Thành tiền</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($orders_detail as $key => $item)
+                                        @php
+                                            $product_detail = DB::table('products')->where('id', $item->product_id)->first();
+                                        @endphp
+                                    <tr>
+                                        <td>{{ $key + 1 }}</td>
+                                        <td><img src="{{ asset($product_detail->product_avatar) }}" style="width: 100px"></td>
+                                        <td>
+                                            <strong>- Tên SP: </strong>{{ $item->product_name }}<br>
+                                            <strong>- Màu: </strong>{{ $item->color }}<br>
+                                            <strong>- Size: </strong>{{ $item->size }}<br>
+                                            <strong>- Giá: </strong>{{ $item->singleprice }}<br>
+                                            <strong>- Sale: </strong>{{ $item->singlesale }}<br>
+                                        </td>
+                                        <td><strong>{{ $item->quantity }}</strong></td>
+                                        <td><strong>{{ $item->totalprice }}</strong></td>
+                                    </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div style="text-align: center;">
+                        @if($orders->order_status == 0)
+                            <a href="{{ URL::to('admin/orders/status/'.$item->order_id.'/1') }}" class="btn btn-danger">Chấp nhận đơn hàng</a>
+                            <a href="{{ URL::to('admin/orders/status/'.$item->order_id.'/4') }}" class="btn btn-dark" id="cancelOrders">Hủy đơn hàng</a>
+                        @elseif($orders->order_status == 1)
+                            <a href="{{ URL::to('admin/orders/status/'.$item->order_id.'/2') }}" class="btn btn-primary">Giao hàng cho khách</a>
+                            <a href="{{ URL::to('admin/orders/status/'.$item->order_id.'/4') }}" class="btn btn-dark" id="cancelOrders">Hủy đơn hàng</a>
+                        @elseif($orders->order_status == 2)
+                            <a href="{{ URL::to('admin/orders/status/'.$item->order_id.'/3') }}" class="btn btn-success">Hoàn tất đơn hàng</a>
+                            <a href="{{ URL::to('admin/orders/status/'.$item->order_id.'/4') }}" class="btn btn-dark" id="cancelOrders">Hủy đơn hàng</a>
+                        @elseif($orders->order_status == 3)
+                            <span class="btn btn-success">Đơn hàng đã được hoàn thành</span>
+                        @elseif($orders->order_status == 4)
+                            {{--     Shop hủy   --}}
+                            <span class="btn btn-dark">Đơn hàng đã bị hủy do hệ thống hủy</span>
+                        @elseif($orders->order_status == 5)
+                            {{--     Khách hủy   --}}
+                            <span class="btn btn-dark">Đơn hàng đã bị hủy do khách hàng hủy</span>
+                        @endif
+
                     </div>
                 </div>
             </div><!-- card -->

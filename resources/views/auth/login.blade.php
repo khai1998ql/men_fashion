@@ -39,6 +39,7 @@
                     </div>
                     <button type="submit" class="app_container_content_submit">Đăng nhập</button>
                     <div class="app_container_content_bottom">Chưa có tài khoản? Nhấn vào <a href="{{ route('register') }}" class="app_container_content_bottom_link">đây</a> để đăng ký!</div>
+                    <div class="app_container_content_bottom"><a href="{{ route('password.request') }}" style="color: black !important;">Quên mật khẩu?<span class="ti-unlock"></span></a></div>
                 </form>
             </div>
         </div>

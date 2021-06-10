@@ -62,4 +62,12 @@ class OrdersController extends Controller
             return view('admin.orders.view', compact('orders', 'orders_detail', 'orders_shipping'));
         }
     }
+    public function statusOrders($orders_id, $status_number){
+        DB::table('orders')->where('id', $orders_id)->update(['order_status' => $status_number]);
+        $notification = [
+            'message' => 'Cập nhật trạng thái đơn hàng thành công!',
+            'alert-type' => 'success',
+        ];
+        return Redirect::back()->with($notification);
+    }
 }

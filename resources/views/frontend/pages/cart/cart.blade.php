@@ -293,6 +293,7 @@
             var dataId = $(idClick).attr('data-id');
             var totalNumber = parseInt($('#content_cart_number').text());
             var idInput = '#numberProduct_' + dataId;
+            console.log(dataId);
             var numberPro = parseInt($(idInput).val());
             var newNumber = totalNumber - numberPro;
 

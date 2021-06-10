@@ -54,10 +54,10 @@
     text-align: center;
     font-weight: 500;
     font-family: 'Times New Roman', Times, serif;
-    margin-bottom: var(--margin-bottom-dt);
+    margin-bottom: 20px;
 }
 .app_container_content_list{
-    display: flex;
+    /*display: flex;*/
     margin-bottom: 30px;
 }
 .app_container_content_list_text{
@@ -68,9 +68,11 @@
     margin-right: 20px;
     color: var(--white-color);
     opacity: 0.8;
+    display: inline-block;
 }
 .app_container_content_list_input,
 .app_container_content_list_input:focus{
+    display: inline-block;
     background: none !important;
     border: none;
     border-bottom: 1px solid #ccc;

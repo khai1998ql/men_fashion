@@ -73,9 +73,13 @@ return [
     |
     */
 
+//    'from' => [
+//        'address' => env('MAIL_FROM_ADDRESS', 'khainguyensi.14051998@gmail.com'),
+//        'name' => env('MAIL_FROM_NAME', 'Ecommerce'),
+//    ],
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
-        'name' => env('MAIL_FROM_NAME', 'Example'),
+        'address' => 'khainguyensi.14051998@gmail.com',
+        'name' => env('MAIL_FROM_NAME', 'Ecommerce'),
     ],
 
     /*

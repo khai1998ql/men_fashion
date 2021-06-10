@@ -477,7 +477,26 @@
             });
     });
 </script>
-
+<script>
+    $(document).on("click", "#cancelOrders", function(e){
+        e.preventDefault();
+        var link = $(this).attr("href");
+        swal({
+            title: "Bạn chắc chắn muốn hủy đơn hàng không?",
+            text: "Sau khi huy, không thể thay đổi lại!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    window.location.href = link;
+                } else {
+                    // swal("Không có gì thay đổi!");
+                }
+            });
+    });
+</script>
 {{--    // Inactive--}}
 <script>
     $(document).on("click", "#inactive", function(e){

@@ -104,6 +104,7 @@ Route::group(['prefix' => 'admin'], function (){
         Route::get('/orders_cancel', 'Admin\OrdersController@orders_cancel')->name('admin.orders.cancel');
         Route::get('/view/{orders_id}', 'Admin\OrdersController@viewOrders')->name('admin.orders.view');
         Route::get('/delete/{orders_id}', 'Admin\OrdersController@deleteOrders')->name('admin.orders.view');
+        Route::get('/status/{orders_id}/{status_number}', 'Admin\OrdersController@statusOrders');
     });
 });
 
@@ -122,7 +123,7 @@ Route::group(['prefix' => '/'], function (){
         Route::get('/changeNumber/{rowId}/{numberChange}', 'Frontend\CartController@changeNumberCart');
         Route::get('/checkout', 'Frontend\CartController@cartCheckout')->name('cart.checkout');
         Route::POST('/payment', 'Frontend\CartController@cartPayment')->name('cart.payment');
-
+        Route::get('/deleteProduct/{rowId}', 'Frontend\CartController@deleteProductCart');
         // CHECKOUT
         Route::get('/checkout/inputCoupons/{coupons_code}', 'Frontend\CartController@inputCoupons');
         Route::get('/checkout/removeCoupons', 'Frontend\CartController@removeCoupons');
