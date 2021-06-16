@@ -14,7 +14,7 @@ class CreateOrdersTable extends Migration
     public function up()
     {
         Schema::create('orders', function (Blueprint $table) {
-            $table->integer('id');
+            $table->bigIncrements('id');
             $table->integer('user_id')->nullable();
             $table->string('order_code')->nullable();
             $table->string('payment_type')->nullable();
@@ -22,7 +22,7 @@ class CreateOrdersTable extends Migration
             $table->integer('order_shipping')->nullable();
             $table->integer('order_vat')->nullable();
             $table->integer('order_sale')->nullable();
-            $table->string('order_coupons')->nullable();
+            $table->integer('order_coupons')->nullable();
             $table->integer('order_total')->nullable();
             $table->integer('order_status')->nullable()->default(0);
             $table->integer('order_day')->nullable();

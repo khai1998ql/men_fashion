@@ -14,7 +14,7 @@ class CreateOrdersShippingTable extends Migration
     public function up()
     {
         Schema::create('orders_shipping', function (Blueprint $table) {
-            $table->integer('id');
+            $table->bigIncrements('id');
             $table->integer('order_id');
             $table->string('ship_name');
             $table->string('ship_email');

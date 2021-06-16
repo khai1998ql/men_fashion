@@ -14,20 +14,20 @@ class CreateProductsTable extends Migration
     public function up()
     {
         Schema::create('products', function (Blueprint $table) {
-            $table->integer('id');
+            $table->bigIncrements('id');
             $table->string('product_name')->nullable();
             $table->string('slug_product_name')->nullable();
             $table->string('product_code')->nullable();
-            $table->string('category_id')->nullable();
-            $table->string('subcategory_id')->nullable();
-            $table->string('product_price')->nullable();
-            $table->string('discount_price')->nullable();
+            $table->integer('category_id')->nullable();
+            $table->integer('subcategory_id')->nullable();
+            $table->integer('product_price')->nullable();
+            $table->integer('discount_price')->nullable();
             $table->integer('product_status')->default(1);
             $table->integer('product_view')->default(0);
             $table->integer('product_sold')->default(0);
-            $table->string('hot_deal')->default(0)->nullable();
-            $table->string('hot_new')->default(0)->nullable();
-            $table->string('trend')->default(0)->nullable();
+            $table->integer('hot_deal')->default(0)->nullable();
+            $table->integer('hot_new')->default(0)->nullable();
+            $table->integer('trend')->default(0)->nullable();
             $table->string('product_avatar')->nullable();
             $table->string('product_images_big')->nullable();
             $table->string('product_images_small')->nullable();
