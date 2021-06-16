@@ -21,8 +21,8 @@
     <div class="abc" id="abc" style="color: white;z-index: 1;"></div>
     <div class="app_slider" id="app_slider">
         <!--  style="top: 195px; z-index: 0;" -->
-        <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-inner">
+        <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel" style="z-index: 1 !important;">
+            <div class="carousel-inner" id="heightImage">
                 <div class="carousel-item active" data-bs-interval="10000">
                     <img src="{{ asset('public/frontend/images/slider/slider1.jpg')}}" class="d-block w-100" alt="..." id="heightImage">
                 </div>
