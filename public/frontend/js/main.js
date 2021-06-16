@@ -1,12 +1,5 @@
-window.whenloaded = function(fn) {
-    if (window.onload) {
-        // var old = window.onload;
-        // window.onload = function() {
-        //     old();
-        //     fn();
-        // }
-    } else {
-        // console.log(widthAll);
+
+// console.log(widthAll);
 // Check phần cart, nếu checkcart đã check thì khóa màn hình body
 // function checkedCart(){
 //     if(document.getElementById('input_checkbox__cart').checked ==true){
@@ -16,116 +9,116 @@ window.whenloaded = function(fn) {
 //     }
 // }
 // Xét độ rộng màn hình để xử lý phần hover navbar sản phẩm
-        var blackNav = false;
+var blackNav = false;
 
 
 
-        var widthAll = screen.width;
-        var heightAll = screen.height;
+var widthAll = screen.width;
+var heightAll = screen.height;
 // console.log(widthAll);
-        $('.header_navbar_item_product_modal').width(widthAll);
-        var x = $(".header_navbar_item_product").offset().left;
-        document.getElementById("item_product").style.left = -x+"px";
+$('.header_navbar_item_product_modal').width(widthAll);
+var x = $(".header_navbar_item_product").offset().left;
+document.getElementById("item_product").style.left = -x+"px";
 
 // Khi thay đổi kích thước màn hình
-        window.onresize = function(event) {
-            widthAll = screen.width;
-            heightAll = screen.height;
-            // console.log(widthAll);
-            $('.header_navbar_item_product_modal').width(widthAll);
-            x = $(".header_navbar_item_product").offset().left;
-            document.getElementById("item_product").style.left = -x+"px";
-        };
+window.onresize = function(event) {
+    widthAll = screen.width;
+    heightAll = screen.height;
+    // console.log(widthAll);
+    $('.header_navbar_item_product_modal').width(widthAll);
+    x = $(".header_navbar_item_product").offset().left;
+    document.getElementById("item_product").style.left = -x+"px";
+};
 
 
 
 // Hover vào sản phẩm thêm phần border,
 // Hover vào sản phẩm thêm phần xem/mua hàng
-        function Hoverevent(id){
-            var idDiv = '#' + id;
-            var dataId = $(idDiv).attr('data-id');
-            var dataName = $(idDiv).attr('data-name');
-            var dataNameBot = $(idDiv).attr('data-nameBot');
-            idClass1 = '#' + dataName + dataId;
-            idClass2 = '#' + dataNameBot + dataId;
-            $(idClass1).css('border', '1px solid red');
-            $(idClass2).css({'visibility' : 'visible'});
-        }
-        function Outevent(id){
-            var idDiv = '#' + id;
-            var dataId = $(idDiv).attr('data-id');
-            var dataName = $(idDiv).attr('data-name');
-            var dataNameBot = $(idDiv).attr('data-nameBot');
-            idClass1 = '#' + dataName + dataId;
-            idClass2 = '#' + dataNameBot + dataId;
-            $(idClass1).css('border', '1px solid whitesmoke');
-            $(idClass2).css({'visibility' : 'hidden'});
-        }
+function Hoverevent(id){
+    var idDiv = '#' + id;
+    var dataId = $(idDiv).attr('data-id');
+    var dataName = $(idDiv).attr('data-name');
+    var dataNameBot = $(idDiv).attr('data-nameBot');
+    idClass1 = '#' + dataName + dataId;
+    idClass2 = '#' + dataNameBot + dataId;
+    $(idClass1).css('border', '1px solid red');
+    $(idClass2).css({'visibility' : 'visible'});
+}
+function Outevent(id){
+    var idDiv = '#' + id;
+    var dataId = $(idDiv).attr('data-id');
+    var dataName = $(idDiv).attr('data-name');
+    var dataNameBot = $(idDiv).attr('data-nameBot');
+    idClass1 = '#' + dataName + dataId;
+    idClass2 = '#' + dataNameBot + dataId;
+    $(idClass1).css('border', '1px solid whitesmoke');
+    $(idClass2).css({'visibility' : 'hidden'});
+}
 
 // Thêm hoặc xóa yêu thích
-        function addFavourite(id){
-            var idDiv = '#' + id;
-            var dataId = $(idDiv).attr('data-id');
-            var dataNameNo = $(idDiv).attr('data-name-no');
-            var dataNameHave = $(idDiv).attr('data-name-have');
-            var idAdd = '#' + dataNameNo + dataId;
-            var idRemove = '#' + dataNameHave + dataId;
-            $(idAdd).addClass('hidden_heart');
-            $(idRemove).removeClass('hidden_heart');
-        }
-        function removeFavourite(id){
-            var idDiv = '#' + id;
-            var dataId = $(idDiv).attr('data-id');
-            var dataNameNo = $(idDiv).attr('data-name-no');
-            var dataNameHave = $(idDiv).attr('data-name-have');
-            var idAdd = '#' + dataNameNo + dataId;
-            var idRemove = '#' + dataNameHave + dataId;
-            $(idAdd).removeClass('hidden_heart');
-            $(idRemove).addClass('hidden_heart');
-        }
+function addFavourite(id){
+    var idDiv = '#' + id;
+    var dataId = $(idDiv).attr('data-id');
+    var dataNameNo = $(idDiv).attr('data-name-no');
+    var dataNameHave = $(idDiv).attr('data-name-have');
+    var idAdd = '#' + dataNameNo + dataId;
+    var idRemove = '#' + dataNameHave + dataId;
+    $(idAdd).addClass('hidden_heart');
+    $(idRemove).removeClass('hidden_heart');
+}
+function removeFavourite(id){
+    var idDiv = '#' + id;
+    var dataId = $(idDiv).attr('data-id');
+    var dataNameNo = $(idDiv).attr('data-name-no');
+    var dataNameHave = $(idDiv).attr('data-name-have');
+    var idAdd = '#' + dataNameNo + dataId;
+    var idRemove = '#' + dataNameHave + dataId;
+    $(idAdd).removeClass('hidden_heart');
+    $(idRemove).addClass('hidden_heart');
+}
 
 // Xet top, right(margin) cho modal sản phẩm
-        var topModalP = (heightAll - 600)/4 + 'px';
-        var rightModalP = (widthAll - 900)/2 + 'px';
+var topModalP = (heightAll - 600)/4 + 'px';
+var rightModalP = (widthAll - 900)/2 + 'px';
 // console.log(topModalP);
-        $('.app_modal_product_content').css({'top' : topModalP, 'right' : rightModalP});
+$('.app_modal_product_content').css({'top' : topModalP, 'right' : rightModalP});
 
 
 // Radio sản phẩm phần xem nhanh
 
 
 
-        function modalHoverBorderColor(id){
-            var idHover = '#' + id;
-            var dataId = $(idHover).attr('data-id');
-            var dataName = $(idHover).attr('data-name');
-            var disableInput = $(idHover).attr('data-disabled');
-            var myRadioColor = $('input[name=modalColorID]:checked').val();
-            var idCheck = dataName + myRadioColor;
-            if(disableInput == 'false'){
-                if(id == idCheck){
-                    $(idHover).css({'border' : '2px solid red'});
-                }else{
-                    $(idHover).css({'border' : '2px solid green'});
-                }
-            }else{
-                $(idHover).css({'border' : '2px solid transparent'});
-            }
+function modalHoverBorderColor(id){
+    var idHover = '#' + id;
+    var dataId = $(idHover).attr('data-id');
+    var dataName = $(idHover).attr('data-name');
+    var disableInput = $(idHover).attr('data-disabled');
+    var myRadioColor = $('input[name=modalColorID]:checked').val();
+    var idCheck = dataName + myRadioColor;
+    if(disableInput == 'false'){
+        if(id == idCheck){
+            $(idHover).css({'border' : '2px solid red'});
+        }else{
+            $(idHover).css({'border' : '2px solid green'});
         }
-        function modalOutBorderColor(id){
-            var idHover = '#' + id;
-            var dataId = $(idHover).attr('data-id');
-            var dataName = $(idHover).attr('data-name');
-            var myRadioColor = $('input[name=modalColorID]:checked').val();
-            var idCheck = dataName + myRadioColor;
-            // console.log(idCheck);
-            if(id == idCheck){
-                $(idHover).css({'border' : '2px solid red'});
-            }else{
-                $(idHover).css({'border' : '2px solid transparent'});
-            }
+    }else{
+        $(idHover).css({'border' : '2px solid transparent'});
+    }
+}
+function modalOutBorderColor(id){
+    var idHover = '#' + id;
+    var dataId = $(idHover).attr('data-id');
+    var dataName = $(idHover).attr('data-name');
+    var myRadioColor = $('input[name=modalColorID]:checked').val();
+    var idCheck = dataName + myRadioColor;
+    // console.log(idCheck);
+    if(id == idCheck){
+        $(idHover).css({'border' : '2px solid red'});
+    }else{
+        $(idHover).css({'border' : '2px solid transparent'});
+    }
 
-        }
+}
 
 // function modalChangeBorderSize(id){
 //     var idClick = '#' + id;
@@ -135,76 +128,76 @@ window.whenloaded = function(fn) {
 //     $(idClick).css({'border' : '2px solid red'});
 //     $('input:radio[name=modalSizeID][value='+dataId+']').prop('checked','true');
 // }
-        function modalHoverBorderSize(id){
-            var idHover = '#' + id;
-            var dataId = $(idHover).attr('data-id');
-            var dataName = $(idHover).attr('data-name');
-            var disableInput = $(idHover).attr('data-disabled');
-            var myRadioSize = $('input[name=modalSizeID]:checked').val();
-            var idCheck = dataName + myRadioSize;
-            // console.log(id);
-            // console.log(idCheck);
-            if(disableInput == 'false'){
-                if(id == idCheck){
-                    $(idHover).css({'border' : '2px solid red'});
-                }else{
-                    $(idHover).css({'border' : '2px solid green'});
-                }
-            }else{
-                $(idHover).css({'border' : '2px solid transparent'});
-            }
+function modalHoverBorderSize(id){
+    var idHover = '#' + id;
+    var dataId = $(idHover).attr('data-id');
+    var dataName = $(idHover).attr('data-name');
+    var disableInput = $(idHover).attr('data-disabled');
+    var myRadioSize = $('input[name=modalSizeID]:checked').val();
+    var idCheck = dataName + myRadioSize;
+    // console.log(id);
+    // console.log(idCheck);
+    if(disableInput == 'false'){
+        if(id == idCheck){
+            $(idHover).css({'border' : '2px solid red'});
+        }else{
+            $(idHover).css({'border' : '2px solid green'});
         }
-        function modalOutBorderSize(id){
-            var idHover = '#' + id;
-            var dataId = $(idHover).attr('data-id');
-            var dataName = $(idHover).attr('data-name');
-            var myRadioSize = $('input[name=modalSizeID]:checked').val();
-            var idCheck = dataName + myRadioSize;
-            // console.log(id);
-            // console.log(idCheck);
-            if(id == idCheck){
-                $(idHover).css({'border' : '2px solid red'});
-            }else{
-                $(idHover).css({'border' : '2px solid transparent'});
-            }
-        }
+    }else{
+        $(idHover).css({'border' : '2px solid transparent'});
+    }
+}
+function modalOutBorderSize(id){
+    var idHover = '#' + id;
+    var dataId = $(idHover).attr('data-id');
+    var dataName = $(idHover).attr('data-name');
+    var myRadioSize = $('input[name=modalSizeID]:checked').val();
+    var idCheck = dataName + myRadioSize;
+    // console.log(id);
+    // console.log(idCheck);
+    if(id == idCheck){
+        $(idHover).css({'border' : '2px solid red'});
+    }else{
+        $(idHover).css({'border' : '2px solid transparent'});
+    }
+}
 // Tăng qty
-        function modalPlusQty(){
-            // Lấy giá trị hiện tại của modalQty
-            var valueQty = parseInt(document.getElementById('modalQty').value);
-            // Lấy giá trị của max qty
-            var maxQty = $('#maxModalQty').val();
-            // console.log(valueQty);
-            var newValue = valueQty+1;
-            if(newValue <= maxQty){
-                $('#modalQty').val(newValue);
-            }
-        }
-        function modalMinusQty(){
-            var valueQty = parseInt(document.getElementById('modalQty').value);
-            var newValue;
-            if(valueQty === 1){
-                newValue = 1;
-            }else{
-                newValue = valueQty-1;
-            }
-            // console.log(newValue);
-            $('#modalQty').val(newValue);
-        }
-        function modalInputQty(){
-            var valueInput = document.getElementById('modalQty').value;
-            var maxQty = $('#maxModalQty').val();
-            if(isNaN(parseInt(valueInput))){
-                // console.log('Nhập sai')
-                $('#modalQty').val(1);
-            }else{
-                // console.log('Nhập đúng');
-                var valueIn = parseInt(valueInput);
-                var newValue = (valueIn < maxQty) ? valueIn : maxQty;
-                $('#modalQty').val(newValue);
+function modalPlusQty(){
+    // Lấy giá trị hiện tại của modalQty
+    var valueQty = parseInt(document.getElementById('modalQty').value);
+    // Lấy giá trị của max qty
+    var maxQty = $('#maxModalQty').val();
+    // console.log(valueQty);
+    var newValue = valueQty+1;
+    if(newValue <= maxQty){
+        $('#modalQty').val(newValue);
+    }
+}
+function modalMinusQty(){
+    var valueQty = parseInt(document.getElementById('modalQty').value);
+    var newValue;
+    if(valueQty === 1){
+        newValue = 1;
+    }else{
+        newValue = valueQty-1;
+    }
+    // console.log(newValue);
+    $('#modalQty').val(newValue);
+}
+function modalInputQty(){
+    var valueInput = document.getElementById('modalQty').value;
+    var maxQty = $('#maxModalQty').val();
+    if(isNaN(parseInt(valueInput))){
+        // console.log('Nhập sai')
+        $('#modalQty').val(1);
+    }else{
+        // console.log('Nhập đúng');
+        var valueIn = parseInt(valueInput);
+        var newValue = (valueIn < maxQty) ? valueIn : maxQty;
+        $('#modalQty').val(newValue);
 
-            }
-        }
+    }
+}
 
 // Khóa màn hình khi hiển thị modal sản phẩm
 // function checkboxProduct(id){
@@ -216,69 +209,66 @@ window.whenloaded = function(fn) {
 // }
 
 // Modal checkcart
-        function modalCheckboxCart(){
-            // var checkCart = $('input:checkbox[name=input_checkbox__cart]').is(':checked');
-            var checkCart = $('#input_checkbox__cart').is(':checked');
+function modalCheckboxCart(){
+    // var checkCart = $('input:checkbox[name=input_checkbox__cart]').is(':checked');
+    var checkCart = $('#input_checkbox__cart').is(':checked');
 
-            if(checkCart == true){
-                // console.log('chưa check');
-                $('.app').css('transform','');
-                $('.container-fluid').css('top','0');
-                $('.header_topbar_list_left').css('top','0');
-                $('.header_topbar_list_right').css('top','0');
-            }else{
-                // console.log('Đã check');
-                if(widthAll > 1023){
-                    $('.app').css('transform','translateX(-400px)');
-                }else if(widthAll <= 1023 && widthAll >= 600){
-                    // var pxWidth = '-' + widthAll + 'px';
-                    $('.app').css('transform','translateX(-320px)');
-                }else{
-                    $('.app').css('transform','translateX(-280px)');
-                }
-
-                $('.container-fluid').css('top','-20px');
-                $('.header_topbar_list_left').css('top','-20px');
-                $('.header_topbar_list_right').css('top','-20px');
-            }
-            // console.log(checkCart);
+    if(checkCart == true){
+        // console.log('chưa check');
+        $('.app').css('transform','');
+        $('.container-fluid').css('top','0');
+        $('.header_topbar_list_left').css('top','0');
+        $('.header_topbar_list_right').css('top','0');
+    }else{
+        // console.log('Đã check');
+        if(widthAll > 1023){
+            $('.app').css('transform','translateX(-400px)');
+        }else if(widthAll <= 1023 && widthAll >= 600){
+            // var pxWidth = '-' + widthAll + 'px';
+            $('.app').css('transform','translateX(-320px)');
+        }else{
+            $('.app').css('transform','translateX(-280px)');
         }
+
+        $('.container-fluid').css('top','-20px');
+        $('.header_topbar_list_left').css('top','-20px');
+        $('.header_topbar_list_right').css('top','-20px');
+    }
+    // console.log(checkCart);
+}
 
 // Modal danh mục
-        function hasChildrenCategory(id){
-            var idCate = '#' + id;
-            var idData = $(idCate).attr('data-id');
-            var nameData = $(idCate).attr('data-name');
-            // console.log(idData);
-            var idTarget = '#' + 'modalCategoryChildren_' + idData;
-            // console.log(idTarget);
-            // Đóng thẻ menu
-            // $('.app_modal_category_content').css({'transform' : 'translateX(330px)', 'opacity' : 0});
-            document.getElementById('app_modal_category_input').checked = false;
+function hasChildrenCategory(id){
+    var idCate = '#' + id;
+    var idData = $(idCate).attr('data-id');
+    var nameData = $(idCate).attr('data-name');
+    // console.log(idData);
+    var idTarget = '#' + 'modalCategoryChildren_' + idData;
+    // console.log(idTarget);
+    // Đóng thẻ menu
+    // $('.app_modal_category_content').css({'transform' : 'translateX(330px)', 'opacity' : 0});
+    document.getElementById('app_modal_category_input').checked = false;
 
-            // Mở thẻ con
+    // Mở thẻ con
 
-            $('.app_modal_category_chidren_overlay').css({'display' : 'block', 'z-index' : 10});
-            $(idTarget).css({'transform' : 'translateX(0)', 'opacity' : 1, 'z-index' : 10});
-            document.getElementById('app_modal_category_children_input').checked = true;
-        }
-        function modalChildrenCategory(){
-            var ischeckChil = $('input:checkbox[name=app_modal_category_children_input]').is(':checked');
-            // console.log(ischeckChil);
-            if(ischeckChil == true){
-                document.getElementById('app_modal_category_children_input').checked = false;
-                $('.app_modal_category_children').css({'transform' : 'translateX(300px)', 'opacity' : 0, 'z-index' : 0});
-                $('.app_modal_category_chidren_overlay').css({'display' : 'none', 'z-index' : 0});
-            }else{
-                console.log('...');
-            }
-        }
-        function backModalCategory(){
-            document.getElementById('app_modal_category_children_input').checked = false;
-            $('.app_modal_category_children').css({'transform' : 'translateX(300px)', 'opacity' : 0, 'z-index' : 0});
-            $('.app_modal_category_chidren_overlay').css({'display' : 'none', 'z-index' : 0});
-            document.getElementById('app_modal_category_input').checked = true;
-        }
-
+    $('.app_modal_category_chidren_overlay').css({'display' : 'block', 'z-index' : 10});
+    $(idTarget).css({'transform' : 'translateX(0)', 'opacity' : 1, 'z-index' : 10});
+    document.getElementById('app_modal_category_children_input').checked = true;
+}
+function modalChildrenCategory(){
+    var ischeckChil = $('input:checkbox[name=app_modal_category_children_input]').is(':checked');
+    // console.log(ischeckChil);
+    if(ischeckChil == true){
+        document.getElementById('app_modal_category_children_input').checked = false;
+        $('.app_modal_category_children').css({'transform' : 'translateX(300px)', 'opacity' : 0, 'z-index' : 0});
+        $('.app_modal_category_chidren_overlay').css({'display' : 'none', 'z-index' : 0});
+    }else{
+        console.log('...');
     }
+}
+function backModalCategory(){
+    document.getElementById('app_modal_category_children_input').checked = false;
+    $('.app_modal_category_children').css({'transform' : 'translateX(300px)', 'opacity' : 0, 'z-index' : 0});
+    $('.app_modal_category_chidren_overlay').css({'display' : 'none', 'z-index' : 0});
+    document.getElementById('app_modal_category_input').checked = true;
 }
