@@ -1,0 +1,122 @@
+/* Phần navbar sex fix lại */
+.header{
+    
+    height: 0px;
+    width: 100%;
+    position: relative;
+    top: 0;
+}
+.header_topbar{
+    height: 50px !important;
+    z-index: 4 !important;
+    top: 0px;
+}
+.header_navbar{
+    position: fixed !important;
+    top: 0 !important;
+    padding-top: 14px !important;
+    z-index: 5 !important;
+    background: black;
+    height: 50px;
+}
+/* app_container */
+.app_container{
+    padding-top: 80px;
+    padding-bottom: 30px;
+}
+.app_container_titile{
+    text-align: center;
+    font-size: 2.6rem;
+    font-weight: 700;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+}
+.app_container_navbar{
+    display: block;
+    padding: 10px 0 10px 0;
+    text-align: center;
+    background-color: #f2f2f2;
+    border-top: 1px solid rgb(216, 209, 209);
+    border-bottom: 1px solid rgb(216, 209, 209);
+}
+.app_container_navbar_list{
+    font-size: 1.2rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    color: #999;
+    margin-right: 20px;
+    text-decoration: none;
+}
+.app_container_navbar_active,
+.app_container_navbar_list:hover{
+    font-family: 'Roboto',sans-serif;
+    color: var(--black-color);
+    text-decoration: underline;
+    font-weight: 700;
+}
+
+
+.app_container_content{
+    display: block;
+    text-align: center;
+    margin: 30px auto;
+    width: 600px;
+}
+.app_container_content_list{
+    margin-top: 10px;
+}
+.app_container_content_list_text{
+    font-size: 1.4rem;
+    text-align: left;
+}
+.app_container_content_list_input{
+    width: 100%;
+    padding: 10px 20px;
+    font-size: 1.6rem;
+    color: var(--text-color);
+    border: 1px solid #565656;
+    outline: none;
+}
+.app_container_content_list_input:focus{
+    box-shadow: 0px 0px 5px rgba(0,0,0,.2);
+    border: 1px solid #565656;
+}
+.input_readonly{
+    background: #f2f2f2;
+}
+.app_container_list_flex{
+    display: flex;
+}
+.app_container_content_list_past{
+    text-align: left !important;
+    flex: 1;
+    
+}
+.app_container_content_list_past:nth-child(1){
+    margin-right: 30px;
+}
+.app_container_content_list_past_list{
+    flex: 1;
+    font-size: 1.6rem;
+    padding-top: 10px;
+    font-weight: 600;
+    position: relative;
+}
+.app_container_content_list_past_input{
+    margin-right: 5px;
+    width: 30px;
+    height: 30px;
+    /* display: inline-block; */
+}
+.app_container_content_list_past_text{
+    /* display: inline-block; */
+    /* margin-top: 20px; */
+    position: absolute;
+    top: 35%;
+}
+.app_container_content_submit{
+    margin-top: 30px;
+    font-size: 1.8rem !important;
+    font-weight: 700;
+    text-transform: uppercase;
+}

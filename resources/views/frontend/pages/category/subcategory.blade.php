@@ -133,10 +133,11 @@
             <div class="app_container_filter_r">
                 <div class="app_container_filter_r_title">Sắp xếp theo: </div>
                 <select name="" id="" class="app_container_filter_r_select">
-                    <option value="">Mới nhất</option>
-                    <option value="">Giá giảm dần</option>
-                    <option value="">Giá tăng dần</option>
-                    <option value="">Sale</option>
+                    <option value="id|desc">Mới nhất</option>
+                    <option value="id|asc">Cũ nhất</option>
+                    <option value="product_price|desc">Giá giảm dần</option>
+                    <option value="product_price|asc">Giá tăng dần</option>
+                    <option value="discount_price|desc">Sale</option>
                 </select>
             </div>
         </div>
@@ -171,7 +172,7 @@
                             <!-- id = 'data-nameBot' + 'data-id' -->
                             <div class="product_item_bot" id="product_category_bot_{{ $item->id }}">
                                 <div class="product_item_bot_l">
-                                    <label for="input_checkbox_product" class="ti-shopping-cart product_item_bot_link"  onclick="checkboxProduct(this.id)"> <span>Mua nhanh</span></label>
+                                    <label for="input_checkbox_product" class="ti-shopping-cart product_item_bot_link"  id="{{ $item->id }}"  onclick="checkboxProduct(this.id)"> <span>Mua nhanh</span></label>
                                 </div>
                                 <div class="product_item_bot_r">
                                     <a href="{{ URL::to(to_slug($item->category_name).'/'.to_slug($item->subcategory_name).'/'.to_slug($item->product_name)) }}" class="product_item_bot_link"><span class="ti-eye"></span>  <span>Xem chi tiết</span></a>

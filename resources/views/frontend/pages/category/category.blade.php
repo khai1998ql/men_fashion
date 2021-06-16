@@ -1,3 +1,26 @@
+@php
+    if(Session::has('product_cate')){
+        $data = explode('|', Session::get('product_cate')['value']);
+//        dd($data);
+        $product = DB::table('products')
+            ->join('categories', 'products.category_id', 'categories.id')
+            ->join('subcategories', 'products.subcategory_id', 'subcategories.id')
+            ->where('categories.slug_category_name', $slug_category_name)
+            ->where('products.product_status', '1')
+            ->select('products.*', 'categories.category_name', 'subcategories.subcategory_name')
+            ->orderBy('products.'.$data[0], $data[1])
+            ->paginate(4);
+    }else{
+        $product = DB::table('products')
+            ->join('categories', 'products.category_id', 'categories.id')
+            ->join('subcategories', 'products.subcategory_id', 'subcategories.id')
+            ->where('categories.slug_category_name', $slug_category_name)
+            ->where('products.product_status', '1')
+            ->select('products.*', 'categories.category_name', 'subcategories.subcategory_name')
+            ->orderBy('products.id', 'desc')
+            ->paginate(4);
+    }
+@endphp
 @extends('frontend.layouts.frontend_layout')
 @section('frontend_title')
 
@@ -132,21 +155,23 @@
             </div>
             <div class="app_container_filter_r">
                 <div class="app_container_filter_r_title">Sắp xếp theo: </div>
-                <select name="" id="" class="app_container_filter_r_select">
-                    <option value="">Mới nhất</option>
-                    <option value="">Giá giảm dần</option>
-                    <option value="">Giá tăng dần</option>
-                    <option value="">Sale</option>
+                <select name="sortProduct" id="sortProduct" onchange="sortProduct()" class="app_container_filter_r_select">
+                    <option value="id|desc" @php if(Session::has('product_cate')){ if(Session::get('product_cate')['value'] == 'id|desc') echo "selected"; }  @endphp>Mới nhất</option>
+                    <option value="id|asc" @php if(Session::has('product_cate')){ if(Session::get('product_cate')['value'] == 'id|asc') echo "selected"; }  @endphp>Cũ nhất</option>
+                    <option value="product_price|desc" @php if(Session::has('product_cate')){ if(Session::get('product_cate')['value'] == 'product_price|desc') echo "selected"; }  @endphp>Giá giảm dần</option>
+                    <option value="product_price|asc" @php if(Session::has('product_cate')){ if(Session::get('product_cate')['value'] == 'product_price|asc') echo "selected"; }  @endphp>Giá tăng dần</option>
+                    <option value="discount_price|desc" @php if(Session::has('product_cate')){ if(Session::get('product_cate')['value'] == 'discount_price|desc') echo "selected"; }  @endphp>Sale</option>
                 </select>
             </div>
         </div>
         <div class="app_container_product_info">
             <div class="app_container_product_info_number">Hiển thị 24 trong 96 sản phẩm</div>
             <div class="app_container_product_info_page">Trang 1</div>
+            <input id="slug_category_name" name="slug_category_name" value="{{ $slug_category_name }}" hidden>
         </div>
         <div class="app_container_product">
 
-            <div class="row">
+            <div class="row"  id="app_container_product">
                 @foreach($product as $item)
                 <div class="col-xl-3 col-lg-4 col-md-4 col-sm-6 col-6">
                     <!-- Cần thay đổi data-name tùy thuộc vào tên list sản phẩm -->
@@ -171,7 +196,7 @@
                         <!-- id = 'data-nameBot' + 'data-id' -->
                         <div class="product_item_bot" id="product_category_bot_{{ $item->id }}">
                             <div class="product_item_bot_l">
-                                <label for="input_checkbox_product" class="ti-shopping-cart product_item_bot_link"  onclick="checkboxProduct(this.id)"> <span>Mua nhanh</span></label>
+                                <label for="input_checkbox_product" class="ti-shopping-cart product_item_bot_link" id="{{ $item->id }}"  onclick="checkboxProduct(this.id)"> <span>Mua nhanh</span></label>
                             </div>
                             <div class="product_item_bot_r">
                                 <a href="{{ URL::to(to_slug($item->category_name).'/'.to_slug($item->subcategory_name).'/'.to_slug($item->product_name)) }}" class="product_item_bot_link"><span class="ti-eye"></span>  <span>Xem chi tiết</span></a>
@@ -205,19 +230,21 @@
             <div class="row" style="margin: 20px auto">
                 {{ $product->links() }}
             </div>
-{{--            <div class="app_container_product_page">--}}
-
-{{--                <ul class="app_container_product_page_list">--}}
-{{--                    <li class="app_container_product_page_item app_container_product_page_active"><a href="" class="app_container_product_page_link app_container_product_page_link_active">1</a></li>--}}
-{{--                    <li class="app_container_product_page_item"><a href="" class="app_container_product_page_link">2</a></li>--}}
-{{--                    <li class="app_container_product_page_item"><a href="" class="app_container_product_page_link">3</a></li>--}}
-{{--                    <li class="app_container_product_page_item"><a href="" class="app_container_product_page_link">4</a></li>--}}
-{{--                    <li class="app_container_product_page_item"><a href="" class="app_container_product_page_link">5</a></li>--}}
-{{--                </ul>--}}
-{{--            </div>--}}
         </div>
     </div>
 
     <!-- END CONTAINER -->
-
+    <script type="text/javascript">
+        function sortProduct(){
+            var sortProduct = $('select[name="sortProduct"]').val();
+            var slug_category_name = $('input[name="slug_category_name"]').val();
+            $.ajax({
+                url: "{{ url('category/sortProduct/') }}/" + slug_category_name + '/' + sortProduct,
+                type: "GET",
+                success:function (data){
+                    $('#app_container_product').html(data);
+                }
+            })
+        }
+    </script>
 @endsection

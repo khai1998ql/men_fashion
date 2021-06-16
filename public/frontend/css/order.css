@@ -1,0 +1,86 @@
+/* Phần navbar sex fix lại */
+.header{
+    
+    height: 0px;
+    width: 100%;
+    position: relative;
+    top: 0;
+}
+.header_topbar{
+    height: 50px !important;
+    z-index: 4 !important;
+    top: 0px;
+}
+.header_navbar{
+    position: fixed !important;
+    top: 0 !important;
+    padding-top: 14px !important;
+    z-index: 5 !important;
+    background: black;
+    height: 50px;
+}
+/* app_container */
+.app_container{
+    padding-top: 80px;
+    padding-bottom: 30px;
+}
+.app_container_titile{
+    text-align: center;
+    font-size: 2.6rem;
+    font-weight: 700;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+}
+.app_container_navbar{
+    display: block;
+    padding: 10px 0 10px 0;
+    text-align: center;
+    background-color: #f2f2f2;
+    border-top: 1px solid rgb(216, 209, 209);
+    border-bottom: 1px solid rgb(216, 209, 209);
+}
+.app_container_navbar_list{
+    font-size: 1.2rem;
+    font-weight: 400;
+    text-transform: uppercase;
+    color: #999;
+    margin-right: 20px;
+    text-decoration: none;
+}
+.app_container_navbar_active,
+.app_container_navbar_list:hover{
+    font-family: 'Roboto',sans-serif;
+    color: var(--black-color);
+    text-decoration: underline;
+    font-weight: 700;
+}
+
+
+.app_container_title{
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+.app_container_title_text{
+    font-size: 1.8rem;
+    font-weight: 700;
+}
+.app_container_title_select{
+    width: 120px;
+    font-size: 1.6rem;
+}
+.app_container_content{
+    margin-top: 30px;
+    
+}
+.app_container_content thead{
+    font-size: 1.8rem;
+}
+.app_container_content tbody{
+    font-size: 1.4rem;
+}
+.app_container_content_product_link,
+.app_container_content_product_link:hover{
+    color: var(--black-color);
+    text-decoration: none;
+}

@@ -93,6 +93,12 @@ class CartController extends Controller
         }
 
     }
+
+    /**
+     * @param string $coupons_code
+     * @return mixed
+     *
+     */
     public function inputCoupons($coupons_code){
         $coupons = DB::table('coupons')
                     ->join('coupons_type', 'coupons.coupons_type_id','coupons_type.id')

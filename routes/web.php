@@ -106,6 +106,7 @@ Route::group(['prefix' => 'admin'], function (){
         Route::get('/delete/{orders_id}', 'Admin\OrdersController@deleteOrders')->name('admin.orders.view');
         Route::get('/status/{orders_id}/{status_number}', 'Admin\OrdersController@statusOrders');
     });
+
 });
 
 
@@ -144,7 +145,16 @@ Route::group(['prefix' => '/'], function (){
         // SEARCH
         Route::get('/search/getProductSearch/{valueInput}', 'Frontend\ModalController@getProductSearch');
     });
-
+    // ACCOUNT
+    Route::group(['prefix' => 'profile'], function (){
+        Route::get('/', 'Frontend\ProfileController@profile')->name('fe.profile');
+        Route::get('/changeInfo', 'Frontend\ProfileController@profileChangeInfo')->name('fe.profile.info');
+        Route::Post('/updateInfo', 'Frontend\ProfileController@profileUpdateInfo')->name('fe.profile.info.update');
+        Route::get('/changePassword', 'Frontend\ProfileController@profileChangePassword')->name('fe.profile.password');
+        Route::Post('/updatePassword', 'Frontend\ProfileController@profileUpdatePassword')->name('fe.profile.password.update');
+        Route::get('/order', 'Frontend\ProfileController@profileOrder')->name('fe.profile.order');
+        Route::get('/wishlist', 'Frontend\ProfileController@profileWishlist')->name('fe.profile.wishlist');
+    });
 
     // ADDRESS
     Route::group(['prefix' => '/address'], function (){
@@ -152,8 +162,12 @@ Route::group(['prefix' => '/'], function (){
         Route::get('/getDistricts/{provinces_id}', 'Frontend\AddressController@getDistricts');
         Route::get('/getWards/{districts_id}', 'Frontend\AddressController@getWards');
     });
-
+    // ORDER
+    Route::group(['prefix' => '/orders'], function (){
+        Route::get('/cancel/{order_code}', 'Frontend\OrrderController@cancalOrder');
+    });
     // CATEGORY
+    Route::get('/category/sortProduct/{slug_category_name}/{sort}', 'Frontend\CategoryController@sortProductCategory');
     Route::get('/{slug_category_name}', 'Frontend\CategoryController@Category');
     Route::get('/{slug_category_name}/{slug_subcategory_name}', 'Frontend\CategoryController@subCategory');
     // PRODUCT

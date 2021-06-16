@@ -14,7 +14,7 @@ class CreateCouponsTypeTable extends Migration
     public function up()
     {
         Schema::create('coupons_type', function (Blueprint $table) {
-            $table->integer('id');
+            $table->bigIncrements('id');
             $table->string('coupon_type_name')->nullable();
             $table->string('coupon_type_character')->nullable();
             $table->timestamps();

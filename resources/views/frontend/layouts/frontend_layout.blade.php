@@ -81,13 +81,13 @@
                                 <span style="color: #26a998;">Xin chào: </span><span style="color: red;">Khải</span>
                             </li>
                             <li class="header_topbar_user_item">
-                                <a href="">Thông tin tài khoản</a>
+                                <a href="{{ route('fe.profile') }}">Thông tin tài khoản</a>
                             </li>
                             <li class="header_topbar_user_item">
                                 <a href="">Đơn mua</a>
                             </li>
                             <li class="header_topbar_user_item">
-                                <a href="{{ route('fe.logout') }}">Đăng xuất</a>
+                                <a href="{{ route('logout') }}">Đăng xuất</a>
                             </li>
                         </ul>
                     </div>
@@ -597,6 +597,26 @@
 </script>
 
 <script src="{{ asset('https://unpkg.com/sweetalert/dist/sweetalert.min.js')}}"></script>
+<script>
+    $(document).on("click", "#cancelOrders", function(e){
+        e.preventDefault();
+        var link = $(this).attr("href");
+        swal({
+            title: "Bạn chắc chắn muốn hủy đơn hàng không?",
+            text: "Sau khi huy, không thể thay đổi lại!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+        })
+            .then((willDelete) => {
+                if (willDelete) {
+                    window.location.href = link;
+                } else {
+                    // swal("Không có gì thay đổi!");
+                }
+            });
+    });
+</script>
 <script>
     // fe_cart_count_product_total
     function modalRemoveCart(id){
