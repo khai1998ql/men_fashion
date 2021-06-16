@@ -3,7 +3,8 @@ var widthAll = screen.width;
 var img = document.getElementById('heightImage');
 var width = img.clientWidth;
 var height = img.clientHeight;
-var heightAppSlider = document.getElementById('app_slider').clientHeight;
+var heightAppSlider = 450;
+heightAppSlider = document.getElementById('app_slider').clientHeight;
 // console.log(heightAppSlider);
 // Set margin cho phần container
 if(widthAll > 1025){
