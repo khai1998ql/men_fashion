@@ -1,13 +1,12 @@
 /* CONTAINER */
 .app_slider{
-    position: absolute;
-    top: 0;
     width: 100%;
-    z-index: -1 !important;
+    display: block !important;
+    position: relative;
 }
 .app_container{
     /* padding: 50px var(--padding-dt) !important; */
-    padding-top: 300px;
+    /*padding-top: 300px;*/
 }
 .app_container_title_link{
     font-size: 30px;
@@ -125,7 +124,7 @@
     font-size: 1.6rem;
     color: #a94442;
     text-decoration: none;
-    
+
 }
 .app_container_news_list_content_continue_link:hover{
     color: #843534;
@@ -172,10 +171,8 @@
         height: 50px;
     }
     .app_slider{
-        position: absolute;
-        top: 50px;
         width: 100%;
-        z-index: -1 !important;
+        display: block;
     }
     .app_container_outfit_l{
         margin-right: 0;
@@ -196,10 +193,10 @@
 }
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (max-width: 767px) {
-    
+
 
 }
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (max-width: 599px) {
-    
+
 }

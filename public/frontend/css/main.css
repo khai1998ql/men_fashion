@@ -46,12 +46,7 @@ html{
 /* Header */
 
 .header{
-
-    height: 95px;
-    width: 100%;
-
-    position: absolute;
-    top: 0;
+    margin-bottom: var(--margin-bottom-dt);
 }
 
 .header_topbar{
@@ -116,8 +111,8 @@ html{
 
 }
 .header_topbar_item_phone{
-    color: var(--white-color);
-    font-weight: bold;
+    color: var(--white-color) !important;
+    font-weight: bold !important;
 }
 .header_topbar_item_cart{
     position: relative;

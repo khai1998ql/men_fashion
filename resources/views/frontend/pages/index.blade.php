@@ -18,7 +18,7 @@
 @endsection
 
 @section('frontend_slide')
-    <div class="abc" id="abc" style="color: white;z-index: 1;"></div>
+
     <div class="app_slider" id="app_slider" style="z-index: 1 !important;">
         <!--  style="top: 195px; z-index: 0;" -->
         <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">

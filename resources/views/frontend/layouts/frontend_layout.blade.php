@@ -41,6 +41,7 @@
 <body>
 <div class="app">
     <header class="header">
+        @yield('frontend_slide');
         <div class="container-fluid header_topbar">
             <ul class="header_topbar_list header_topbar_list_left">
                 <li class="header_topbar_item">
@@ -152,7 +153,7 @@
                 </li>
             </ul>
         </div>
-        @yield('frontend_slide');
+        <div class="abc" id="abc" style="color: white;"></div>
     </header>
     <!-- END HEADER -->
 

@@ -9,10 +9,9 @@
 /* Extra large devices (large laptops and desktops, 1200px and up) */
 @media only screen and (max-width: 1199px) {
     .header{
-        height: 0;
         width: 100%;
-        position: relative;
-        top: 0;
+        display: block;
+        margin-bottom: var(--margin-bottom-ip);
     }
     .header_navbar{
         position: fixed;
@@ -22,7 +21,7 @@
         padding-top: 14px;
     }
     .app_slider{
-        top: 50px;
+        margin-top: 50px;
     }
     .header_navbar_list{
         display: flex;
@@ -30,7 +29,7 @@
         list-style: none;
         margin: 0 auto;
         width: 700px;
-        
+
     }
     .header_navbar_item_kw, .header_navbar_item_kw:hover, .header_navbar_item_kw span{
         color: var(--white-color);
@@ -53,15 +52,18 @@
     .product_item_bot{
         display: none;
     }
-    
+
 }
 
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (max-width: 1023px) {
+    .header{
+        margin-bottom: var(--margin-bottom-p);
+    }
     .header_navbar{
         display: none;
     }
-    
+
     .header_navbar{
         display: none;
     }
@@ -94,7 +96,7 @@
     .header_topbar_item:nth-child(4){
         margin-right: 0;
     }
-    
+
     /* Cart */
     .shopping_cart{
         max-width: 320px;
@@ -117,7 +119,7 @@
         /* margin-top: 18px; */
         /* padding: 0 30px; */
         border: none;
-        
+
     }
     .app_modal_search_input{
         flex: 1;
@@ -156,12 +158,12 @@
     .app_modal_search{
         padding: 17px 5px 0 5px;
     }
-    
+
 }
 
 /* Small devices (portrait tablets and large phones, 600px and up) */
 @media only screen and (max-width: 599px) {
-    
+
     /* Search */
     .app_modal_search{
         padding: 17px 5px 0 5px;
